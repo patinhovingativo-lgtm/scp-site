@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>[DC] Scientific Department — Site-07</title>
+  <link rel="stylesheet" href="../../assets/css/retro.css">
+  <style>
+    .dept-type-tag{display:inline-block;background:#1c6622;color:#fff;font-size:9px;font-weight:bold;padding:2px 8px;letter-spacing:1px;margin-right:6px;vertical-align:middle}
+    .dc-active{outline:2px solid var(--B);background:var(--Bbg)}
+    .private-block{display:none}
+    .tab-bar{display:flex;flex-wrap:wrap;background:var(--nav);border-bottom:2px solid #0a0a1a;margin-bottom:10px}
+    .tab-btn{padding:7px 14px;color:#9aa8d0;cursor:pointer;font-size:12px;font-family:'Courier Prime',monospace;border-right:1px solid #1a2040;border:none;background:none;border-right:1px solid #1a2040}
+    .tab-btn:hover{background:var(--nav2);color:#fff}
+    .tab-btn.active{background:var(--bg);color:var(--text);font-weight:bold;border-bottom:2px solid var(--bg);margin-bottom:-2px}
+    .tab-pane{display:none}.tab-pane.active{display:block}
+  </style>
+</head>
+<body>
+
+<script src="../../assets/js/layout.js"></script>
+<script>injectHeader('departments');</script>
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">[DC] DEPT</div>
+    <a href="#overview" class="sb-a">Overview</a>
+    <a href="#ranks"    class="sb-a">Rank Structure</a>
+    <a href="#subs" class="sb-a">Subdivisions</a>
+    <a href="#testing" class="sb-a">Testing Guide</a>
+    <a href="#rules"    class="sb-a">Rules</a>
+    <a href="#apply"    class="sb-a">Apply</a>
+    <a href="#other-depts" class="sb-a">All Departments</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">QUICK LINKS</div>
+    <a href="../../index.html" class="sb-a">◄ Portal</a>
+    <a href="../../pages/hierarchy.html" class="sb-a">Hierarchy</a>
+    <a href="../../apply/level0.html" class="sb-a">Apply — Level 0</a>
+    <a href="https://discord.gg/pNzRGbmZ" class="sb-a" target="_blank">Discord</a>
+  </div>
+</aside>
+
+<main class="main">
+
+  <!-- HEADER -->
+  <a name="overview"></a>
+  <div class="win r">
+    <div class="win-bar">
+      <span>[DC] SCIENTIFIC DEPARTMENT</span>
+      <div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div>
+    </div>
+    <div class="win-body">
+      <table width="100%" cellpadding="0" cellspacing="0"><tr valign="middle">
+        <td width="72" style="padding-right:12px"><div style="font-size:52px;line-height:1;text-align:center">🔬</div></td>
+        <td>
+          <div style="font-family:'VT323',monospace;font-size:26px;color:#1c2340">[DC] SCIENTIFIC DEPARTMENT</div>
+          <div style="font-size:10px;letter-spacing:1px;margin:5px 0 3px">
+            <span class="dept-type-tag">CIVIL</span>
+            MIN: <span class="lv lv1">SC-1</span> &nbsp;|&nbsp; DIRECTOR: <span class="lv lv5">SC-5</span> &nbsp;|&nbsp; STATUS: <span style="color:var(--G);font-weight:bold">● OPEN</span>
+            
+          </div>
+          <div style="font-size:11px;color:var(--dim);font-style:italic;margin-bottom:8px">"Knowledge is containment. Containment is survival."</div>
+          <hr class="rt">
+          <p style="font-size:12px;margin-top:8px;line-height:1.6">The Scientific Department is the intellectual core of Site-07. DC researchers study anomalous entities, design containment protocols, conduct D-Class experiments, and produce the test logs that define how the Foundation understands the unknown.</p>
+        </td>
+      </tr></table>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar" id="tabBar">
+    <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview',this)">📋 Overview</button>
+    <button class="tab-btn" data-tab="ranks" onclick="switchTab('ranks',this)">🏅 Ranks</button>
+    <button class="tab-btn" data-tab="subs" onclick="switchTab('subs',this)">🔀 Subdivisions</button>
+    
+    
+    <button class="tab-btn" data-tab="testing" onclick="switchTab('testing',this)">🧪 Testing Guide</button>
+    <button class="tab-btn" data-tab="rules" onclick="switchTab('rules',this)">📏 Rules</button>
+    <button class="tab-btn" data-tab="apply" onclick="switchTab('apply',this)">📝 Apply</button>
+    
+    <button class="tab-btn" data-tab="depts" onclick="switchTab('depts',this)">🏢 All Depts</button>
+  </div>
+
+  <!-- TAB: OVERVIEW -->
+  <div id="tab-overview" class="tab-pane active">
+    <div class="win r"><div class="win-bar"><span>AT A GLANCE</span></div><div class="win-body" style="padding:8px">
+  <table width="100%" cellpadding="0" cellspacing="4"><tr valign="top">
+  <td style="width:25%;padding:8px;text-align:center;vertical-align:top">
+    <div style="font-size:26px;margin-bottom:4px">🧪</div>
+    <div style="font-family:'VT323',monospace;font-size:14px;color:#1c2340;margin-bottom:3px">Experimentation</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.4">Designs and runs controlled D-Class tests</div>
+  </td><td style="width:25%;padding:8px;text-align:center;vertical-align:top">
+    <div style="font-size:26px;margin-bottom:4px">📄</div>
+    <div style="font-family:'VT323',monospace;font-size:14px;color:#1c2340;margin-bottom:3px">Documentation</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.4">Writes SCP files, test logs, and reports</div>
+  </td><td style="width:25%;padding:8px;text-align:center;vertical-align:top">
+    <div style="font-size:26px;margin-bottom:4px">🛡️</div>
+    <div style="font-family:'VT323',monospace;font-size:14px;color:#1c2340;margin-bottom:3px">Containment Dev</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.4">Develops protocols for new anomalies</div>
+  </td><td style="width:25%;padding:8px;text-align:center;vertical-align:top">
+    <div style="font-size:26px;margin-bottom:4px">📊</div>
+    <div style="font-family:'VT323',monospace;font-size:14px;color:#1c2340;margin-bottom:3px">Analysis</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.4">Analyzes data from all field departments</div>
+  </td>
+  </tr></table></div></div>
+    <div class="win r">
+      <div class="win-bar"><span>DEPARTMENT LEADER</span></div>
+      <div class="win-body">
+        <table width="100%" cellpadding="0" cellspacing="0"><tr valign="top">
+          <td width="56" style="padding-right:10px">
+            <div style="width:50px;height:50px;background:var(--inset);border-top:2px solid #888878;border-left:2px solid #888878;border-right:2px solid #e8e8dc;border-bottom:2px solid #e8e8dc;display:flex;align-items:center;justify-content:center;font-size:24px">👤</div>
+          </td>
+          <td>
+            <div style="font-family:'VT323',monospace;font-size:18px;color:#1c2340">Scientific Director</div>
+            <div style="font-size:11px;color:var(--dim);margin:3px 0">
+              <span class="lv lv5">SC-5</span> &nbsp; Roblox: <strong>[Not yet assigned]</strong>
+            </div>
+            <div style="font-size:10px;color:var(--light);margin-top:4px">Position currently vacant. Contact The Administrator.</div>
+          </td>
+        </tr></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: RANKS -->
+  <div id="tab-ranks" class="tab-pane">
+    <div class="win r">
+      <div class="win-bar"><span>RANK STRUCTURE — 10 RANKS</span></div>
+      <div class="win-body">
+        <table class="dt">
+          <tr><th style="width:28px">#</th><th>RANK TITLE</th><th style="width:80px">SC LEVEL</th></tr>
+          <tr><td class="rank-num">1</td><td>Research Auxiliary <span style="background:#1c6622;color:#fff;padding:1px 5px;font-size:9px;font-weight:bold">ENTRY</span></td><td><span class="lv lv1">SC-1</span></td></tr><tr><td class="rank-num">2</td><td>Second-Class Research Student </td><td><span class="lv lv1">SC-1</span></td></tr><tr><td class="rank-num">3</td><td>Research Intern </td><td><span class="lv lv1">SC-1</span></td></tr><tr><td class="rank-num">4</td><td>Junior Researcher </td><td><span class="lv lv1">SC-1</span></td></tr><tr><td class="rank-num">5</td><td>Researcher </td><td><span class="lv lv2">SC-2</span></td></tr><tr><td class="rank-num">6</td><td>Senior Researcher </td><td><span class="lv lv2">SC-2</span></td></tr><tr><td class="rank-num">7</td><td>Chief Researcher </td><td><span class="lv lv3">SC-3</span></td></tr><tr><td class="rank-num">8</td><td>Site Research Coordinator </td><td><span class="lv lv3">SC-3</span></td></tr><tr><td class="rank-num">9</td><td>Deputy Scientific Director <span style="background:#6a4a00;color:#fff;padding:1px 5px;font-size:9px;font-weight:bold">DEPUTY</span></td><td><span class="lv lv4">SC-4</span></td></tr><tr style="background:rgba(42,92,42,0.08)"><td class="rank-num">10</td><td>Scientific Director <span style="background:var(--G);color:#fff;padding:1px 5px;font-size:9px;font-weight:bold">DIRECTOR</span></td><td><span class="lv lv5">SC-5</span></td></tr>
+        </table>
+        <div class="note note-b mt8" style="font-size:11px"><strong>PROMOTION CRITERIA:</strong> Approval logs, test quality, and documentation completeness evaluated by Scientific Director.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: SUBDIVISIONS -->
+  <div id="tab-subs" class="tab-pane"><a name="subs"></a><div class="win r"><div class="win-bar"><span>SUBDIVISIONS</span></div><div class="win-body">
+  <table class="dt">
+    <tr><th>SUBDIVISION</th><th style="width:160px">ACCESS FROM</th></tr>
+    <tr><td><strong>Advanced Anomalous Research</strong><div style="font-size:10px;color:var(--dim);margin-top:2px">Handles classified-tier anomaly study and cross-SCP interaction research.</div></td><td style="font-size:11px;vertical-align:top">Senior Researcher</td></tr>
+  </table>
+  <p class="small dim mt8">Subdivision-specific details published as subdivisions become active.</p>
+</div></div></div>
+
+  <!-- TAB: LAWS (CE only) -->
+  
+
+  <!-- TAB: PATROL / TESTING -->
+  <div id="tab-testing" class="tab-pane"><div class="win r"><div class="win-bar"><span>EXPERIMENT GUIDE — FULL PROCEDURE</span></div><div class="win-body"><div id="testingGuideContent" style="font-size:12px;line-height:1.7">
+  <div class="note note-b mb8" id="testingGuideLoading">Loading experiment guide from server...</div>
+  <div id="testingGuideBody" style="display:none">
+
+  <div class="note note-r mb8"><strong>READ BEFORE PROCEEDING:</strong> All experiments require proper authorization. Shortcuts will result in disciplinary action under COE Art. 3.4.</div>
+
+  <div class="sec" style="margin-top:0">PHASE 1 — WRITE YOUR RESEARCH PROPOSAL</div>
+  <p>Before anything else, write a <strong>Research Proposal</strong> containing:</p>
+  <table class="dt" style="margin:6px 0">
+    <tr><th>FIELD</th><th>DESCRIPTION</th><th>EXAMPLE</th></tr>
+    <tr><td><strong>SCP Subject</strong></td><td>Which SCP you will test</td><td>SCP-173</td></tr>
+    <tr><td><strong>Objective</strong></td><td>What you want to discover</td><td>Reaction to auditory stimuli</td></tr>
+    <tr><td><strong>D-Class Required</strong></td><td>How many and what condition</td><td>2 D-Class, no injuries</td></tr>
+    <tr><td><strong>Materials</strong></td><td>Equipment needed</td><td>Audio equipment, blindfold</td></tr>
+    <tr><td><strong>Procedure</strong></td><td>Step-by-step plan</td><td>See steps below</td></tr>
+    <tr><td><strong>Risk Level</strong></td><td>Safe / Euclid / Keter</td><td>Euclid</td></tr>
+    <tr><td><strong>Security Needed</strong></td><td>Number of escorts</td><td>2 Security Officers</td></tr>
+  </table>
+
+  <div class="sec">PHASE 2 — GET APPROVAL</div>
+  <p>Submit your proposal to a <strong>Chief Researcher or above</strong> for sign-off. They will approve or request modifications.</p>
+  <div class="note note-b mb8">After approval is granted, post in the department channel: <em>"Research Proposal [ID] approved by [Researcher name]. Requesting resources."</em></div>
+
+  <div class="sec">PHASE 3 — REQUEST SECURITY ESCORT</div>
+  <p>Contact the Security Department and request an escort. Specify:</p>
+  <ul style="margin:6px 0 6px 16px">
+    <li>Number of D-Class needed</li>
+    <li>SCP object class (Safe/Euclid/Keter)</li>
+    <li>Estimated test duration</li>
+    <li>Your clearance level</li>
+  </ul>
+  <div class="note note-y mt4 mb8">
+    <strong>RADIO FORMAT:</strong> <em>"Security, this is Researcher [name], SC-[level]. Requesting [N] security escorts for a [class] experiment with SCP-[number]. D-Class count: [N]. ETA: [time]."</em>
+  </div>
+  <p><strong>If no Security available:</strong> You may request MTF or DLOT assistance. They must still receive authorization from their commanding officer before escorting.</p>
+
+  <div class="sec">PHASE 4 — D-CLASS BRIEFING ROOM</div>
+  <p>Before proceeding to the SCP containment zone, Security must take D-Class to the <strong>Briefing Room</strong> and read the following rules:</p>
+  <div class="note note-r mt4 mb8">
+    <strong>MANDATORY D-CLASS RULES (Security reads aloud):</strong><br>
+    1. You will follow all instructions without question.<br>
+    2. Attempting to escape will result in immediate termination.<br>
+    3. Any hostile action will result in immediate termination.<br>
+    4. You are participating in a Foundation research operation.
+  </div>
+
+  <div class="sec">PHASE 5 — WEAPONS SCANNER</div>
+  <p>After the briefing room, D-Class must pass through the <strong>weapons scanner</strong>.</p>
+  <table class="dt" style="margin:6px 0">
+    <tr><th>SCANNER RESULT</th><th>ACTION</th></tr>
+    <tr><td style="color:var(--G)"><strong>CLEAR</strong></td><td>D-Class may proceed to the testing area.</td></tr>
+    <tr><td style="color:var(--R)"><strong>ARMED DETECTED</strong></td><td><strong>Immediate termination.</strong> An armed D-Class attempting to enter a test is considered hostile. No warnings. Terminate and document.</td></tr>
+  </table>
+  <div class="note note-r mt4 mb8">
+    <strong>REASONING:</strong> An armed D-Class in a test environment is an unacceptable security risk. A prisoner who refuses to surrender their only means of escape in a controlled environment has demonstrated clear hostile intent. Termination is mandatory.
+  </div>
+
+  <div class="sec">PHASE 6 — SCP RETRIEVAL / SETUP</div>
+  <p>Procedure depends on SCP type:</p>
+  <table class="dt" style="margin:6px 0">
+    <tr><th>SCP TYPE</th><th>CLASS</th><th>PROCEDURE</th><th>WHO MOVES IT</th></tr>
+    <tr><td><strong>OBJECT</strong></td><td>Safe</td><td>Already contained — bring D-Class to it</td><td>Researcher + Security</td></tr>
+    <tr><td><strong>OBJECT</strong></td><td>Euclid/Keter</td><td>Containment Unit moves to testing room</td><td>DS Containment Unit (or Security if unavailable)</td></tr>
+    <tr><td><strong>HUMANOID</strong></td><td>Safe</td><td>Already contained — test in containment cell</td><td>Researcher + Security</td></tr>
+    <tr><td><strong>HUMANOID</strong></td><td>Euclid</td><td>MTF escorts SCP to designated testing room</td><td>MTF required</td></tr>
+    <tr><td><strong>HUMANOID</strong></td><td>Keter</td><td>Test only in containment cell — SCP does NOT move</td><td>No movement — ever</td></tr>
+  </table>
+  <div class="note note-y mt4 mb8">
+    <strong>If no Containment Unit member available:</strong> Request any Security Officer. The Security Officer must request authorization from their commanding officer via radio or chat before proceeding. Reason: some SCPs require specialists.
+  </div>
+
+  <div class="sec">PHASE 7 — CONDUCTING THE TEST</div>
+  <p><strong>You are in command of the experiment.</strong> Security follows your instructions within their ROE. Document everything in real-time:</p>
+  <ul style="margin:6px 0 6px 16px">
+    <li>Note all D-Class reactions</li>
+    <li>Note all SCP behaviors and anomalous effects</li>
+    <li>Take <strong>screenshots/recordings</strong> of key discoveries</li>
+    <li>If unexpected breach occurs — abort immediately, evacuate D-Class, call Security</li>
+  </ul>
+  <div class="note note-r mt4 mb8">
+    <strong>ABSOLUTELY PROHIBITED:</strong> Terminating D-Class without cause · Deliberately breaching other SCPs · Leaving D-Class alone with Euclid+ entities · Exceeding approved test parameters without re-authorization.
+  </div>
+
+  <div class="sec">PHASE 8 — SUBMIT TEST LOG & DOCUMENT</div>
+  <p>After the test, submit a <strong>Test Log</strong> to the department channel within 24 hours. Include:</p>
+  <table class="dt" style="margin:6px 0">
+    <tr><th>SECTION</th><th>CONTENT</th></tr>
+    <tr><td><strong>Header</strong></td><td>SCP number, date, researcher name, clearance level</td></tr>
+    <tr><td><strong>Objective</strong></td><td>What you were testing and why</td></tr>
+    <tr><td><strong>Procedure</strong></td><td>Step-by-step of what happened</td></tr>
+    <tr><td><strong>Results</strong></td><td>What was discovered — include screenshots</td></tr>
+    <tr><td><strong>Conclusion</strong></td><td>What this means for containment/understanding</td></tr>
+    <tr><td><strong>Casualties</strong></td><td>D-Class terminated, Security injured, etc.</td></tr>
+    <tr><td><strong>Anomalous Effects</strong></td><td>Any unexpected behavior observed</td></tr>
+  </table>
+  <div class="note note-g mt8"><strong>APPROVED LOGS COUNT TOWARD PROMOTIONS.</strong> Quality documentation is how researchers advance in rank.</div>
+  </div><!-- /testingGuideBody -->
+</div></div></div></div>
+
+  <!-- TAB: RULES -->
+  <div id="tab-rules" class="tab-pane">
+    <div class="win r">
+      <div class="win-bar"><span>DEPARTMENT RULES</span></div>
+      <div class="win-body">
+        <table class="dt"><tr><th style="width:28px">#</th><th>RULE</th></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">01</td>
+    <td style="font-size:12px">All tests require a written proposal approved by Chief Researcher or above.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">02</td>
+    <td style="font-size:12px">D-Class may not be terminated during a test without documented cause.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">03</td>
+    <td style="font-size:12px">Euclid-class testing requires a Security escort at all times.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">04</td>
+    <td style="font-size:12px">Keter-class testing requires SC-3 clearance and two Security escorts minimum.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">05</td>
+    <td style="font-size:12px">Test logs must be submitted within 24 hours of test completion.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">06</td>
+    <td style="font-size:12px">Researchers may not perform experiments on themselves.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">07</td>
+    <td style="font-size:12px">Any anomalous effect on a researcher must be reported immediately to Medical.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">08</td>
+    <td style="font-size:12px">Inactive researchers (14+ days without LOA) will be demoted one rank.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">09</td>
+    <td style="font-size:12px">Fabricating test results is a Foundation-wide violation (COE Art. 4.7). Instant dismissal.</td></tr></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: APPLY -->
+  <div id="tab-apply" class="tab-pane">
+    <div class="win r">
+      <div class="win-bar"><span>APPLY TO [DC]</span></div>
+      <div class="win-body">
+        
+        <div class="note note-y mb8" id="robloxCheck" style="display:none">
+          <strong>⚠ NOT IN GROUP</strong> — You must join the
+          <a href="https://www.roblox.com/communities/861318854" target="_blank">Site-07 Roblox group</a>
+          before applying.
+        </div>
+        <div class="note note-b mb8"><strong>REQUIREMENT:</strong> Approved Level-0 application required before applying to any department.</div>
+       <div style="display:flex;gap:8px">
+         <a href="../../apply/level1.html?dept=DC" class="btn btn-b">► APPLY TO [DC]</a>
+         <a href="../../apply/level0.html" class="btn">Need Level-0 first →</a>
+       </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: PRIVATE -->
+  
+
+  <!-- TAB: ALL DEPTS -->
+  <div id="tab-depts" class="tab-pane">
+    
+<a name="other-depts"></a>
+<div class="win r">
+  <div class="win-bar"><span>ALL DEPARTMENTS — SITE-07</span><div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div></div>
+  <div class="win-body">
+    <div class="sec" style="margin-top:0">CIVIL DEPARTMENTS — SC-1 MINIMUM</div>
+    <div class="dept-grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-top:6px">
+      <a href="../../departments/dmf/index.html" class="dc">
+      <div class="dc-h"><span>[DMF]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DMF</div>
+        <div class="dc-name">Maintenance & Manufacturing Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a><a href="../../departments/dc/index.html" class="dc dc-active">
+      <div class="dc-h"><span>[DC]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DC</div>
+        <div class="dc-name">Scientific Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a><a href="../../departments/dm/index.html" class="dc">
+      <div class="dc-h"><span>[DM]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DM</div>
+        <div class="dc-name">Medical Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a><a href="../../departments/dp/index.html" class="dc">
+      <div class="dc-h"><span>[DP]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DP</div>
+        <div class="dc-name">Psychology Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a>
+    </div>
+    <div class="sec">COMBAT DEPARTMENTS — SC-1 MINIMUM</div>
+    <div class="dept-grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-top:6px">
+      <a href="../../departments/dis/index.html" class="dc">
+      <div class="dc-h"><span>[DIS] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DIS</div>
+        <div class="dc-name">Intelligence & Security Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a><a href="../../departments/ds/index.html" class="dc">
+      <div class="dc-h"><span>[DS]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DS</div>
+        <div class="dc-name">Security Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>9 ranks</span></div>
+    </a><a href="../../departments/mtf/index.html" class="dc">
+      <div class="dc-h"><span>[MTF] 🔒</span><span style="color:var(--Y);font-weight:bold;font-size:11px">● SELECTIVE</span></div>
+      <div class="dc-b">
+        <div class="dc-code">MTF</div>
+        <div class="dc-name">Mobile Task Force</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dohe/index.html" class="dc">
+      <div class="dc-h"><span>[DOHE] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DOHE</div>
+        <div class="dc-name">Hostile Operations Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dlot/index.html" class="dc">
+      <div class="dc-h"><span>[DLOT]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DLOT</div>
+        <div class="dc-name">Tactical Operations Logistics Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>9 ranks</span></div>
+    </a>
+    </div>
+    <div class="sec">ADDITIONAL DEPARTMENTS — SC-2+ OR INVITE</div>
+    <div class="dept-grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-top:6px">
+      <a href="../../departments/ce/index.html" class="dc">
+      <div class="dc-h"><span>[CE] 🔒</span><span style="color:var(--R);font-weight:bold;font-size:11px">● INVITE</span></div>
+      <div class="dc-b">
+        <div class="dc-code">CE</div>
+        <div class="dc-name">Ethics Committee</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv3">SC-3</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dae/index.html" class="dc">
+      <div class="dc-h"><span>[DAE] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DAE</div>
+        <div class="dc-name">External Affairs Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/ed/index.html" class="dc">
+      <div class="dc-h"><span>[ED]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">ED</div>
+        <div class="dc-name">Engineering / Experimental Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>9 ranks</span></div>
+    </a><a href="../../departments/aa/index.html" class="dc">
+      <div class="dc-h"><span>[AA] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">AA</div>
+        <div class="dc-name">Anomaly Actors Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/da/index.html" class="dc">
+      <div class="dc-h"><span>[DA] 🔒</span><span style="color:var(--R);font-weight:bold;font-size:11px">● INVITE</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DA</div>
+        <div class="dc-name">Administrative Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv3">SC-3</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dj/index.html" class="dc">
+      <div class="dc-h"><span>[DJ] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DJ</div>
+        <div class="dc-name">Justice Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dri/index.html" class="dc">
+      <div class="dc-h"><span>[DRI] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DRI</div>
+        <div class="dc-name">Interorganizational Relations Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dca/index.html" class="dc">
+      <div class="dc-h"><span>[DCA] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DCA</div>
+        <div class="dc-name">Threat Classification Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>9 ranks</span></div>
+    </a>
+    </div>
+  </div>
+</div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// ── DEPT TABS ─────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  var pane = document.getElementById('tab-' + name);
+  if (pane) pane.classList.add('active');
+  if (btn) btn.classList.add('active');
+  localStorage.setItem('dtab_DC', name);
+}
+
+// ── LOAD DEPT CONFIG FROM BOT ─────────────────────────────────
+var BOT_URL = 'https://scp-bot-production.up.railway.app';
+
+async function loadDeptConfig() {
+  try {
+    var res = await fetch(BOT_URL + '/public/config');
+    var data = await res.json();
+    var c = data.config || {};
+
+    // Load dept image if configured
+    var imgUrl = c['dept_img_dc'];
+    if (imgUrl) {
+      var badge = document.getElementById('deptBadge');
+      if (badge) {
+        badge.innerHTML = '<img src="' + imgUrl + '" style="width:100%;height:100%;object-fit:cover" onerror="this.remove()">';
+      }
+    }
+
+    // Load dept password if configured
+    var pwd = c['dept_pwd_dc'];
+    if (pwd) {
+      var lockPwd = localStorage.getItem('dept_dc_auth');
+      // Update the stored password check
+      localStorage.setItem('pwd_dc', pwd);
+    }
+
+    // Load testing guide (DC only)
+    var guideEl = document.getElementById('testingGuideContent');
+    if (guideEl) {
+      var customGuide = c['dc_testing_guide'];
+      var loadingEl = document.getElementById('testingGuideLoading');
+      var bodyEl = document.getElementById('testingGuideBody');
+      if (customGuide) {
+        // Admin configured custom guide
+        if (bodyEl) bodyEl.innerHTML = customGuide;
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (bodyEl) bodyEl.style.display = 'block';
+      } else {
+        // Show default guide
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (bodyEl) bodyEl.style.display = 'block';
+      }
+    }
+
+    // Load site status
+    var status = c['site_status'] || 'normal';
+    var statusBar = document.getElementById('siteStatusBar');
+    if (statusBar) {
+      var STATUS = {
+        normal:   {name:'NORMAL OPERATIONS', bg:'#1a4a1a', color:'#88ff88'},
+        elevated: {name:'ELEVATED ALERT',    bg:'#5a4a00', color:'#ffdd44'},
+        danger:   {name:'DANGER — CODE RED', bg:'#6a1010', color:'#ffaaaa'},
+        attack:   {name:'SITE UNDER ATTACK', bg:'#3a003a', color:'#ff44ff'},
+      };
+      var s = STATUS[status] || {name:status.toUpperCase(), bg:'#1a2a5a', color:'#88aaff'};
+      statusBar.style.background = s.bg;
+      statusBar.style.color = s.color;
+      statusBar.textContent = '[ SITE STATUS: ' + s.name + ' ]';
+      statusBar.style.display = 'block';
+    }
+  } catch(e) { /* silently fail */ }
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  // Restore last active tab
+  var last = localStorage.getItem('dtab_DC');
+  if (last) {
+    var btn = document.querySelector('[data-tab="' + last + '"]');
+    if (btn) switchTab(last, btn);
+  }
+
+  // Unlock private content if already authenticated
+  if (localStorage.getItem('dept_dc_auth') === '1') {
+    var ls = document.getElementById('lockScreen');
+    if (ls) ls.style.display = 'none';
+    document.querySelectorAll('.private-block').forEach(function(el){ el.style.display = 'block'; });
+  }
+
+  loadDeptConfig();
+});
+
+function checkPwd() {
+  var v = document.getElementById('deptPwd') && document.getElementById('deptPwd').value.trim();
+  var stored = localStorage.getItem('pwd_dc') || 'dc2024';
+  if (v === stored) {
+    localStorage.setItem('dept_dc_auth', '1');
+    var ls = document.getElementById('lockScreen');
+    if (ls) ls.style.display = 'none';
+    document.querySelectorAll('.private-block').forEach(function(el){ el.style.display = 'block'; });
+    document.getElementById('pwdErr') && (document.getElementById('pwdErr').textContent = '');
+  } else {
+    document.getElementById('pwdErr') && (document.getElementById('pwdErr').textContent = 'ACCESS DENIED — Invalid code.');
+    document.getElementById('deptPwd') && (document.getElementById('deptPwd').value = '');
+  }
+}
+</script>
+
+<script>injectFooter();</script>
+</body>
+</html>

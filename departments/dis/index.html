@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>[DIS] Intelligence & Security Department — Site-07</title>
+  <link rel="stylesheet" href="../../assets/css/retro.css">
+  <style>
+    .dept-type-tag{display:inline-block;background:#7a1a1a;color:#fff;font-size:9px;font-weight:bold;padding:2px 8px;letter-spacing:1px;margin-right:6px;vertical-align:middle}
+    .dc-active{outline:2px solid var(--B);background:var(--Bbg)}
+    .private-block{display:none}
+    .tab-bar{display:flex;flex-wrap:wrap;background:var(--nav);border-bottom:2px solid #0a0a1a;margin-bottom:10px}
+    .tab-btn{padding:7px 14px;color:#9aa8d0;cursor:pointer;font-size:12px;font-family:'Courier Prime',monospace;border-right:1px solid #1a2040;border:none;background:none;border-right:1px solid #1a2040}
+    .tab-btn:hover{background:var(--nav2);color:#fff}
+    .tab-btn.active{background:var(--bg);color:var(--text);font-weight:bold;border-bottom:2px solid var(--bg);margin-bottom:-2px}
+    .tab-pane{display:none}.tab-pane.active{display:block}
+  </style>
+</head>
+<body>
+
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box">
+    <div class="win r">
+      <div class="win-bar"><span>🔒 RESTRICTED ACCESS — [DIS]</span><div class="wbtns"><div class="wb">×</div></div></div>
+      <div class="win-body">
+        <div style="text-align:center;padding:8px 0 12px">
+          <div style="font-size:40px;margin-bottom:8px">🔒</div>
+          <div style="font-family:'VT323',monospace;font-size:22px;color:#1c2340">[DIS] INTELLIGENCE & SECURITY DEPARTMENT</div>
+          <div style="font-size:10px;color:var(--dim);letter-spacing:1px;margin:4px 0 14px">INTERNAL ACCESS REQUIRED</div>
+          <hr class="rt">
+          <p style="font-size:11px;color:var(--dim);margin:10px 0">Enter the department access code to view internal content.</p>
+          <div class="fr" style="justify-content:center;margin-bottom:10px">
+            <input type="password" id="deptPwd" class="fi" placeholder="Access code..." style="max-width:220px;text-align:center;letter-spacing:3px" onkeydown="if(event.key==='Enter')checkPwd()">
+          </div>
+          <button class="btn btn-b" onclick="checkPwd()">► AUTHENTICATE</button>
+          <div id="pwdErr" style="color:var(--R);font-size:11px;margin-top:8px;min-height:16px"></div>
+        </div>
+        <div style="text-align:center;font-size:10px;color:var(--light);margin-top:4px">
+          Public information is visible below. Internal content requires authentication.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+function checkPwd(){
+  const v=document.getElementById('deptPwd').value.trim();
+  const key='dept_dis_auth';
+  // Password stored in localStorage by admin — default is dept code lowercase
+  const stored=localStorage.getItem('pwd_dis')||'dis2024';
+  if(v===stored){
+    localStorage.setItem(key,'1');
+    document.getElementById('lockScreen').style.display='none';
+    document.querySelectorAll('.private-block').forEach(el=>el.style.display='block');
+    document.getElementById('pwdErr').textContent='';
+  } else {
+    document.getElementById('pwdErr').textContent='⚠ ACCESS DENIED — Invalid code.';
+    document.getElementById('deptPwd').value='';
+  }
+}
+// Auto-unlock if already authenticated
+if(localStorage.getItem('dept_dis_auth')==='1'){
+  document.addEventListener('DOMContentLoaded',function(){
+    const ls=document.getElementById('lockScreen');
+    if(ls) ls.style.display='none';
+    document.querySelectorAll('.private-block').forEach(el=>el.style.display='block');
+  });
+}
+</script>
+<script src="../../assets/js/layout.js"></script>
+<script>injectHeader('departments');</script>
+<div class="layout">
+
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">[DIS] DEPT</div>
+    <a href="#overview" class="sb-a">Overview</a>
+    <a href="#ranks"    class="sb-a">Rank Structure</a>
+    <a href="#subs" class="sb-a">Subdivisions</a>
+    <a href="#private" class="sb-a">🔒 Internal</a>
+    <a href="#rules"    class="sb-a">Rules</a>
+    <a href="#apply"    class="sb-a">Apply</a>
+    <a href="#other-depts" class="sb-a">All Departments</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">QUICK LINKS</div>
+    <a href="../../index.html" class="sb-a">◄ Portal</a>
+    <a href="../../pages/hierarchy.html" class="sb-a">Hierarchy</a>
+    <a href="../../apply/level0.html" class="sb-a">Apply — Level 0</a>
+    <a href="https://discord.gg/pNzRGbmZ" class="sb-a" target="_blank">Discord</a>
+  </div>
+</aside>
+
+<main class="main">
+
+  <!-- HEADER -->
+  <a name="overview"></a>
+  <div class="win r">
+    <div class="win-bar">
+      <span>[DIS] INTELLIGENCE & SECURITY DEPARTMENT</span>
+      <div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div>
+    </div>
+    <div class="win-body">
+      <table width="100%" cellpadding="0" cellspacing="0"><tr valign="middle">
+        <td width="72" style="padding-right:12px"><div style="font-size:52px;line-height:1;text-align:center">🕵️</div></td>
+        <td>
+          <div style="font-family:'VT323',monospace;font-size:26px;color:#1c2340">[DIS] INTELLIGENCE & SECURITY DEPARTMENT</div>
+          <div style="font-size:10px;letter-spacing:1px;margin:5px 0 3px">
+            <span class="dept-type-tag">COMBAT</span>
+            MIN: <span class="lv lv1">SC-1</span> &nbsp;|&nbsp; DIRECTOR: <span class="lv lv5">SC-5</span> &nbsp;|&nbsp; STATUS: <span style="color:var(--G);font-weight:bold">● OPEN</span>
+            &nbsp;|&nbsp; <span style="color:var(--R);font-weight:bold">🔒 PARTIAL ACCESS</span>
+          </div>
+          <div style="font-size:11px;color:var(--dim);font-style:italic;margin-bottom:8px">"What you don't know will breach containment."</div>
+          <hr class="rt">
+          <p style="font-size:12px;margin-top:8px;line-height:1.6">The Intelligence &amp; Security Department is Site-07's information shield. DIS agents conduct surveillance, field intelligence gathering, and internal investigations. Field agents operate under classified identities.</p>
+        </td>
+      </tr></table>
+    </div>
+  </div>
+
+  <!-- TAB BAR -->
+  <div class="tab-bar" id="tabBar">
+    <button class="tab-btn active" data-tab="overview" onclick="switchTab('overview',this)">📋 Overview</button>
+    <button class="tab-btn" data-tab="ranks" onclick="switchTab('ranks',this)">🏅 Ranks</button>
+    <button class="tab-btn" data-tab="subs" onclick="switchTab('subs',this)">🔀 Subdivisions</button>
+    
+    
+    
+    <button class="tab-btn" data-tab="rules" onclick="switchTab('rules',this)">📏 Rules</button>
+    <button class="tab-btn" data-tab="apply" onclick="switchTab('apply',this)">📝 Apply</button>
+    <button class="tab-btn" data-tab="private" onclick="switchTab('private',this)">🔒 Internal</button>
+    <button class="tab-btn" data-tab="depts" onclick="switchTab('depts',this)">🏢 All Depts</button>
+  </div>
+
+  <!-- TAB: OVERVIEW -->
+  <div id="tab-overview" class="tab-pane active">
+    <div class="win r"><div class="win-bar"><span>AT A GLANCE</span></div><div class="win-body" style="padding:8px">
+  <table width="100%" cellpadding="0" cellspacing="4"><tr valign="top">
+  <td style="width:25%;padding:8px;text-align:center;vertical-align:top">
+    <div style="font-size:26px;margin-bottom:4px">📡</div>
+    <div style="font-family:'VT323',monospace;font-size:14px;color:#1c2340;margin-bottom:3px">Surveillance</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.4">Monitors internal and external threats</div>
+  </td><td style="width:25%;padding:8px;text-align:center;vertical-align:top">
+    <div style="font-size:26px;margin-bottom:4px">🔍</div>
+    <div style="font-family:'VT323',monospace;font-size:14px;color:#1c2340;margin-bottom:3px">Investigation</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.4">Conducts internal security investigations</div>
+  </td><td style="width:25%;padding:8px;text-align:center;vertical-align:top">
+    <div style="font-size:26px;margin-bottom:4px">🗂️</div>
+    <div style="font-family:'VT323',monospace;font-size:14px;color:#1c2340;margin-bottom:3px">Intel Ops</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.4">Manages classified field intelligence</div>
+  </td><td style="width:25%;padding:8px;text-align:center;vertical-align:top">
+    <div style="font-size:26px;margin-bottom:4px">🎭</div>
+    <div style="font-family:'VT323',monospace;font-size:14px;color:#1c2340;margin-bottom:3px">Cover IDs</div>
+    <div style="font-size:10px;color:var(--dim);line-height:1.4">Field agents operate under classified aliases</div>
+  </td>
+  </tr></table></div></div>
+    <div class="win r">
+      <div class="win-bar"><span>DEPARTMENT LEADER</span></div>
+      <div class="win-body">
+        <table width="100%" cellpadding="0" cellspacing="0"><tr valign="top">
+          <td width="56" style="padding-right:10px">
+            <div style="width:50px;height:50px;background:var(--inset);border-top:2px solid #888878;border-left:2px solid #888878;border-right:2px solid #e8e8dc;border-bottom:2px solid #e8e8dc;display:flex;align-items:center;justify-content:center;font-size:24px">👤</div>
+          </td>
+          <td>
+            <div style="font-family:'VT323',monospace;font-size:18px;color:#1c2340">Intelligence Director</div>
+            <div style="font-size:11px;color:var(--dim);margin:3px 0">
+              <span class="lv lv5">SC-5</span> &nbsp; Roblox: <strong>[Not yet assigned]</strong>
+            </div>
+            <div style="font-size:10px;color:var(--light);margin-top:4px">Position currently vacant. Contact The Administrator.</div>
+          </td>
+        </tr></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: RANKS -->
+  <div id="tab-ranks" class="tab-pane">
+    <div class="win r">
+      <div class="win-bar"><span>RANK STRUCTURE — 10 RANKS</span></div>
+      <div class="win-body">
+        <table class="dt">
+          <tr><th style="width:28px">#</th><th>RANK TITLE</th><th style="width:80px">SC LEVEL</th></tr>
+          <tr><td class="rank-num">1</td><td>Intelligence Auxiliary <span style="background:#1c6622;color:#fff;padding:1px 5px;font-size:9px;font-weight:bold">ENTRY</span></td><td><span class="lv lv1">SC-1</span></td></tr><tr><td class="rank-num">2</td><td>Intelligence Trainee </td><td><span class="lv lv1">SC-1</span></td></tr><tr><td class="rank-num">3</td><td>Junior Intelligence Analyst </td><td><span class="lv lv1">SC-1</span></td></tr><tr><td class="rank-num">4</td><td>Intelligence Analyst </td><td><span class="lv lv1">SC-1</span></td></tr><tr><td class="rank-num">5</td><td>Field Intelligence Agent </td><td><span class="lv lv2">SC-2</span></td></tr><tr><td class="rank-num">6</td><td>Senior Intelligence Agent </td><td><span class="lv lv2">SC-2</span></td></tr><tr><td class="rank-num">7</td><td>Intelligence Operations Lead </td><td><span class="lv lv3">SC-3</span></td></tr><tr><td class="rank-num">8</td><td>Intelligence Commander </td><td><span class="lv lv3">SC-3</span></td></tr><tr><td class="rank-num">9</td><td>Deputy Intelligence Director <span style="background:#6a4a00;color:#fff;padding:1px 5px;font-size:9px;font-weight:bold">DEPUTY</span></td><td><span class="lv lv4">SC-4</span></td></tr><tr style="background:rgba(42,92,42,0.08)"><td class="rank-num">10</td><td>Intelligence Director <span style="background:var(--G);color:#fff;padding:1px 5px;font-size:9px;font-weight:bold">DIRECTOR</span></td><td><span class="lv lv5">SC-5</span></td></tr>
+        </table>
+        <div class="note note-b mt8" style="font-size:11px"><strong>PROMOTION CRITERIA:</strong> Classified. Evaluated by the Intelligence Director on field reports and investigation closure rates.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: SUBDIVISIONS -->
+  <div id="tab-subs" class="tab-pane"><a name="subs"></a><div class="win r"><div class="win-bar"><span>SUBDIVISIONS</span></div><div class="win-body">
+  <table class="dt">
+    <tr><th>SUBDIVISION</th><th style="width:160px">ACCESS FROM</th></tr>
+    <tr><td><strong>Anomalous Intelligence Operations</strong><div style="font-size:10px;color:var(--dim);margin-top:2px">Classified unit handling intelligence on anomalous threats and cross-dimensional entities.</div></td><td style="font-size:11px;vertical-align:top">Field Intelligence Agent</td></tr>
+  </table>
+  <p class="small dim mt8">Subdivision-specific details published as subdivisions become active.</p>
+</div></div></div>
+
+  <!-- TAB: LAWS (CE only) -->
+  
+
+  <!-- TAB: PATROL / TESTING -->
+  
+
+  <!-- TAB: RULES -->
+  <div id="tab-rules" class="tab-pane">
+    <div class="win r">
+      <div class="win-bar"><span>DEPARTMENT RULES</span></div>
+      <div class="win-body">
+        <table class="dt"><tr><th style="width:28px">#</th><th>RULE</th></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">01</td>
+    <td style="font-size:12px">All intelligence must be submitted through secure encrypted channels.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">02</td>
+    <td style="font-size:12px">Field agents operate under cover — identities classified above SC-2.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">03</td>
+    <td style="font-size:12px">Intelligence sharing requires Intelligence Director approval.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">04</td>
+    <td style="font-size:12px">No information may be shared with hostile factions.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">05</td>
+    <td style="font-size:12px">Surveillance on Foundation personnel requires O5 authorization.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">06</td>
+    <td style="font-size:12px">Reports must be submitted within 48 hours of a field operation.</td></tr>
+    <tr><td style="width:28px;text-align:center;font-weight:bold;color:#1c2340">07</td>
+    <td style="font-size:12px">Inactive members (14+ days without LOA) will be demoted one rank.</td></tr></table>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: APPLY -->
+  <div id="tab-apply" class="tab-pane">
+    <div class="win r">
+      <div class="win-bar"><span>APPLY TO [DIS]</span></div>
+      <div class="win-body">
+        
+        <div class="note note-y mb8" id="robloxCheck" style="display:none">
+          <strong>⚠ NOT IN GROUP</strong> — You must join the
+          <a href="https://www.roblox.com/communities/861318854" target="_blank">Site-07 Roblox group</a>
+          before applying.
+        </div>
+        <div class="note note-b mb8"><strong>REQUIREMENT:</strong> Approved Level-0 application required before applying to any department.</div>
+       <div style="display:flex;gap:8px">
+         <a href="../../apply/level1.html?dept=DIS" class="btn btn-b">► APPLY TO [DIS]</a>
+         <a href="../../apply/level0.html" class="btn">Need Level-0 first →</a>
+       </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TAB: PRIVATE -->
+  <div id="tab-private" class="tab-pane"><div class="private-block" style="display:none">
+<div class="win r">
+  <div class="win-bar"><span>🔒 CLASSIFIED — OPERATION PROTOCOLS</span></div>
+  <div class="win-body" style="font-size:12px;line-height:1.7">
+    <div class="note note-r mb8"><strong>CLASSIFIED ABOVE SC-2.</strong> Do not share outside DIS.</div>
+    <div class="sec" style="margin-top:0">SURVEILLANCE PROTOCOL</div>
+    <p>All surveillance operations must be logged before initiation. Targets are assigned by the Intelligence Director. Personal surveillance outside of assigned targets is strictly prohibited.</p>
+    <div class="sec">COVER IDENTITY GUIDELINES</div>
+    <p>Field agents maintain a secondary in-character identity. Cover identities must be approved by the Intelligence Commander before use. Real identities are never disclosed in-field.</p>
+    <div class="sec">INTELLIGENCE REPORT FORMAT</div>
+    <p>Reports must include: Date, Operation ID, Agent code, Target description, Findings, Threat level assessment (1-5), and Recommended action. Submit encrypted via DIS Discord channel.</p>
+    <div class="sec">EXTRACTION PROTOCOL</div>
+    <p>If cover is blown: immediately break contact, report to Intelligence Commander, switch to emergency code. MTF extraction is available above threat level 3.</p>
+  </div>
+</div></div></div>
+
+  <!-- TAB: ALL DEPTS -->
+  <div id="tab-depts" class="tab-pane">
+    
+<a name="other-depts"></a>
+<div class="win r">
+  <div class="win-bar"><span>ALL DEPARTMENTS — SITE-07</span><div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div></div>
+  <div class="win-body">
+    <div class="sec" style="margin-top:0">CIVIL DEPARTMENTS — SC-1 MINIMUM</div>
+    <div class="dept-grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-top:6px">
+      <a href="../../departments/dmf/index.html" class="dc">
+      <div class="dc-h"><span>[DMF]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DMF</div>
+        <div class="dc-name">Maintenance & Manufacturing Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a><a href="../../departments/dc/index.html" class="dc">
+      <div class="dc-h"><span>[DC]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DC</div>
+        <div class="dc-name">Scientific Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a><a href="../../departments/dm/index.html" class="dc">
+      <div class="dc-h"><span>[DM]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DM</div>
+        <div class="dc-name">Medical Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a><a href="../../departments/dp/index.html" class="dc">
+      <div class="dc-h"><span>[DP]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DP</div>
+        <div class="dc-name">Psychology Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a>
+    </div>
+    <div class="sec">COMBAT DEPARTMENTS — SC-1 MINIMUM</div>
+    <div class="dept-grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-top:6px">
+      <a href="../../departments/dis/index.html" class="dc dc-active">
+      <div class="dc-h"><span>[DIS] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DIS</div>
+        <div class="dc-name">Intelligence & Security Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>10 ranks</span></div>
+    </a><a href="../../departments/ds/index.html" class="dc">
+      <div class="dc-h"><span>[DS]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DS</div>
+        <div class="dc-name">Security Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>9 ranks</span></div>
+    </a><a href="../../departments/mtf/index.html" class="dc">
+      <div class="dc-h"><span>[MTF] 🔒</span><span style="color:var(--Y);font-weight:bold;font-size:11px">● SELECTIVE</span></div>
+      <div class="dc-b">
+        <div class="dc-code">MTF</div>
+        <div class="dc-name">Mobile Task Force</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dohe/index.html" class="dc">
+      <div class="dc-h"><span>[DOHE] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DOHE</div>
+        <div class="dc-name">Hostile Operations Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dlot/index.html" class="dc">
+      <div class="dc-h"><span>[DLOT]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DLOT</div>
+        <div class="dc-name">Tactical Operations Logistics Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv1">SC-1</span> min.</span><span>9 ranks</span></div>
+    </a>
+    </div>
+    <div class="sec">ADDITIONAL DEPARTMENTS — SC-2+ OR INVITE</div>
+    <div class="dept-grid" style="grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin-top:6px">
+      <a href="../../departments/ce/index.html" class="dc">
+      <div class="dc-h"><span>[CE] 🔒</span><span style="color:var(--R);font-weight:bold;font-size:11px">● INVITE</span></div>
+      <div class="dc-b">
+        <div class="dc-code">CE</div>
+        <div class="dc-name">Ethics Committee</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv3">SC-3</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dae/index.html" class="dc">
+      <div class="dc-h"><span>[DAE] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DAE</div>
+        <div class="dc-name">External Affairs Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/ed/index.html" class="dc">
+      <div class="dc-h"><span>[ED]</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">ED</div>
+        <div class="dc-name">Engineering / Experimental Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>9 ranks</span></div>
+    </a><a href="../../departments/aa/index.html" class="dc">
+      <div class="dc-h"><span>[AA] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">AA</div>
+        <div class="dc-name">Anomaly Actors Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/da/index.html" class="dc">
+      <div class="dc-h"><span>[DA] 🔒</span><span style="color:var(--R);font-weight:bold;font-size:11px">● INVITE</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DA</div>
+        <div class="dc-name">Administrative Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv3">SC-3</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dj/index.html" class="dc">
+      <div class="dc-h"><span>[DJ] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DJ</div>
+        <div class="dc-name">Justice Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dri/index.html" class="dc">
+      <div class="dc-h"><span>[DRI] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DRI</div>
+        <div class="dc-name">Interorganizational Relations Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>8 ranks</span></div>
+    </a><a href="../../departments/dca/index.html" class="dc">
+      <div class="dc-h"><span>[DCA] 🔒</span><span style="color:var(--G);font-weight:bold;font-size:11px">● OPEN</span></div>
+      <div class="dc-b">
+        <div class="dc-code">DCA</div>
+        <div class="dc-name">Threat Classification Department</div>
+      </div>
+      <div class="dc-f"><span><span class="lv lv2">SC-2</span> min.</span><span>9 ranks</span></div>
+    </a>
+    </div>
+  </div>
+</div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// ── DEPT TABS ─────────────────────────────────────────────────
+function switchTab(name, btn) {
+  document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  var pane = document.getElementById('tab-' + name);
+  if (pane) pane.classList.add('active');
+  if (btn) btn.classList.add('active');
+  localStorage.setItem('dtab_DIS', name);
+}
+
+// ── LOAD DEPT CONFIG FROM BOT ─────────────────────────────────
+var BOT_URL = 'https://scp-bot-production.up.railway.app';
+
+async function loadDeptConfig() {
+  try {
+    var res = await fetch(BOT_URL + '/public/config');
+    var data = await res.json();
+    var c = data.config || {};
+
+    // Load dept image if configured
+    var imgUrl = c['dept_img_dis'];
+    if (imgUrl) {
+      var badge = document.getElementById('deptBadge');
+      if (badge) {
+        badge.innerHTML = '<img src="' + imgUrl + '" style="width:100%;height:100%;object-fit:cover" onerror="this.remove()">';
+      }
+    }
+
+    // Load dept password if configured
+    var pwd = c['dept_pwd_dis'];
+    if (pwd) {
+      var lockPwd = localStorage.getItem('dept_dis_auth');
+      // Update the stored password check
+      localStorage.setItem('pwd_dis', pwd);
+    }
+
+    // Load testing guide (DC only)
+    var guideEl = document.getElementById('testingGuideContent');
+    if (guideEl) {
+      var customGuide = c['dc_testing_guide'];
+      var loadingEl = document.getElementById('testingGuideLoading');
+      var bodyEl = document.getElementById('testingGuideBody');
+      if (customGuide) {
+        // Admin configured custom guide
+        if (bodyEl) bodyEl.innerHTML = customGuide;
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (bodyEl) bodyEl.style.display = 'block';
+      } else {
+        // Show default guide
+        if (loadingEl) loadingEl.style.display = 'none';
+        if (bodyEl) bodyEl.style.display = 'block';
+      }
+    }
+
+    // Load site status
+    var status = c['site_status'] || 'normal';
+    var statusBar = document.getElementById('siteStatusBar');
+    if (statusBar) {
+      var STATUS = {
+        normal:   {name:'NORMAL OPERATIONS', bg:'#1a4a1a', color:'#88ff88'},
+        elevated: {name:'ELEVATED ALERT',    bg:'#5a4a00', color:'#ffdd44'},
+        danger:   {name:'DANGER — CODE RED', bg:'#6a1010', color:'#ffaaaa'},
+        attack:   {name:'SITE UNDER ATTACK', bg:'#3a003a', color:'#ff44ff'},
+      };
+      var s = STATUS[status] || {name:status.toUpperCase(), bg:'#1a2a5a', color:'#88aaff'};
+      statusBar.style.background = s.bg;
+      statusBar.style.color = s.color;
+      statusBar.textContent = '[ SITE STATUS: ' + s.name + ' ]';
+      statusBar.style.display = 'block';
+    }
+  } catch(e) { /* silently fail */ }
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  // Restore last active tab
+  var last = localStorage.getItem('dtab_DIS');
+  if (last) {
+    var btn = document.querySelector('[data-tab="' + last + '"]');
+    if (btn) switchTab(last, btn);
+  }
+
+  // Unlock private content if already authenticated
+  if (localStorage.getItem('dept_dis_auth') === '1') {
+    var ls = document.getElementById('lockScreen');
+    if (ls) ls.style.display = 'none';
+    document.querySelectorAll('.private-block').forEach(function(el){ el.style.display = 'block'; });
+  }
+
+  loadDeptConfig();
+});
+
+function checkPwd() {
+  var v = document.getElementById('deptPwd') && document.getElementById('deptPwd').value.trim();
+  var stored = localStorage.getItem('pwd_dis') || 'dis2024';
+  if (v === stored) {
+    localStorage.setItem('dept_dis_auth', '1');
+    var ls = document.getElementById('lockScreen');
+    if (ls) ls.style.display = 'none';
+    document.querySelectorAll('.private-block').forEach(function(el){ el.style.display = 'block'; });
+    document.getElementById('pwdErr') && (document.getElementById('pwdErr').textContent = '');
+  } else {
+    document.getElementById('pwdErr') && (document.getElementById('pwdErr').textContent = 'ACCESS DENIED — Invalid code.');
+    document.getElementById('deptPwd') && (document.getElementById('deptPwd').value = '');
+  }
+}
+</script>
+
+<script>injectFooter();</script>
+</body>
+</html>

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Leadership — Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+  <style>
+    .lead-card{background:var(--panel);border-top:2px solid #e8e8dc;border-left:2px solid #e8e8dc;border-right:2px solid #888878;border-bottom:2px solid #888878;padding:12px;text-align:center}
+    .lead-avatar{width:72px;height:72px;border-radius:0;border-top:2px solid #888878;border-left:2px solid #888878;border-right:2px solid #e8e8dc;border-bottom:2px solid #e8e8dc;margin:0 auto 8px;overflow:hidden;background:var(--inset);display:flex;align-items:center;justify-content:center;font-size:32px}
+    .lead-avatar img{width:100%;height:100%;object-fit:cover}
+    .lead-chosen{font-family:'VT323',monospace;font-size:18px;color:#1c2340;line-height:1.2;margin-bottom:2px}
+    .lead-roblox{font-size:11px;color:var(--dim);margin-bottom:4px}
+    .lead-badge{display:inline-block;font-size:9px;font-weight:bold;padding:2px 7px;margin-bottom:6px;color:#fff}
+    .lead-desc{font-size:10px;color:var(--light);line-height:1.4;margin-top:4px}
+  </style>
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader('hierarchy');</script>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">LEADERSHIP</div>
+    <a href="#o5"        class="sb-a">O5 Council</a>
+    <a href="#command"   class="sb-a">Site Command</a>
+    <a href="#important" class="sb-a">Key Roles</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">MORE</div>
+    <a href="hierarchy.html" class="sb-a">Full Hierarchy</a>
+    <a href="../index.html"  class="sb-a">◄ Portal</a>
+  </div>
+</aside>
+<main class="main">
+
+  <div id="siteStatusBar" style="display:none;text-align:center;padding:4px;font-size:11px;font-weight:bold;letter-spacing:1px;margin-bottom:8px"></div>
+  <div class="ph">
+    <div class="ptag">// SITE-07 COMMAND STRUCTURE</div>
+    <h1>SITE LEADERSHIP</h1>
+    <p>Official command personnel of [SCP] Site-07. All identities confirmed by Administration.</p>
+  </div>
+
+  <div class="note note-r mt8"><strong>SECURITY NOTICE:</strong> Impersonating any leadership member is a permanent ban. See Code of Ethics Art. 4.5.</div>
+
+  <!-- O5 COUNCIL -->
+  <a name="o5"></a>
+  <div class="win r mt8">
+    <div class="win-bar"><span>O5 COUNCIL — SUPREME AUTHORITY</span><div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div></div>
+    <div class="win-body">
+      <p class="small dim" style="margin-bottom:12px">The O5 Council governs all Foundation operations. Their decisions are final. Individual identities are classified above SC-4.</p>
+      <div class="lead-grid">
+
+        <!-- THE ADMINISTRATOR -->
+        <div class="lead-card" style="background:#1c2340;border-color:#3a4a80">
+          <div class="lead-badge" style="background:#3a004a">SUPREME AUTHORITY</div>
+          <div class="lead-avatar" id="adminAvatar" style="border-color:#3a4a80 #8898c0 #8898c0 #3a4a80">
+            <img id="adminAvatarImg" src="" alt="⬡" onerror="this.style.display='none';this.parentElement.textContent='⬡'">
+          </div>
+          <div class="lead-chosen" style="color:#a0b0ff" id="lead-admin-name">The Administrator</div>
+          <div class="lead-roblox" style="color:#6878a0">Roblox: <strong style="color:#8898c0" id="lead-admin-roblox">fjj3be_3</strong></div>
+          <div class="lead-desc" style="color:#6878a0">Supreme Authority of Site-07. Final word on all Foundation decisions.</div>
+        </div>
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:#3a004a">O5-1 — CHAIRMAN</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen">Chairman of Council O5</div>
+          <div class="lead-roblox">Roblox: <strong>[Not disclosed]</strong></div>
+          <div class="lead-desc">Oversees all Foundation departments. Identity classified.</div>
+        </div>
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:#3a004a">O5 COUNCIL</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen">Council O5</div>
+          <div class="lead-roblox">Roblox: <strong>[Classified]</strong></div>
+          <div class="lead-desc">Foundation-wide administration. Multiple members. All identities classified.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SITE COMMAND -->
+  <a name="command"></a>
+  <div class="win r">
+    <div class="win-bar"><span>SITE COMMAND</span><div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div></div>
+    <div class="win-body">
+      <div class="lead-grid">
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:var(--R)">SITE DIRECTOR — SC-5</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen" id="lead-director-name">[Not yet assigned]</div>
+          <div class="lead-roblox">Roblox: <strong id="lead-director-roblox">—</strong></div>
+          <div class="lead-desc">Decides site operational configuration and threat levels.</div>
+        </div>
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:var(--R)">ASST. SITE DIRECTOR — SC-4</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen" id="lead-asst-name">[Not yet assigned]</div>
+          <div class="lead-roblox">Roblox: <strong id="lead-asst-roblox">—</strong></div>
+          <div class="lead-desc">Supports Site Director, takes command when unavailable.</div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- KEY ROLES -->
+  <a name="important"></a>
+  <div class="win r">
+    <div class="win-bar"><span>KEY OPERATIONAL ROLES</span><div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div></div>
+    <div class="win-body">
+      <div class="lead-grid">
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:var(--Y)">SECRETARY GENERAL</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen" id="lead-secretary-name">Edward Neys</div>
+          <div class="lead-roblox">Roblox: <strong id="lead-secretary-roblox">xwmqgxEB124</strong></div>
+          <div class="lead-desc">Manages all site-wide logistics and administrative coordination.</div>
+        </div>
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:var(--B)">HEAD DEVELOPER</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen">luan_44</div>
+          <div class="lead-roblox">Roblox: <strong>luan_44</strong></div>
+          <div class="lead-desc">Commands the entire Development Team for Site-07.</div>
+        </div>
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:var(--G)">DEPT MANAGER</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen" id="lead-deptmgr-name">[Not yet assigned]</div>
+          <div class="lead-roblox">Roblox: <strong id="lead-deptmgr-roblox">—</strong></div>
+          <div class="lead-desc">Oversees all department directors and operations.</div>
+        </div>
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:#5a5a5a">LORE CREATOR</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen">[Not yet assigned]</div>
+          <div class="lead-roblox">Roblox: <strong>—</strong></div>
+          <div class="lead-desc">Decides canonical lore and SCP entries for Site-07.</div>
+        </div>
+
+        <div class="lead-card">
+          <div class="lead-badge" style="background:#5a5a5a">EVENT COORDINATOR</div>
+          <div class="lead-avatar">👤</div>
+          <div class="lead-chosen">[Not yet assigned]</div>
+          <div class="lead-roblox">Roblox: <strong>—</strong></div>
+          <div class="lead-desc">Organizes site-wide events and roleplay scenarios.</div>
+        </div>
+
+      </div>
+      <div class="note note-y mt8 small">
+        <strong>NOTE:</strong> "[Not yet assigned]" positions are open or pending. Contact The Administrator to inquire.
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+var BOT_URL = 'https://scp-bot-production.up.railway.app';
+// Load administrator's Roblox avatar automatically
+async function loadAdminAvatar() {
+  try {
+    const userRes = await fetch('https://users.roblox.com/v1/usernames/users', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({usernames:['fjj3be_3'], excludeBannedUsers:false})
+    });
+    const userData = await userRes.json();
+    const userId = userData.data?.[0]?.id;
+    if (!userId) return;
+
+    const thumbRes = await fetch(
+      `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${userId}&size=150x150&format=Png&isCircular=false`
+    );
+    const thumbData = await thumbRes.json();
+    const imgUrl = thumbData.data?.[0]?.imageUrl;
+    if (imgUrl) {
+      const img = document.getElementById('adminAvatarImg');
+      if (img) { img.src = imgUrl; img.style.display = 'block'; }
+    }
+  } catch(e) { /* silently fail — shows ⬡ instead */ }
+}
+loadAdminAvatar();
+</script>
+
+
+<script>
+// Load leadership data from bot config
+var BOT_URL = 'https://scp-bot-production.up.railway.app';
+
+async function loadLeadershipData() {
+  try {
+    var res = await fetch(BOT_URL + '/public/config');
+    var data = await res.json();
+    var c = data.config || {};
+
+    var fields = {
+      'lead_admin_name':     'lead-admin-name',
+      'lead_admin_roblox':   'lead-admin-roblox',
+      'lead_director_name':  'lead-director-name',
+      'lead_director_roblox':'lead-director-roblox',
+      'lead_asst_name':      'lead-asst-name',
+      'lead_asst_roblox':    'lead-asst-roblox',
+      'lead_secretary_name': 'lead-secretary-name',
+      'lead_secretary_roblox':'lead-secretary-roblox',
+      'lead_deptmgr_name':   'lead-deptmgr-name',
+      'lead_deptmgr_roblox': 'lead-deptmgr-roblox',
+      'lead_o5chair_name':   'lead-o5chair-name',
+      'lead_o5chair_roblox': 'lead-o5chair-roblox',
+      'lead_lore_name':      'lead-lore-name',
+      'lead_lore_roblox':    'lead-lore-roblox',
+      'lead_events_name':    'lead-events-name',
+      'lead_events_roblox':  'lead-events-roblox',
+      'lead_headdev_name':   'lead-headdev-name',
+      'lead_headdev_roblox': 'lead-headdev-roblox',
+    };
+
+    Object.entries(fields).forEach(function(entry) {
+      var cfgKey = entry[0];
+      var elId = entry[1];
+      var el = document.getElementById(elId);
+      if (el && c[cfgKey]) el.textContent = c[cfgKey];
+    });
+
+    // Load site status bar
+    var status = c['site_status'] || 'normal';
+    var statusEl = document.getElementById('siteStatusBar');
+    if (statusEl) {
+      var STATUS = {
+        normal:   {name:'NORMAL OPERATIONS', bg:'#1a4a1a', color:'#88ff88'},
+        elevated: {name:'ELEVATED ALERT',    bg:'#5a4a00', color:'#ffdd44'},
+        danger:   {name:'DANGER — CODE RED', bg:'#6a1010', color:'#ffaaaa'},
+        attack:   {name:'SITE UNDER ATTACK', bg:'#3a003a', color:'#ff44ff'},
+      };
+      var s = STATUS[status] || {name:status.toUpperCase(), bg:'#1a2a5a', color:'#88aaff'};
+      statusEl.style.background = s.bg;
+      statusEl.style.color = s.color;
+      statusEl.textContent = '[ SITE STATUS: ' + s.name + ' ]';
+      statusEl.style.display = 'block';
+    }
+  } catch(e) { /* silently fail */ }
+}
+
+loadLeadershipData();
+// Also load admin avatar from Roblox
+loadAdminAvatar();
+</script>
+<script>injectFooter();</script>
+</body>
+</html>

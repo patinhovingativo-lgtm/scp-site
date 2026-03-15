@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Setup Guide — [SCP] Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader();</script>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">SETUP STEPS</div>
+    <a href="#step1" class="sb-a">1. GitHub Account</a>
+    <a href="#step2" class="sb-a">2. Create Repository</a>
+    <a href="#step3" class="sb-a">3. Upload Files</a>
+    <a href="#step4" class="sb-a">4. Enable Pages</a>
+    <a href="#step5" class="sb-a">5. Deploy Bot</a>
+    <a href="#step6" class="sb-a">6. Configure Admin</a>
+    <a href="#step7" class="sb-a">7. Discord OAuth2</a>
+    <a href="#done"  class="sb-a">✓ Done!</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">LINKS</div>
+    <a href="../index.html" class="sb-a">◄ Portal</a>
+  </div>
+</aside>
+<main class="main">
+
+  <div class="ph">
+    <div class="ptag">// SYSTEM DEPLOYMENT GUIDE</div>
+    <h1>HOW TO PUT THE SITE ONLINE</h1>
+    <p>Follow these steps in order. The site will be at <strong>https://username.github.io/scp-site</strong> — accessible by anyone.</p>
+  </div>
+
+  <div class="note note-r mt8"><strong>WHY file:// DOESN'T WORK FOR OTHERS:</strong> When you open the HTML file directly from your computer, it uses <code>file:///C:/...</code> — that path only exists on YOUR computer. Nobody else can access it. You need to host it online. GitHub Pages is free and takes 5 minutes.</div>
+
+  <!-- STEP 1 -->
+  <a name="step1"></a>
+  <div class="win r mt8">
+    <div class="win-bar"><span>STEP 1 — CREATE A GITHUB ACCOUNT</span></div>
+    <div class="win-body" style="font-size:12px">
+      <p>If you don't have a GitHub account:</p>
+      <ol style="padding-left:20px;margin-top:6px;line-height:2">
+        <li>Go to <a href="https://github.com" target="_blank"><strong>github.com</strong></a></li>
+        <li>Click <strong>Sign up</strong></li>
+        <li>Create account with your email</li>
+        <li>Verify email</li>
+      </ol>
+      <div class="note note-g mt8"><strong>Already have GitHub?</strong> Skip to Step 2.</div>
+    </div>
+  </div>
+
+  <!-- STEP 2 -->
+  <a name="step2"></a>
+  <div class="win r">
+    <div class="win-bar"><span>STEP 2 — CREATE A REPOSITORY</span></div>
+    <div class="win-body" style="font-size:12px">
+      <ol style="padding-left:20px;line-height:2.2">
+        <li>On GitHub, click the <strong>+</strong> button (top right) → <strong>New repository</strong></li>
+        <li>Repository name: <code style="background:#1c2340;color:#a0b0ff;padding:1px 5px">scp-site</code></li>
+        <li>Set to <strong>Public</strong> ✅ (required for free GitHub Pages)</li>
+        <li>Do NOT check "Add README" — leave everything empty</li>
+        <li>Click <strong>Create repository</strong></li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- STEP 3 -->
+  <a name="step3"></a>
+  <div class="win r">
+    <div class="win-bar"><span>STEP 3 — UPLOAD THE SITE FILES</span></div>
+    <div class="win-body" style="font-size:12px">
+      <p>Inside the ZIP you downloaded, there is a <code>site/</code> folder. You need to upload the <strong>contents</strong> of that folder (not the folder itself).</p>
+      <ol style="padding-left:20px;margin-top:8px;line-height:2.2">
+        <li>Open the repository you just created</li>
+        <li>Click <strong>"uploading an existing file"</strong> (small link in the middle of the page)</li>
+        <li>Extract the ZIP on your computer first</li>
+        <li>Open the <code>scp-v5/site/</code> folder</li>
+        <li>Select ALL files and folders inside <code>site/</code> and drag them to the GitHub upload area</li>
+        <li>Wait for upload to finish</li>
+        <li>Scroll down, click <strong>Commit changes</strong></li>
+      </ol>
+      <div class="note note-y mt8"><strong>IMPORTANT:</strong> Upload what's INSIDE <code>site/</code> — not the <code>site/</code> folder itself. The <code>index.html</code> must be at the ROOT of the repository.</div>
+    </div>
+  </div>
+
+  <!-- STEP 4 -->
+  <a name="step4"></a>
+  <div class="win r">
+    <div class="win-bar"><span>STEP 4 — ENABLE GITHUB PAGES (MAKES IT HTTPS)</span></div>
+    <div class="win-body" style="font-size:12px">
+      <ol style="padding-left:20px;line-height:2.2">
+        <li>In your repository, click <strong>Settings</strong> (top tab)</li>
+        <li>In the left sidebar, click <strong>Pages</strong></li>
+        <li>Under "Source": select <strong>Deploy from a branch</strong></li>
+        <li>Branch: <strong>main</strong> | Folder: <strong>/ (root)</strong></li>
+        <li>Click <strong>Save</strong></li>
+        <li>Check <strong>"Enforce HTTPS"</strong> ✅</li>
+        <li>Wait 2-5 minutes</li>
+        <li>Your site is now at: <code style="background:#1c2340;color:#a0b0ff;padding:1px 5px">https://YOUR-USERNAME.github.io/scp-site</code></li>
+      </ol>
+      <div class="note note-g mt8"><strong>This is the link you share with people!</strong> It works on any device, any browser, anywhere in the world.</div>
+    </div>
+  </div>
+
+  <!-- STEP 5 -->
+  <a name="step5"></a>
+  <div class="win r">
+    <div class="win-bar"><span>STEP 5 — DEPLOY THE BOT ON RAILWAY</span></div>
+    <div class="win-body" style="font-size:12px">
+      <p>The bot handles applications, Discord login, and Roblox promotions. It needs to run 24/7 on a server.</p>
+      <ol style="padding-left:20px;margin-top:8px;line-height:2.2">
+        <li>Create a <strong>second GitHub repository</strong> called <code>scp-bot</code></li>
+        <li>Upload the contents of the <code>bot/</code> folder to it</li>
+        <li>Go to <a href="https://railway.app" target="_blank"><strong>railway.app</strong></a> → sign up free</li>
+        <li>New Project → <strong>Deploy from GitHub repo</strong> → select <code>scp-bot</code></li>
+        <li>Railway detects Node.js automatically</li>
+        <li>Go to <strong>Variables</strong> tab → add all these:</li>
+      </ol>
+      <table class="dt mt8" style="font-size:11px">
+        <tr><th>VARIABLE NAME</th><th>VALUE</th></tr>
+        <tr><td>DISCORD_TOKEN</td><td>Your new bot token</td></tr>
+        <tr><td>CLIENT_ID</td><td>1353464006085443665</td></tr>
+        <tr><td>GUILD_ID</td><td>1474935908460396545</td></tr>
+        <tr><td>OWNER_ID</td><td>1124719516480454716</td></tr>
+        <tr><td>DISCORD_CLIENT_SECRET</td><td>Your new OAuth2 secret</td></tr>
+        <tr><td>SITE_ORIGIN</td><td>https://your-username.github.io</td></tr>
+        <tr><td>APP_REVIEW_CHANNEL_ID</td><td>1474958115332952129</td></tr>
+        <tr><td>APP_RESULTS_CHANNEL_ID</td><td>1481986410268463145</td></tr>
+        <tr><td>ROBLOX_API_KEY</td><td>Your new Roblox key</td></tr>
+        <tr><td>ADMIN_API_KEY</td><td>Choose a strong password</td></tr>
+        <tr><td>INTERNAL_SECRET</td><td>Choose another password</td></tr>
+        <tr><td>DATA_DIR</td><td>/data</td></tr>
+        <tr><td>PORT</td><td>3001</td></tr>
+      </table>
+      <ol style="padding-left:20px;margin-top:8px;line-height:2.2" start="7">
+        <li>Go to <strong>Settings → Networking → Generate Domain</strong> → copy the URL</li>
+        <li>Add a <strong>Volume</strong> mounted at <code>/data</code> (for database persistence)</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- STEP 6 -->
+  <a name="step6"></a>
+  <div class="win r">
+    <div class="win-bar"><span>STEP 6 — CONFIGURE THE ADMIN PANEL</span></div>
+    <div class="win-body" style="font-size:12px">
+      <ol style="padding-left:20px;line-height:2.2">
+        <li>Open your site: <code>https://your-username.github.io/scp-site/admin/index.html</code></li>
+        <li>Enter your <strong>Railway bot URL</strong> (e.g. <code>https://scp-bot.railway.app</code>)</li>
+        <li>Enter your <strong>ADMIN_API_KEY</strong> password</li>
+        <li>Enter your Discord and Roblox usernames (optional extra security)</li>
+        <li>Click <strong>ACCESS ADMIN PANEL</strong></li>
+        <li>Go to <strong>Roblox Ranks</strong> tab → click "Fetch from Roblox" → map your rank IDs</li>
+        <li>Go to <strong>Config</strong> tab → set your site URL → click Save</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- STEP 7 -->
+  <a name="step7"></a>
+  <div class="win r">
+    <div class="win-bar"><span>STEP 7 — CONFIGURE DISCORD LOGIN (OAuth2)</span></div>
+    <div class="win-body" style="font-size:12px">
+      <p>So members can login with Discord on your site:</p>
+      <ol style="padding-left:20px;margin-top:8px;line-height:2.2">
+        <li>Go to <a href="https://discord.com/developers/applications" target="_blank">discord.com/developers/applications</a></li>
+        <li>Click your bot application → <strong>OAuth2</strong></li>
+        <li>Under <strong>Redirects</strong> → click <strong>Add Redirect</strong></li>
+        <li>Enter: <code>https://your-username.github.io/scp-site/verify.html</code></li>
+        <li>Save</li>
+        <li>Your members can now login at <code>/verify.html</code></li>
+      </ol>
+      <div class="note note-b mt8">Members open <code>/verify.html</code>, enter the bot URL once, then click "Login with Discord". After that it's automatic.</div>
+    </div>
+  </div>
+
+  <!-- DONE -->
+  <a name="done"></a>
+  <div class="win r">
+    <div class="win-bar"><span>✓ YOU'RE DONE!</span></div>
+    <div class="win-body" style="font-size:12px">
+      <div class="note note-g">
+        <strong>Your site is now:</strong><br>
+        🌐 Live at <code>https://your-username.github.io/scp-site</code><br>
+        🔒 Secured with HTTPS<br>
+        🤖 Connected to your Discord bot<br>
+        📝 Accepting applications<br>
+        🎮 Auto-promoting on Roblox when applications are approved
+      </div>
+      <p style="margin-top:10px"><strong>Share this link with members:</strong> <code>https://your-username.github.io/scp-site</code></p>
+      <p style="margin-top:6px">When a member applies → you get a Discord message with ✅ Accept / ❌ Reject buttons → accepting auto-promotes them in the Roblox group.</p>
+    </div>
+  </div>
+
+</main>
+</div>
+<script>injectFooter();</script>
+</body>
+</html>

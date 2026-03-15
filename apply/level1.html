@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Department Application — Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+  <style>
+    .app-center{max-width:640px;margin:0 auto;padding:16px}
+    .dept-pick{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:6px;margin:8px 0}
+    .dept-btn{padding:8px 10px;cursor:pointer;border-top:2px solid #e8e8dc;border-left:2px solid #e8e8dc;border-right:2px solid #888878;border-bottom:2px solid #888878;background:var(--panel);text-align:left;font-family:var(--font);font-size:12px}
+    .dept-btn:hover{background:var(--white)}
+    .dept-btn.selected{background:var(--Bbg);border-color:var(--B);font-weight:bold}
+    @media(max-width:480px){.dept-pick{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader('apply');</script>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">APPLICATIONS</div>
+    <a href="level0.html" class="sb-a">Level-0 Entry</a>
+    <a href="level1.html" class="sb-a on">Department Apply</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">LINKS</div>
+    <a href="../index.html" class="sb-a">Portal</a>
+    <a href="../verify.html" class="sb-a">Verify Identity</a>
+  </div>
+</aside>
+<main class="main">
+<div class="app-center">
+
+  <!-- NOT VERIFIED -->
+  <div id="noAuth" class="win r" style="display:none">
+    <div class="win-bar"><span>IDENTITY REQUIRED</span></div>
+    <div class="win-body" style="text-align:center;padding:24px">
+      <div style="font-family:'VT323',monospace;font-size:20px;color:#1c2340;margin-bottom:8px">VERIFY FIRST</div>
+      <p style="font-size:12px;color:var(--dim);margin-bottom:16px">You must verify your identity before applying to a department.</p>
+      <a href="../verify.html" class="btn btn-b">VERIFY IDENTITY</a>
+    </div>
+  </div>
+
+  <!-- NO LEVEL-0 -->
+  <div id="noLevel0" class="win r" style="display:none">
+    <div class="win-bar"><span>LEVEL-0 REQUIRED</span></div>
+    <div class="win-body" style="text-align:center;padding:24px">
+      <div style="font-family:'VT323',monospace;font-size:20px;color:#1c2340;margin-bottom:8px">APPLY FOR LEVEL-0 FIRST</div>
+      <p style="font-size:12px;color:var(--dim);margin-bottom:16px">You must have an approved Level-0 application before applying to a department.</p>
+      <a href="level0.html" class="btn btn-b">APPLY FOR LEVEL-0</a>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div id="formWrap" style="display:none">
+    <div class="win r">
+      <div class="win-bar"><span>DEPARTMENT APPLICATION — SC-1</span>
+        <div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div>
+      </div>
+      <div class="win-body">
+
+        <div class="note note-b mb8" style="font-size:12px">
+          Select a department and answer the questions. All answers must be in <strong>English</strong>.
+          An admin will review within 48 hours.
+        </div>
+
+        <div id="submitErr" class="note note-r mb8" style="display:none"></div>
+
+        <!-- DEPT SELECTION -->
+        <div class="sec" style="margin-top:0">SELECT DEPARTMENT</div>
+        <div class="dept-pick" id="deptPicker"></div>
+        <input type="hidden" id="selectedDept" value="">
+
+        <!-- DEPT INFO (shown after selection) -->
+        <div id="deptInfo" style="display:none">
+          <div class="note note-b mb8" id="deptInfoText" style="font-size:12px"></div>
+
+          <div class="sec">YOUR INFORMATION</div>
+          <div class="fr">
+            <label>Discord Username</label>
+            <input class="fi" id="f_discord" type="text" readonly style="background:var(--inset);color:var(--dim)">
+          </div>
+          <div class="fr">
+            <label>Roblox Username *</label>
+            <input class="fi" id="f_roblox" type="text" placeholder="YourRobloxName" required maxlength="20">
+          </div>
+
+          <div class="sec">DEPARTMENT QUESTIONS</div>
+          <div class="fr">
+            <label>Why do you want to join this department? *<small>Minimum 20 words — in English</small></label>
+            <textarea class="fi" id="f_why" required rows="4"
+              placeholder="Be specific about why this department interests you and what you can contribute."></textarea>
+          </div>
+          <div id="wordCount" style="font-size:10px;color:var(--dim);text-align:right;margin-top:-4px;margin-bottom:8px">0 words</div>
+
+          <div class="fr">
+            <label>Relevant experience?<small>Previous roles, skills, etc.</small></label>
+            <textarea class="fi" id="f_exp" rows="3"
+              placeholder="Any relevant experience for this department (optional)"></textarea>
+          </div>
+          <div class="fr">
+            <label>Availability<small>When are you usually active?</small></label>
+            <select class="fi" id="f_avail">
+              <option value="">-- Select --</option>
+              <option>Weekdays — morning</option>
+              <option>Weekdays — afternoon</option>
+              <option>Weekdays — evening</option>
+              <option>Weekends only</option>
+              <option>Flexible / varies</option>
+            </select>
+          </div>
+
+          <hr class="rt" style="margin-top:12px">
+          <div style="text-align:center">
+            <button type="button" class="btn btn-b" id="submitBtn" onclick="submitApp()"
+              style="padding:8px 32px;font-size:13px">
+              SUBMIT APPLICATION
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="successMsg" class="win r" style="display:none">
+    <div class="win-bar"><span>APPLICATION SUBMITTED</span></div>
+    <div class="win-body" style="text-align:center;padding:24px">
+      <div style="font-size:40px;margin-bottom:8px;color:var(--G)">&#10003;</div>
+      <div style="font-family:'VT323',monospace;font-size:22px;color:#1c2340;margin-bottom:6px">APPLICATION RECEIVED</div>
+      <div class="note note-g" style="text-align:left;margin:12px 0">
+        <strong>Department:</strong> <span id="successDept"></span><br>
+        <strong>Reference ID:</strong> <span id="refId" style="font-family:monospace;font-size:14px"></span><br>
+        An admin will review within <strong>48 hours</strong>. Watch your <strong>Discord DMs</strong>.
+      </div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px">
+        <a href="../index.html" class="btn btn-b">HOME</a>
+        <a href="level1.html" class="btn">APPLY ANOTHER DEPT</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+</div>
+
+<script>
+var BOT_URL = 'https://scp-bot-production.up.railway.app';
+
+// Only PUBLIC departments can receive applications
+var DEPTS = [
+  {code:'DC',  name:'Scientific',    type:'CIVIL',  desc:'Research, D-Class testing, anomaly documentation.'},
+  {code:'DM',  name:'Medical',       type:'CIVIL',  desc:'Personnel treatment, biohazard response.'},
+  {code:'DP',  name:'Psychology',    type:'CIVIL',  desc:'Cognitohazard exposure, mental health.'},
+  {code:'DMF', name:'Maintenance',   type:'CIVIL',  desc:'Site infrastructure, equipment manufacturing.'},
+  {code:'DS',  name:'Security',      type:'COMBAT', desc:'Facility security, D-Class management. Recommended for combat.'},
+  {code:'DLOT',name:'Logistics',     type:'COMBAT', desc:'Supply chains and tactical logistics.'},
+  {code:'ED',  name:'Engineering',   type:'OTHER',  desc:'Experimental technology and anomalous engineering.'},
+];
+
+var typeColors = {CIVIL:'#1c6622', COMBAT:'#7a1a1a', OTHER:'#1a3a7a'};
+
+window.addEventListener('DOMContentLoaded', function() {
+  var s = getSession();
+
+  if (!s || !s.discord_user) {
+    document.getElementById('noAuth').style.display = 'block';
+    return;
+  }
+
+  // Check if Level-0 was approved (localStorage flag)
+  // In production this would check the bot DB
+  var hasLevel0 = localStorage.getItem('app_l0_submitted');
+  if (!hasLevel0) {
+    document.getElementById('noLevel0').style.display = 'block';
+    return;
+  }
+
+  document.getElementById('formWrap').style.display = 'block';
+  document.getElementById('f_discord').value = s.discord_user || '';
+  if (s.roblox_user) document.getElementById('f_roblox').value = s.roblox_user;
+
+  // Check for ?dept= param
+  var params = new URLSearchParams(window.location.search);
+  var deptParam = params.get('dept');
+
+  // Build dept picker
+  buildDeptPicker(deptParam);
+
+  // Word count
+  document.getElementById('f_why').addEventListener('input', function() {
+    var words = this.value.trim().split(/\s+/).filter(Boolean).length;
+    var el = document.getElementById('wordCount');
+    el.textContent = words + ' words' + (words < 20 ? ' (need ' + (20-words) + ' more)' : ' ✓');
+    el.style.color = words >= 20 ? 'var(--G)' : 'var(--dim)';
+  });
+});
+
+function buildDeptPicker(preselect) {
+  var picker = document.getElementById('deptPicker');
+  picker.innerHTML = DEPTS.map(function(d) {
+    var color = typeColors[d.type] || '#333';
+    return '<button class="dept-btn" onclick="selectDept(\'' + d.code + '\')" id="dpick_' + d.code + '">' +
+      '<span style="display:inline-block;background:' + color + ';color:#fff;font-size:9px;padding:1px 5px;margin-bottom:3px">' + d.type + '</span><br>' +
+      '<strong>[' + d.code + ']</strong> ' + d.name + '<br>' +
+      '<span style="font-size:10px;color:var(--dim)">' + d.desc + '</span>' +
+      '</button>';
+  }).join('');
+
+  if (preselect) selectDept(preselect);
+}
+
+function selectDept(code) {
+  var dept = DEPTS.find(function(d){ return d.code === code; });
+  if (!dept) return;
+
+  // Update selection
+  document.querySelectorAll('.dept-btn').forEach(function(b){ b.classList.remove('selected'); });
+  var btn = document.getElementById('dpick_' + code);
+  if (btn) btn.classList.add('selected');
+
+  document.getElementById('selectedDept').value = code;
+
+  // Show dept info
+  document.getElementById('deptInfoText').innerHTML =
+    'You selected <strong>[' + code + '] ' + dept.name + '</strong>. ' + dept.desc +
+    ' <a href="../departments/' + code.toLowerCase() + '/index.html" target="_blank">View full department page</a>';
+  document.getElementById('deptInfo').style.display = 'block';
+  document.getElementById('f_why').placeholder =
+    'Why do you want to join [' + code + ']? What skills do you bring? Be specific (min. 20 words).';
+}
+
+function quickAICheck(text) {
+  if (!text || text.length < 20) return 0;
+  var t = text.toLowerCase();
+  var score = 0;
+  var badPhrases = [
+    "certainly","moreover","furthermore","it's worth noting",
+    "in conclusion","great question","delve into","plays a crucial role",
+    "first and foremost","last but not least","in a nutshell",
+    "i have always been fascinated","i am passionate about",
+    "i believe i would be a great asset","i am a team player",
+    "feel free to","rest assured","as an ai",
+  ];
+  badPhrases.forEach(function(p){ if(t.includes(p)) score += 20; });
+  var words = text.trim().split(/\s+/).length;
+  var contractions = (t.match(/\b(i'm|i've|i'd|can't|won't|don't|it's)\b/g)||[]).length;
+  if (words > 40 && contractions === 0) score += 20;
+  return Math.min(score, 100);
+}
+
+async function submitApp() {
+  var s = getSession();
+  if (!s) return;
+
+  var errEl = document.getElementById('submitErr');
+  errEl.style.display = 'none';
+
+  var dept   = document.getElementById('selectedDept').value;
+  var roblox = document.getElementById('f_roblox').value.trim();
+  var why    = document.getElementById('f_why').value.trim();
+
+  if (!dept)   { showErr('Select a department first.'); return; }
+  if (!roblox) { showErr('Roblox username is required.'); return; }
+  // AI check
+  var aiScore = Math.max(quickAICheck(why), quickAICheck(document.getElementById('f_exp').value));
+  if (aiScore >= 40) {
+    showErr('Your answer appears to contain AI-generated content (' + aiScore + '% suspicious). Please rewrite in your own words.');
+    return;
+  }
+
+  if (why.split(/\s+/).filter(Boolean).length < 20) {
+    showErr('The answer needs at least 20 words. Currently: ' + why.split(/\s+/).filter(Boolean).length + ' words.');
+    return;
+  }
+
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'SENDING...'; btn.disabled = true;
+
+  var payload = {
+    type:         'level1',
+    dept:         dept,
+    discord_id:   s.discord_id   || 'manual_' + Date.now(),
+    discord_user: s.discord_user,
+    roblox_user:  roblox,
+    why_join:     why,
+    experience:   document.getElementById('f_exp').value.trim(),
+    availability: document.getElementById('f_avail').value,
+    submitted_at: new Date().toISOString(),
+  };
+
+  try {
+    var res  = await fetch(BOT_URL + '/apply', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    var data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'Submission failed');
+
+    document.getElementById('formWrap').style.display   = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('successDept').textContent  = '[' + dept + ']';
+    document.getElementById('refId').textContent        = data.ref_id || 'APP-???';
+  } catch(err) {
+    btn.textContent = 'SUBMIT APPLICATION'; btn.disabled = false;
+    showErr(err.message);
+  }
+}
+
+function showErr(msg) {
+  var el = document.getElementById('submitErr');
+  el.textContent = 'ERROR: ' + msg;
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+</script>
+
+<script>injectFooter();</script>
+</body>
+</html>

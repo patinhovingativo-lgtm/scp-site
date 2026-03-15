@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>404 — FILE NOT FOUND — Site-07</title>
+  <link rel="stylesheet" href="/assets/css/retro.css">
+  <style>
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;flex-direction:column;background:#b8b8a8;font-family:'Courier Prime',monospace}
+    .err-box{max-width:480px;width:95%}
+    .blink{animation:blink 1s step-end infinite}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:0}}
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&family=Courier+Prime&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="err-box">
+  <div class="win r">
+    <div class="win-bar">
+      <span>⚠ SYSTEM ERROR — ACCESS DENIED</span>
+      <div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div>
+    </div>
+    <div class="win-body" style="text-align:center;padding:24px 16px">
+      <div style="font-family:'VT323',monospace;font-size:80px;color:#7a1a1a;line-height:1">404</div>
+      <div style="font-family:'VT323',monospace;font-size:22px;color:#1c2340;margin:8px 0">FILE NOT FOUND</div>
+      <hr class="rt">
+      <p style="font-size:12px;margin:12px 0;color:var(--dim)">
+        The document you are attempting to access does not exist, has been reclassified,
+        or requires a higher clearance level than your current authorization allows.
+      </p>
+      <div class="note note-r" style="text-align:left;margin:12px 0">
+        <strong>ERROR CODE:</strong> SCP-07-404 — DOCUMENT UNLOCATABLE<br>
+        <strong>CLEARANCE:</strong> INSUFFICIENT OR INVALID<br>
+        <strong>ACTION:</strong> Return to portal immediately.
+      </div>
+      <p style="font-size:11px;color:var(--light);font-style:italic">
+        This incident has been logged. <span class="blink">█</span>
+      </p>
+      <div style="margin-top:16px">
+        <a href="/index.html" class="btn btn-b">◄ RETURN TO PORTAL</a>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

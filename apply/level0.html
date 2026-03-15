@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Level-0 Application — Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+  <style>
+    .app-center{max-width:640px;margin:0 auto;padding:16px}
+    .lang-notice{display:none;padding:8px 12px;font-size:12px;margin-bottom:8px;border-left:4px solid var(--B);background:var(--Bbg)}
+    @media(max-width:640px){.app-center{padding:10px 8px}}
+  </style>
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader('apply');</script>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">APPLICATIONS</div>
+    <a href="level0.html" class="sb-a on">Level-0 Entry</a>
+    <a href="level1.html" class="sb-a">Department Apply</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">LINKS</div>
+    <a href="../index.html" class="sb-a">Portal</a>
+    <a href="../verify.html" class="sb-a">Verify Identity</a>
+    <a href="../pages/ethics.html" class="sb-a">Code of Ethics</a>
+  </div>
+</aside>
+<main class="main">
+<div class="app-center">
+
+  <!-- NOT VERIFIED -->
+  <div id="noAuth" class="win r" style="display:none">
+    <div class="win-bar"><span>IDENTITY REQUIRED</span></div>
+    <div class="win-body" style="text-align:center;padding:24px">
+      <div style="font-size:36px;margin-bottom:8px">&#128274;</div>
+      <div style="font-family:'VT323',monospace;font-size:20px;color:#1c2340;margin-bottom:8px">VERIFY FIRST</div>
+      <p style="font-size:12px;color:var(--dim);margin-bottom:16px">You must verify your identity before submitting an application.</p>
+      <a href="../verify.html" class="btn btn-b">VERIFY IDENTITY</a>
+    </div>
+  </div>
+
+  <!-- ALREADY APPLIED -->
+  <div id="alreadyApplied" class="win r" style="display:none">
+    <div class="win-bar"><span>ALREADY SUBMITTED</span></div>
+    <div class="win-body" style="padding:16px">
+      <div class="note note-y">
+        <strong>You already have a Level-0 application submitted.</strong><br>
+        Check your Discord DMs for the result. If you need help, contact an admin in the Discord server.
+      </div>
+      <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+        <a href="../index.html" class="btn btn-b">HOME</a>
+        <button class="btn btn-r" onclick="resetApp()">RESET & APPLY AGAIN</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div id="formWrap">
+    <div class="win r">
+      <div class="win-bar"><span>APPLICATION — SECURITY CLASSIFICATION 0 (ENTRY LEVEL)</span>
+        <div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div>
+      </div>
+      <div class="win-body">
+
+        <div class="note note-b mb8" style="font-size:12px">
+          <strong>INSTRUCTIONS:</strong> Fill all required fields (*) truthfully.
+          An admin will review within 48h and send a Discord DM with the result.<br>
+          <strong>All answers must be in English.</strong>
+        </div>
+
+        <!-- Language notice (shown when Portuguese/Spanish selected) -->
+        <div class="lang-notice" id="langNotice"></div>
+
+        <div id="submitErr" class="note note-r mb8" style="display:none"></div>
+
+        <!-- SECTION: IDENTITY -->
+        <div class="sec" style="margin-top:0">IDENTIFICATION</div>
+
+        <div class="fr">
+          <label>Discord Username *<small>Auto-filled from your session</small></label>
+          <input class="fi" id="f_discord" type="text" readonly style="background:var(--inset);color:var(--dim)">
+        </div>
+        <div class="fr">
+          <label>Roblox Username *<small>Exact case-sensitive username</small></label>
+          <input class="fi" id="f_roblox" type="text" placeholder="YourRobloxName" required maxlength="20">
+        </div>
+        <div class="fr">
+          <label>Primary Language *</label>
+          <select class="fi" id="f_lang" required onchange="onLangChange()">
+            <option value="">-- Select --</option>
+            <option value="English">English</option>
+            <option value="Portuguese">Portuguese (Português)</option>
+            <option value="Spanish">Spanish (Español)</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="fr">
+          <label>Timezone *</label>
+          <select class="fi" id="f_tz" required>
+            <option value="">-- Select --</option>
+            <optgroup label="Americas" id="tz_americas">
+              <option value="UTC-5 (EST)">UTC-5 — EST (Eastern US)</option>
+              <option value="UTC-4 (EDT)">UTC-4 — EDT (Eastern US Summer)</option>
+              <option value="UTC-6 (CST)">UTC-6 — CST (Central US)</option>
+              <option value="UTC-7 (MST)">UTC-7 — MST (Mountain US)</option>
+              <option value="UTC-8 (PST)">UTC-8 — PST (Pacific US)</option>
+              <option value="UTC-3 (BRT)">UTC-3 — BRT (Brazil / Brasília)</option>
+              <option value="UTC-3 (ART)">UTC-3 — ART (Argentina)</option>
+              <option value="UTC-5 (COT)">UTC-5 — COT (Colombia)</option>
+            </optgroup>
+            <optgroup label="Europe / Africa">
+              <option value="UTC+0 (GMT)">UTC+0 — GMT (UK / Portugal)</option>
+              <option value="UTC+1 (CET)">UTC+1 — CET (Central Europe)</option>
+              <option value="UTC+2 (EET)">UTC+2 — EET (Eastern Europe)</option>
+            </optgroup>
+            <optgroup label="Asia / Pacific">
+              <option value="UTC+8 (CST Asia)">UTC+8 — CST (China / Singapore)</option>
+              <option value="UTC+9 (JST)">UTC+9 — JST (Japan)</option>
+              <option value="UTC+10 (AEST)">UTC+10 — AEST (Australia)</option>
+            </optgroup>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <!-- SECTION: BACKGROUND -->
+        <div class="sec">BACKGROUND</div>
+
+        <div class="fr">
+          <label>SCP Experience</label>
+          <select class="fi" id="f_exp">
+            <option value="">-- Select --</option>
+            <option>No experience — new to SCP</option>
+            <option>Familiar with SCP lore</option>
+            <option>Played other SCP Roblox games</option>
+            <option>Experienced in SCP MILSIM</option>
+          </select>
+        </div>
+        <div class="fr">
+          <label>Roblox Account Age</label>
+          <select class="fi" id="f_age">
+            <option value="">-- Select --</option>
+            <option>Less than 6 months</option>
+            <option>6 months – 1 year</option>
+            <option>1 – 3 years</option>
+            <option>3+ years</option>
+          </select>
+        </div>
+
+        <!-- SECTION: REQUIRED QUESTIONS -->
+        <div class="sec">REQUIRED QUESTIONS</div>
+
+        <div class="fr">
+          <label>Why do you want to join Site-07? *<small>Minimum 30 words — in English</small></label>
+          <textarea class="fi" id="f_why" required rows="5"
+            placeholder="Be specific. What draws you to SCP MILSIM? What role do you want at Site-07?"></textarea>
+        </div>
+        <div id="wordCount" style="font-size:10px;color:var(--dim);text-align:right;margin-top:-4px;margin-bottom:8px">0 words</div>
+
+        <div class="fr">
+          <label>Have you read the Code of Ethics? *<small><a href="../pages/ethics.html" target="_blank">Read it here</a></small></label>
+          <select class="fi" id="f_ethics" required>
+            <option value="">-- Select --</option>
+            <option value="yes">Yes — I have read and agree to follow it</option>
+            <option value="no">No — I have not read it yet</option>
+          </select>
+        </div>
+
+        <!-- SECTION: DEPARTMENT INTEREST -->
+        <div class="sec">DEPARTMENT INTEREST <span style="font-weight:normal;text-transform:none;font-size:11px">(optional — not binding)</span></div>
+        <div class="fr">
+          <label>Which departments interest you?</label>
+          <div id="deptCheckboxes" style="line-height:1.8"></div>
+        </div>
+
+        <div class="fr">
+          <label>Anything else to add?<small>Optional — previous experience, references, etc.</small></label>
+          <textarea class="fi" id="f_extra" rows="3" placeholder="Optional"></textarea>
+        </div>
+
+        <hr class="rt" style="margin-top:12px">
+        <div class="note note-y small mb8" style="font-size:11px">
+          By submitting, you confirm all information is truthful and agree to the
+          <a href="../pages/ethics.html">Code of Ethics</a>.
+          False information results in permanent blacklisting.
+        </div>
+
+        <div style="text-align:center">
+          <button type="button" class="btn btn-b" id="submitBtn" onclick="submitApp()"
+            style="padding:8px 32px;font-size:13px">
+            SUBMIT APPLICATION
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- SUCCESS -->
+  <div id="successMsg" class="win r" style="display:none">
+    <div class="win-bar"><span>APPLICATION SUBMITTED</span></div>
+    <div class="win-body" style="text-align:center;padding:24px">
+      <div style="font-size:40px;margin-bottom:8px;color:var(--G)">&#10003;</div>
+      <div style="font-family:'VT323',monospace;font-size:22px;color:#1c2340;margin-bottom:6px">APPLICATION RECEIVED</div>
+      <div class="note note-g" style="text-align:left;margin:12px 0">
+        <strong>Reference ID:</strong> <span id="refId" style="font-family:monospace;font-size:14px"></span><br>
+        An admin will review within <strong>48 hours</strong>. Watch your <strong>Discord DMs</strong> for the result.
+      </div>
+      <div id="langSuccessMsg" style="display:none;margin:10px 0"></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:12px">
+        <a href="../index.html" class="btn btn-b">HOME</a>
+        <a href="../pages/hierarchy.html" class="btn">VIEW HIERARCHY</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</main>
+</div>
+
+<script>
+var BOT_URL = 'https://scp-bot-production.up.railway.app';
+
+// Public depts (Level-0 can express interest)
+var PUBLIC_DEPTS = [
+  {code:'DC',  name:'Scientific — research and experiments'},
+  {code:'DM',  name:'Medical — treatment and biohazards'},
+  {code:'DS',  name:'Security — guards and D-Class management'},
+  {code:'DP',  name:'Psychology — cognitohazards and wellbeing'},
+  {code:'DMF', name:'Maintenance & Manufacturing'},
+  {code:'DLOT',name:'Tactical Logistics'},
+  {code:'ED',  name:'Engineering / Experimental'},
+];
+
+// Language notices and success messages
+var LANG_DATA = {
+  'Portuguese': {
+    notice: '&#127463;&#127479; <strong>Português detectado!</strong> Seus horários de Brasília (BRT / UTC-3) foram destacados na lista de fusos horários. Lembre-se: todas as respostas devem ser em inglês.',
+    success: '&#127463;&#127479; <strong>Aplicação enviada!</strong> Um administrador responderá em até 48 horas via Discord DM.',
+    highlight_tz: 'UTC-3 (BRT)',
+  },
+  'Spanish': {
+    notice: '&#127466;&#127480; <strong>¡Español detectado!</strong> Tus zonas horarias de Latinoamérica han sido destacadas. Recuerda: todas las respuestas deben estar en inglés.',
+    success: '&#127466;&#127480; <strong>¡Solicitud enviada!</strong> Un administrador responderá en 48 horas por Discord DM.',
+    highlight_tz: null,
+  },
+};
+
+window.addEventListener('DOMContentLoaded', function() {
+  // Build dept checkboxes
+  var box = document.getElementById('deptCheckboxes');
+  box.innerHTML = PUBLIC_DEPTS.map(function(d) {
+    return '<label style="display:block;font-weight:normal;font-size:12px;margin-bottom:3px">' +
+      '<input type="checkbox" name="depts" value="' + d.code + '" style="margin-right:6px">' +
+      '[' + d.code + '] ' + d.name + '</label>';
+  }).join('');
+
+  // Load session
+  var s = getSession();
+  if (!s || !s.discord_user) {
+    document.getElementById('noAuth').style.display = 'block';
+    document.getElementById('formWrap').style.display = 'none';
+    return;
+  }
+
+  // Auto-fill from session
+  document.getElementById('f_discord').value = s.discord_user || '';
+  if (s.roblox_user) document.getElementById('f_roblox').value = s.roblox_user;
+
+  // Bypass for owner/high-rank — check if already has clearance
+  var existingClearance = s.clearance || 0;
+  if (existingClearance >= 1) {
+    // Already has clearance — redirect to dept application
+    document.getElementById('formWrap').style.display = 'none';
+    document.getElementById('alreadyApplied').style.display = 'block';
+    document.getElementById('alreadyApplied').querySelector('strong').textContent =
+      'You already have SC-' + existingClearance + ' clearance.';
+    document.getElementById('alreadyApplied').innerHTML +=
+      '<br><br><a href="level1.html" class="btn btn-b">APPLY FOR A DEPARTMENT</a>';
+    return;
+  }
+
+  // Check already applied
+  if (localStorage.getItem('app_l0_submitted')) {
+    document.getElementById('alreadyApplied').style.display = 'block';
+    document.getElementById('formWrap').style.display = 'none';
+    return;
+  }
+
+  // Word count
+  document.getElementById('f_why').addEventListener('input', function() {
+    var words = this.value.trim().split(/\s+/).filter(Boolean).length;
+    var el = document.getElementById('wordCount');
+    el.textContent = words + ' words' + (words < 30 ? ' (need ' + (30-words) + ' more)' : ' ✓');
+    el.style.color = words >= 30 ? 'var(--G)' : 'var(--dim)';
+  });
+});
+
+function onLangChange() {
+  var lang = document.getElementById('f_lang').value;
+  var notice = document.getElementById('langNotice');
+  var data = LANG_DATA[lang];
+
+  if (data) {
+    notice.innerHTML = data.notice;
+    notice.style.display = 'block';
+    // Highlight matching timezone
+    if (data.highlight_tz) {
+      var opts = document.getElementById('f_tz').options;
+      for (var i = 0; i < opts.length; i++) {
+        if (opts[i].value === data.highlight_tz) {
+          document.getElementById('f_tz').value = data.highlight_tz;
+          break;
+        }
+      }
+    }
+  } else {
+    notice.style.display = 'none';
+  }
+}
+
+// ── Client-side AI detection (quick pre-check) ───────────────
+function quickAICheck(text) {
+  if (!text || text.length < 20) return 0;
+  var t = text.toLowerCase();
+  var score = 0;
+  var badPhrases = [
+    "certainly","moreover","furthermore","it's worth noting",
+    "in conclusion","in summary","to summarize","great question",
+    "delve into","plays a crucial role","plays a vital role",
+    "it goes without saying","rest assured","feel free to",
+    "first and foremost","last but not least","in a nutshell",
+    "as an ai","i am an ai","i would be happy to",
+    "i have always been fascinated by","i am passionate about",
+    "i believe i would be a great asset","i am a team player",
+  ];
+  badPhrases.forEach(function(p){ if(t.includes(p)) score += 20; });
+  var words = text.trim().split(/\s+/).length;
+  var contractions = (t.match(/\b(i'm|i've|i'd|can't|won't|don't|it's|that's)\b/g)||[]).length;
+  if (words > 40 && contractions === 0) score += 20;
+  return Math.min(score, 100);
+}
+
+async function submitApp() {
+  var s = getSession();
+  if (!s || !s.discord_user) return;
+
+  var errEl = document.getElementById('submitErr');
+  errEl.style.display = 'none';
+
+  // Validations
+  var roblox = document.getElementById('f_roblox').value.trim();
+  var lang   = document.getElementById('f_lang').value;
+  var tz     = document.getElementById('f_tz').value;
+  var why    = document.getElementById('f_why').value.trim();
+  var ethics = document.getElementById('f_ethics').value;
+
+  if (!roblox) { showErr('Roblox username is required.'); return; }
+
+  // Quick AI check client-side
+  var whyText  = document.getElementById('f_why').value.trim();
+  var expText  = document.getElementById('f_extra').value.trim();
+  var aiScore  = Math.max(quickAICheck(whyText), quickAICheck(expText));
+  if (aiScore >= 40) {
+    showErr(
+      'Your answer appears to contain AI-generated or plagiarized content (' + aiScore + '% suspicious). ' +
+      'Please rewrite in your own words. Write naturally — include your real reasons, personal details, and genuine motivation.'
+    );
+    return;
+  }
+  if (!lang)   { showErr('Select your primary language.'); return; }
+  if (!tz)     { showErr('Select your timezone.'); return; }
+  if (why.split(/\s+/).filter(Boolean).length < 30) {
+    showErr('The "Why join?" answer needs at least 30 words. Currently: ' +
+      why.split(/\s+/).filter(Boolean).length + ' words.');
+    return;
+  }
+  if (ethics !== 'yes') { showErr('You must read and agree to the Code of Ethics before applying.'); return; }
+
+  var btn = document.getElementById('submitBtn');
+  btn.textContent = 'SENDING...'; btn.disabled = true;
+
+  var depts = Array.from(document.querySelectorAll('[name=depts]:checked')).map(function(x){ return x.value; });
+
+  var payload = {
+    type:         'level0',
+    discord_id:   s.discord_id   || 'manual_' + Date.now(),
+    discord_user: s.discord_user,
+    roblox_user:  roblox,
+    language:     lang,
+    timezone:     tz,
+    experience:   document.getElementById('f_exp').value,
+    roblox_age:   document.getElementById('f_age').value,
+    why_join:     why,
+    ethics_agreed:'yes',
+    dept_interest: depts,
+    extra:        document.getElementById('f_extra').value.trim(),
+    submitted_at: new Date().toISOString(),
+  };
+
+  try {
+    var res  = await fetch(BOT_URL + '/apply', {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    var data = await res.json();
+    if (!data.ok) {
+      if (data.error === 'AI_DETECTED') {
+        throw new Error(
+          'Your application was rejected: AI-generated content detected (' + data.score + '% suspicious). ' +
+          'Please rewrite in your own words and reapply in 24 hours.'
+        );
+      }
+      throw new Error(data.error || 'Submission failed');
+    }
+
+    localStorage.setItem('app_l0_submitted', '1');
+    document.getElementById('formWrap').style.display   = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+    document.getElementById('refId').textContent        = data.ref_id || 'APP-???';
+
+    // Show language-specific success message
+    var langData = LANG_DATA[lang];
+    if (langData) {
+      var lsm = document.getElementById('langSuccessMsg');
+      lsm.innerHTML = '<div class="note note-b" style="font-size:12px">' + langData.success + '</div>';
+      lsm.style.display = 'block';
+    }
+  } catch(err) {
+    btn.textContent = 'SUBMIT APPLICATION'; btn.disabled = false;
+    showErr(err.message);
+  }
+}
+
+function showErr(msg) {
+  var el = document.getElementById('submitErr');
+  el.textContent = 'ERROR: ' + msg;
+  el.style.display = 'block';
+  el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function resetApp() {
+  localStorage.removeItem('app_l0_submitted');
+  location.reload();
+}
+</script>
+
+<script>injectFooter();</script>
+</body>
+</html>

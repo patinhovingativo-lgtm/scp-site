@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Code of Ethics — [SCP] Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+  <style>
+    .sec-tabs{display:flex;flex-wrap:wrap;gap:3px;margin-bottom:12px;border-bottom:2px solid #888878;padding-bottom:8px}
+    .stab{padding:4px 12px;font-family:var(--font);font-size:11px;cursor:pointer;background:var(--panel);color:var(--dim);border-top:2px solid #e8e8dc;border-left:2px solid #e8e8dc;border-right:2px solid #888878;border-bottom:2px solid #888878}
+    .stab:hover{background:var(--inset)}
+    .stab.on{background:var(--hdr);color:#c8d4ff;border-color:#888878 #e8e8dc #e8e8dc #888878}
+    .esec{display:none}.esec.on{display:block}
+    .sec-hdr{background:var(--hdr);color:#c8d4ff;padding:6px 10px;font-family:'VT323',monospace;font-size:18px;display:flex;align-items:center;gap:10px;margin-bottom:8px}
+    .sec-num{opacity:.4;font-size:28px;line-height:1}
+    .art{background:var(--panel);border-top:2px solid #e8e8dc;border-left:2px solid #e8e8dc;border-right:2px solid #888878;border-bottom:2px solid #888878;margin-bottom:6px;overflow:hidden}
+    .art-hdr{display:flex;align-items:center;gap:8px;padding:6px 10px;cursor:pointer;user-select:none}
+    .art-num{font-family:'VT323',monospace;font-size:16px;color:var(--hdr);min-width:56px;font-weight:bold}
+    .art-title{font-size:12px;font-weight:bold;flex:1}
+    .art-arr{font-size:11px;color:var(--light);transition:transform .2s}
+    .art.open .art-arr{transform:rotate(90deg)}
+    .art-body{max-height:0;overflow:hidden;transition:max-height .3s}
+    .art.open .art-body{max-height:400px}
+    .art-body p{padding:0 10px 10px;font-size:12px;color:var(--dim);line-height:1.8;border-top:1px solid #c0c0b0;padding-top:8px}
+    .art-body strong{color:var(--text)}
+  </style>
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader('ethics');</script>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">CODE OF ETHICS</div>
+    <a href="#" class="sb-a" onclick="showSec('s1');return false">§I Conduct</a>
+    <a href="#" class="sb-a" onclick="showSec('s2');return false">§II Authority</a>
+    <a href="#" class="sb-a" onclick="showSec('s3');return false">§III Operations</a>
+    <a href="#" class="sb-a" onclick="showSec('s4');return false">§IV Information</a>
+    <a href="#" class="sb-a" onclick="showSec('s5');return false">§V Enforcement</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">RELATED</div>
+    <a href="rules.html"    class="sb-a">Server Rules</a>
+    <a href="../index.html" class="sb-a">◄ Portal</a>
+  </div>
+</aside>
+<main class="main">
+
+  <div class="ph">
+    <div class="ptag">// COE-07-ALPHA — MANDATORY READING — ALL PERSONNEL</div>
+    <h1>CODE OF ETHICS</h1>
+    <p>5 sections · 50 articles · Binding upon all personnel. Click an article to expand.</p>
+  </div>
+
+  <div class="note note-r mt8"><strong>BINDING DOCUMENT:</strong> All personnel are bound by this Code from the moment they join [SCP] Site-07. Ignorance is not an excuse.</div>
+
+  <div class="win r mt8">
+    <div class="win-bar"><span>COE-07-ALPHA — [SCP] SITE-07 CODE OF ETHICS</span></div>
+    <div class="win-body">
+
+      <!-- TABS -->
+      <div class="sec-tabs">
+        <div class="stab on" onclick="showSec('s1')">§ I — CONDUCT</div>
+        <div class="stab"    onclick="showSec('s2')">§ II — AUTHORITY</div>
+        <div class="stab"    onclick="showSec('s3')">§ III — OPERATIONS</div>
+        <div class="stab"    onclick="showSec('s4')">§ IV — INFORMATION</div>
+        <div class="stab"    onclick="showSec('s5')">§ V — ENFORCEMENT</div>
+      </div>
+
+      <!-- SECTION I -->
+      <div id="s1" class="esec on">
+        <div class="sec-hdr"><span class="sec-num">I</span><span>CONDUCT &amp; BEHAVIOR — Articles 1.1 – 1.10</span></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.1</span><span class="art-title">Respect for All Personnel</span><span class="art-arr">▶</span></div><div class="art-body"><p>All members — regardless of rank, clearance, division, or background — must be treated with basic professional respect. Personal attacks, degrading language, or targeted humiliation are prohibited in all Foundation spaces.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.2</span><span class="art-title">Anti-Harassment Policy</span><span class="art-arr">▶</span></div><div class="art-body"><p>Harassment — any repeated, unwanted behavior designed to intimidate or demean — is strictly prohibited. This includes targeted messaging, threats, public humiliation, and coordinated efforts to make any member feel unwelcome.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.3</span><span class="art-title">Non-Discrimination</span><span class="art-arr">▶</span></div><div class="art-body"><p>Discrimination based on nationality, ethnicity, gender, religion, or language is absolutely prohibited. The Foundation operates globally. Derogatory remarks — even as jokes — are violations.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.4</span><span class="art-title">Language Standards</span><span class="art-arr">▶</span></div><div class="art-body"><p>Slurs and hate speech are prohibited. Main channels operate in <strong>English</strong> for moderation purposes. General profanity in appropriate contexts is tolerated; language used as a weapon is not.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.5</span><span class="art-title">Conflict Resolution</span><span class="art-arr">▶</span></div><div class="art-body"><p>Disputes must be handled privately or through official support tickets — not in public channels. Airing grievances publicly to disrupt the server is itself a violation.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.6</span><span class="art-title">External Conduct</span><span class="art-arr">▶</span></div><div class="art-body"><p>Members who identify as Site-07 members in external spaces represent the Foundation's reputation. Raiding other servers, brigading, or public defamation of the Foundation may result in disciplinary action.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.7</span><span class="art-title">Constructive Feedback</span><span class="art-arr">▶</span></div><div class="art-body"><p>Criticism of Foundation policies is welcome through appropriate channels. Criticism that degrades into personal attacks against staff will be treated as a conduct violation.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.8</span><span class="art-title">No NSFW or Graphic Content</span><span class="art-arr">▶</span></div><div class="art-body"><p>Sexual content, graphic violence, gore, and NSFW material are strictly prohibited in all Foundation channels. Violation results in immediate action without warning. There are no exceptions.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.9</span><span class="art-title">No Spam or Flooding</span><span class="art-arr">▶</span></div><div class="art-body"><p>Repeatedly sending the same message, flooding channels with emojis, or degrading the signal-to-noise ratio of any channel is prohibited. Use designated channels for their intended purpose.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 1.10</span><span class="art-title">No Unauthorized Advertising</span><span class="art-arr">▶</span></div><div class="art-body"><p>Advertising other Discord servers, Roblox groups, or services without explicit written approval from Administration is prohibited, including DM advertising directed at Foundation members.</p></div></div>
+      </div>
+
+      <!-- SECTION II -->
+      <div id="s2" class="esec">
+        <div class="sec-hdr"><span class="sec-num">II</span><span>AUTHORITY &amp; CHAIN OF COMMAND — Articles 2.1 – 2.10</span></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.1</span><span class="art-title">The Chain of Command</span><span class="art-arr">▶</span></div><div class="art-body"><p>Orders flow from The Administrator and O5 Council downward through Site Director, Department Managers, Division Leaders, and to all personnel. Every member has a superior and is accountable to them. This structure is non-negotiable.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.2</span><span class="art-title">Compliance with Lawful Orders</span><span class="art-arr">▶</span></div><div class="art-body"><p>Personnel must comply with direct orders from superior-ranked members when those orders do not violate this Code. Hesitation or debate during an active operation is insubordination. If you believe an order is unethical, comply first and report afterward through official channels.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.3</span><span class="art-title">Insubordination</span><span class="art-arr">▶</span></div><div class="art-body"><p>Deliberate and willful refusal to comply with a legitimate order from a superior officer is a serious violation. Insubordination during a containment breach or active operation carries elevated penalties due to the risk it creates for all personnel.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.4</span><span class="art-title">Abuse of Authority</span><span class="art-arr">▶</span></div><div class="art-body"><p>Rank is a responsibility, not a license to abuse. Personnel in authority may not use their rank to demean, exploit, or unfairly punish subordinates. Staff members who misuse moderation tools will face disciplinary action from Administration.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.5</span><span class="art-title">O5 Council Authority</span><span class="art-arr">▶</span></div><div class="art-body"><p>The O5 Council holds near-absolute authority over all Foundation operations. Their decisions are final and not subject to public debate. Publicly undermining O5 decisions is a serious violation. O5 identities are classified above SC-4.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.6</span><span class="art-title">The Administrator's Supremacy</span><span class="art-arr">▶</span></div><div class="art-body"><p>The Administrator holds supreme authority over [SCP] Site-07. No decision by any other body supersedes a directive from The Administrator. Attempts to undermine or impersonate The Administrator result in permanent, unappealable removal.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.7</span><span class="art-title">Rank Integrity</span><span class="art-arr">▶</span></div><div class="art-body"><p>Personnel may not falsely claim a rank, clearance level, or position they do not hold. Rank fraud is treated with the same severity as impersonation.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.8</span><span class="art-title">Promotions and Demotions</span><span class="art-arr">▶</span></div><div class="art-body"><p>Rank changes are the exclusive authority of designated command personnel and Administration. Personnel may not self-promote or negotiate rank changes outside the official process.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.9</span><span class="art-title">Legitimate Dissent</span><span class="art-arr">▶</span></div><div class="art-body"><p>Disagreement with a command or policy is permitted when expressed through proper channels — support ticket or designated feedback areas. Public campaigning against administrative decisions is prohibited.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 2.10</span><span class="art-title">Inter-Departmental Jurisdiction</span><span class="art-arr">▶</span></div><div class="art-body"><p>Personnel may not give orders to members of a different department unless they hold a cross-departmental authority designation. A Security officer does not command Research personnel; Research does not direct MTF units during operations.</p></div></div>
+      </div>
+
+      <!-- SECTION III -->
+      <div id="s3" class="esec">
+        <div class="sec-hdr"><span class="sec-num">III</span><span>OPERATIONAL CONDUCT — Articles 3.1 – 3.10</span></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.1</span><span class="art-title">Containment Procedure Adherence</span><span class="art-arr">▶</span></div><div class="art-body"><p>All personnel must follow established Special Containment Procedures for each active anomaly at all times. Procedures are not suggestions. Deviating without prior authorization from the Research Department is a violation.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.2</span><span class="art-title">Unauthorized Breach of Containment</span><span class="art-arr">▶</span></div><div class="art-body"><p>Willfully breaching containment of any SCP — for amusement, experimentation, or any unauthorized reason — is one of the most serious violations possible. Any unauthorized breach will be treated with maximum disciplinary severity.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.3</span><span class="art-title">Emergency Protocol Compliance</span><span class="art-arr">▶</span></div><div class="art-body"><p>When a breach, lockdown, or site emergency is declared, all non-essential personnel must immediately follow Emergency Protocol: evacuate designated sectors, cease non-critical activities, and follow MTF and Site Director instructions.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.4</span><span class="art-title">Rules of Engagement</span><span class="art-arr">▶</span></div><div class="art-body"><p>All armed personnel must operate within their designated Rules of Engagement at all times. Lethal force is authorized only under conditions specified in each division's ROE. Personnel may not expand their own ROE without authorization.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.5</span><span class="art-title">No Random Deathmatch (RDM)</span><span class="art-arr">▶</span></div><div class="art-body"><p>Killing any player without proper cause, authorization, or under Rules of Engagement is Random Deathmatch. RDM is prohibited in all forms against Foundation personnel, D-Class, allies, or hostile factions outside designated combat zones.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.6</span><span class="art-title">D-Class Personnel Treatment</span><span class="art-arr">▶</span></div><div class="art-body"><p>D-Class personnel are Foundation assets. While expendable under authorized protocols, they may not be terminated outside those protocols without cause. Unauthorized D-Class killing is a violation.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.7</span><span class="art-title">Division Jurisdiction</span><span class="art-arr">▶</span></div><div class="art-body"><p>Personnel must operate within the jurisdiction of their assigned division. Security guards do not conduct anomaly research. Researchers do not storm containment areas without authorization. MTF does not interfere with Research protocols during non-breach periods.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.8</span><span class="art-title">Zero Tolerance for Exploiting</span><span class="art-arr">▶</span></div><div class="art-body"><p>Using exploits, scripts, glitches, or unauthorized third-party tools is an <strong>immediate permanent ban</strong> from Site-07 and all affiliated platforms. No warning. No appeal.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.9</span><span class="art-title">Operation Attendance</span><span class="art-arr">▶</span></div><div class="art-body"><p>Personnel who formally sign up for scheduled operations are expected to attend. Repeated no-shows without notification will be treated as dereliction and may result in division demotion. LOA requests must be submitted via ticket before the absence.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 3.10</span><span class="art-title">Inactivity Policy</span><span class="art-arr">▶</span></div><div class="art-body"><p>Personnel inactive for <strong>14 or more consecutive days</strong> without an approved Leave of Absence will be demoted or removed from their division. Returning from an unauthorized absence does not automatically restore previous rank.</p></div></div>
+      </div>
+
+      <!-- SECTION IV -->
+      <div id="s4" class="esec">
+        <div class="sec-hdr"><span class="sec-num">IV</span><span>INFORMATION &amp; CONFIDENTIALITY — Articles 4.1 – 4.10</span></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.1</span><span class="art-title">Clearance-Gated Information</span><span class="art-arr">▶</span></div><div class="art-body"><p>Foundation information is classified by clearance level. Personnel may only access, discuss, or distribute information at or below their own clearance level. When in doubt, assume information is above your clearance until confirmed otherwise.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.2</span><span class="art-title">Prohibition on Leaking</span><span class="art-arr">▶</span></div><div class="art-body"><p>Leaking internal Foundation information to external parties or unauthorized individuals constitutes treason. Treason results in <strong>immediate permanent blacklisting</strong> with no appeal process.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.3</span><span class="art-title">O5 Identity Confidentiality</span><span class="art-arr">▶</span></div><div class="art-body"><p>The identities of individual O5 Council members are classified above SC-4. No personnel below SC-4 may attempt to investigate, disclose, or confirm O5 identities. Unauthorized disclosure is a Level-5 infraction.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.4</span><span class="art-title">Content Ownership</span><span class="art-arr">▶</span></div><div class="art-body"><p>All creative content, lore documents, and official announcements produced within Foundation channels are the intellectual property of [SCP] Site-07. Distribution or reproduction requires written approval from Administration.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.5</span><span class="art-title">No Impersonation</span><span class="art-arr">▶</span></div><div class="art-body"><p>Impersonating any Foundation personnel — including staff, O5 Council members, or The Administrator — is grounds for immediate permanent removal. This applies to username mimicry, copying profile images, or falsely claiming to speak on behalf of others.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.6</span><span class="art-title">Lore Canonization Authority</span><span class="art-arr">▶</span></div><div class="art-body"><p>Only the <strong>Creator of Lore &amp; Documents</strong> — in coordination with the Lore Department — holds authority to declare content canonical. Personnel may not present unofficial content as canonical Foundation lore.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.7</span><span class="art-title">Document Integrity</span><span class="art-arr">▶</span></div><div class="art-body"><p>Official Foundation documents may not be altered or forged by unauthorized personnel. Falsifying records, submitting false reports, or fabricating evidence in a disciplinary proceeding is a severe violation.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.8</span><span class="art-title">Hostile Faction Intelligence</span><span class="art-arr">▶</span></div><div class="art-body"><p>Sharing any Foundation operational intelligence with hostile factions is considered an act of war against the Foundation. This carries the maximum penalty regardless of context or claimed justification.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.9</span><span class="art-title">Recording Policy</span><span class="art-arr">▶</span></div><div class="art-body"><p>Recording or screenshotting Foundation internal communications and distributing them externally is prohibited. Evidence of violations may be submitted to staff via ticket, but public posting of internal communications is itself a violation.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 4.10</span><span class="art-title">Data Retention on Departure</span><span class="art-arr">▶</span></div><div class="art-body"><p>Personnel who leave the Foundation retain no right to Foundation content or materials accessed during their tenure. Continued distribution of Foundation intellectual property after departure is a violation of this Code.</p></div></div>
+      </div>
+
+      <!-- SECTION V -->
+      <div id="s5" class="esec">
+        <div class="sec-hdr"><span class="sec-num">V</span><span>ENFORCEMENT &amp; DISCIPLINARY ACTION — Articles 5.1 – 5.10</span></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.1</span><span class="art-title">Disciplinary Authority</span><span class="art-arr">▶</span></div><div class="art-body"><p>Disciplinary actions may only be issued by personnel with Staff designation or higher. All actions must be logged. The issuing staff member may not serve as the sole reviewer of an appeal. The Administrator and O5 Council hold final disciplinary authority.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.2</span><span class="art-title">Verbal Warning</span><span class="art-arr">▶</span></div><div class="art-body"><p>A Verbal Warning is the first-tier response to minor infractions. It is logged in the personnel file. Three verbal warnings for similar infractions automatically escalate to a Formal Warning.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.3</span><span class="art-title">Formal Warning</span><span class="art-arr">▶</span></div><div class="art-body"><p>A Formal Warning is an official documented violation recorded in the personnel file. Formal warnings are reviewed during rank evaluations and can affect promotions. Two formal warnings trigger mandatory review by Department Management.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.4</span><span class="art-title">Timeout</span><span class="art-arr">▶</span></div><div class="art-body"><p>A Timeout is a temporary removal from server communications. Duration ranges from 10 minutes to 7 days depending on severity. Attempting to circumvent a timeout using alternate accounts results in automatic escalation to a ban.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.5</span><span class="art-title">Demotion</span><span class="art-arr">▶</span></div><div class="art-body"><p>Demotion is the reduction of rank or clearance level as a disciplinary measure. It may be issued standalone or combined with other actions. Demotions require approval from the relevant Department Manager or Site Director.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.6</span><span class="art-title">Suspended / Blacklist Status</span><span class="art-arr">▶</span></div><div class="art-body"><p>Suspended status is a temporary revocation of operational privileges. Blacklist status is a <strong>permanent</strong> revocation. Members on the Blacklist lose all roles and are barred from participating in operations. Blacklist status is visible in the public hierarchy.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.7</span><span class="art-title">Kick from Server</span><span class="art-arr">▶</span></div><div class="art-body"><p>A Kick is the forced removal of a member from the Discord server. Kicked members may rejoin unless a ban is subsequently issued. A kick serves as a final warning before a ban. The reason for every kick is logged.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.8</span><span class="art-title">Permanent Ban</span><span class="art-arr">▶</span></div><div class="art-body"><p>A Permanent Ban is the most severe standard disciplinary action. Banned members are removed and blocked from rejoining. Bans are issued for critical violations including NSFW content, impersonation, exploiting, and treason.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.9</span><span class="art-title">The Appeals Process</span><span class="art-arr">▶</span></div><div class="art-body"><p>Any member who believes a disciplinary action was issued in error may submit an appeal via support ticket within <strong>72 hours</strong> of the action. Appeals are reviewed by a senior staff member not involved in the original action. Bans from exploiting and treason carry no right of appeal.</p></div></div>
+        <div class="art"><div class="art-hdr"><span class="art-num">ART. 5.10</span><span class="art-title">Amendments to This Code</span><span class="art-arr">▶</span></div><div class="art-body"><p>This Code of Ethics may be amended by the O5 Council or The Administrator at any time. All amendments take effect immediately upon announcement. Personnel are responsible for staying current with this Code.</p></div></div>
+      </div>
+
+      <!-- Signature -->
+      <hr class="rt" style="margin-top:16px">
+      <table width="100%" cellpadding="8"><tr>
+        <td width="50%">
+          <div style="border-bottom:1px solid #888878;padding-bottom:4px;margin-bottom:4px">&nbsp;</div>
+          <div style="font-size:10px;color:var(--dim);letter-spacing:1px">THE ADMINISTRATOR</div>
+          <div style="font-size:11px;color:var(--light)">Mr. Matrix — Supreme Authority, Site-07</div>
+        </td>
+        <td width="50%">
+          <div style="border-bottom:1px solid #888878;padding-bottom:4px;margin-bottom:4px">&nbsp;</div>
+          <div style="font-size:10px;color:var(--dim);letter-spacing:1px">CHAIRMAN OF COUNCIL O5</div>
+          <div style="font-size:11px;color:var(--light)">O5-1 — Chairman, O5 Council</div>
+        </td>
+      </tr></table>
+
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+function showSec(id){
+  document.querySelectorAll('.esec').forEach(s=>s.classList.remove('on'));
+  document.querySelectorAll('.stab').forEach(t=>t.classList.remove('on'));
+  document.getElementById(id).classList.add('on');
+  const idx={'s1':0,'s2':1,'s3':2,'s4':3,'s5':4}[id];
+  document.querySelectorAll('.stab')[idx].classList.add('on');
+  window.scrollTo({top:document.querySelector('.win').offsetTop-80,behavior:'smooth'});
+}
+document.querySelectorAll('.art-hdr').forEach(h=>{
+  h.addEventListener('click',()=>{
+    const a=h.parentElement;
+    const wasOpen=a.classList.contains('open');
+    h.closest('.esec').querySelectorAll('.art').forEach(x=>x.classList.remove('open'));
+    if(!wasOpen)a.classList.add('open');
+  });
+});
+</script>
+
+<script>injectFooter();</script>
+</body>
+</html>

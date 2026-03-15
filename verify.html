@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Verify — Site-07</title>
+  <link rel="stylesheet" href="assets/css/retro.css">
+  <style>
+    .v-wrap{display:flex;align-items:flex-start;justify-content:center;padding:24px 12px}
+    .v-box{max-width:420px;width:100%}
+    .spin{display:inline-block;animation:spin 1s linear infinite}
+    @keyframes spin{from{transform:rotate(0)}to{transform:rotate(360deg)}}
+    .prog{background:var(--inset);height:16px;border-top:2px solid #888878;border-left:2px solid #888878;border-right:2px solid #e8e8dc;border-bottom:2px solid #e8e8dc;margin-top:10px}
+    .prog-bar{background:var(--nav);height:100%;width:0%;transition:width .5s;display:flex;align-items:center;justify-content:center;color:#c8d4ff;font-size:10px}
+    @media(max-width:480px){.v-wrap{padding:12px 8px}}
+  </style>
+</head>
+<body>
+<script src="assets/js/layout.js"></script>
+<script>injectHeader('verify');</script>
+<div class="layout">
+<main class="main">
+<div class="v-wrap">
+<div class="v-box">
+
+  <!-- LOGGED IN -->
+  <div id="boxIn" class="win r" style="display:none">
+    <div class="win-bar"><span>VERIFIED</span><div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div></div>
+    <div class="win-body" style="text-align:center;padding:20px 16px">
+      <div style="font-size:48px;margin-bottom:8px;color:var(--G)">&#10003;</div>
+      <div style="font-family:'VT323',monospace;font-size:20px;color:#1c2340">IDENTITY VERIFIED</div>
+      <div style="font-size:16px;font-weight:bold;margin:8px 0" id="loggedName">—</div>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:16px">Roblox: <strong id="loggedRoblox">—</strong></div>
+      <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+        <a href="apply/level0.html" class="btn btn-g">APPLY NOW</a>
+        <button class="btn btn-r" onclick="doLogout()">LOGOUT</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- LOGIN FORM -->
+  <div id="boxLogin" class="win r">
+    <div class="win-bar"><span>IDENTITY VERIFICATION</span><div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div></div>
+    <div class="win-body" style="padding:16px">
+      <div style="text-align:center;margin-bottom:14px">
+        <div style="font-family:'VT323',monospace;font-size:48px;color:#1c2340;line-height:1">&#11041;</div>
+        <div style="font-family:'VT323',monospace;font-size:18px;color:#1c2340;margin:4px 0">SCP FOUNDATION — SITE-07</div>
+        <div style="font-size:10px;color:var(--dim);letter-spacing:2px">ENTER YOUR IDENTITY</div>
+      </div>
+      <hr class="rt">
+      <div class="note note-b mt8 mb8" style="font-size:11px;line-height:1.5">
+        Enter your Discord and Roblox usernames to register.
+      </div>
+      <div class="note note-r mb8" id="loginErr" style="display:none;font-size:11px"></div>
+      <div style="margin-top:10px">
+        <label style="font-size:12px;font-weight:bold;color:var(--dim);margin-bottom:4px;display:block">
+          Discord Username
+          <small style="font-weight:normal;font-size:10px;color:var(--light);display:block">Your exact Discord username</small>
+        </label>
+        <input class="fi" id="discordInput" type="text" placeholder="username" maxlength="32"
+          style="width:100%;margin-bottom:10px"
+          onkeydown="if(event.key==='Enter')document.getElementById('robloxInput').focus()">
+        <label style="font-size:12px;font-weight:bold;color:var(--dim);margin-bottom:4px;display:block">
+          Roblox Username
+          <small style="font-weight:normal;font-size:10px;color:var(--light);display:block">Your Roblox username</small>
+        </label>
+        <input class="fi" id="robloxInput" type="text" placeholder="YourRobloxName" maxlength="20"
+          style="width:100%;margin-bottom:14px"
+          onkeydown="if(event.key==='Enter')doVerify()">
+        <button class="btn btn-b" onclick="doVerify()" style="width:100%;padding:8px;font-size:13px">
+          REGISTER IDENTITY
+        </button>
+      </div>
+      <p style="font-size:10px;color:var(--light);text-align:center;margin-top:8px">
+        After registering, proceed to the Level-0 Application.
+      </p>
+    </div>
+  </div>
+
+  <!-- PROCESSING -->
+  <div id="boxProc" class="win r" style="display:none">
+    <div class="win-bar"><span>REGISTERING...</span></div>
+    <div class="win-body" style="text-align:center;padding:20px 16px">
+      <span class="spin" style="font-size:36px;color:#1c2340">&#11041;</span>
+      <div style="font-family:'VT323',monospace;font-size:15px;color:#1c2340;margin-top:8px" id="procMsg">Registering identity...</div>
+      <div class="prog"><div class="prog-bar" id="progBar">0%</div></div>
+    </div>
+  </div>
+
+  <!-- WAITING DM -->
+  <div id="boxWait" class="win r" style="display:none">
+    <div class="win-bar"><span>CHECK YOUR DISCORD DMs</span></div>
+    <div class="win-body" style="text-align:center;padding:20px 16px">
+      <div style="font-size:36px;margin-bottom:8px">&#128226;</div>
+      <div style="font-family:'VT323',monospace;font-size:18px;color:#1c2340;margin-bottom:8px">CHECK YOUR DISCORD DMs</div>
+      <div class="note note-y mb8" style="text-align:left;font-size:12px">
+        The bot sent you a DM.<br>
+        Click <strong>"YES, THIS IS ME"</strong> to confirm.
+      </div>
+      <div style="font-size:11px;color:var(--dim);margin-bottom:14px">Page updates automatically.</div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button class="btn btn-b" onclick="pollNow()">CHECK STATUS</button>
+        <button class="btn" onclick="show('boxLogin')">START OVER</button>
+      </div>
+      <div id="pollStatus" style="font-size:11px;color:var(--dim);margin-top:8px"></div>
+    </div>
+  </div>
+
+  <!-- ERROR -->
+  <div id="boxErr" class="win r" style="display:none">
+    <div class="win-bar"><span>ERROR</span></div>
+    <div class="win-body" style="text-align:center;padding:20px 16px">
+      <div style="font-size:36px;margin-bottom:8px;color:var(--R)">&#10005;</div>
+      <div class="note note-r" id="errMsg" style="text-align:left;margin-bottom:14px;font-size:12px"></div>
+      <div style="display:flex;gap:8px;justify-content:center">
+        <button class="btn btn-b" onclick="show('boxLogin')">TRY AGAIN</button>
+        <a href="index.html" class="btn">HOME</a>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+</main>
+</div>
+
+<script>
+var BOT_URL    = 'https://scp-bot-production.up.railway.app';
+var pollTimer  = null;
+var pollCount  = 0;
+var verifyToken = null;
+
+function show(id) {
+  ['boxIn','boxLogin','boxProc','boxWait','boxErr'].forEach(function(x){
+    document.getElementById(x).style.display = x===id?'block':'none';
+  });
+}
+
+function setProgress(pct, msg) {
+  var b = document.getElementById('progBar');
+  b.style.width = pct+'%'; b.textContent = pct+'%';
+  if (msg) document.getElementById('procMsg').textContent = msg;
+}
+
+function showError(msg) {
+  document.getElementById('errMsg').innerHTML = msg;
+  show('boxErr');
+}
+
+function doLogout() {
+  localStorage.removeItem('scp_session');
+  localStorage.removeItem('verify_token');
+  location.reload();
+}
+
+async function doVerify() {
+  var discord = document.getElementById('discordInput').value.trim();
+  var roblox  = document.getElementById('robloxInput').value.trim();
+  var errEl   = document.getElementById('loginErr');
+  errEl.style.display = 'none';
+
+  if (!discord) { errEl.textContent='Enter your Discord username.'; errEl.style.display='block'; return; }
+  if (!roblox)  { errEl.textContent='Enter your Roblox username.';  errEl.style.display='block'; return; }
+
+  show('boxProc');
+  setProgress(20, 'Sending to Foundation server...');
+
+  try {
+    setProgress(50, 'Registering identity...');
+
+    var res = await fetch(BOT_URL + '/auth/verify', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ discord_user: discord, roblox_user: roblox })
+    });
+
+    if (!res.ok) throw new Error('Server error ' + res.status);
+
+    var data = await res.json();
+
+    if (!data.ok) {
+      if (data.error === 'NOT_IN_SERVER') {
+        showError(
+          'Discord user <strong>' + discord + '</strong> is not in the Site-07 server.<br><br>' +
+          '<a href="https://discord.gg/pNzRGbmZ" target="_blank" class="btn btn-b" style="display:inline-block;margin-top:8px">JOIN DISCORD SERVER</a>'
+        );
+        return;
+      }
+      if (data.error === 'DISCORD_NOT_FOUND') {
+        showError('Discord user <strong>' + discord + '</strong> not found in the server. Check your username and make sure you joined the server.');
+        return;
+      }
+      showError(data.error || 'Registration failed. Try again.');
+      return;
+    }
+
+    setProgress(90, 'Sending confirmation DM...');
+
+    // Save session
+    var session = {
+      discord_user: discord,
+      discord_id:   data.discord_id || '',
+      roblox_user:  roblox,
+      clearance:    0,
+      confirmed:    false,
+    };
+    localStorage.setItem('scp_session', JSON.stringify(session));
+
+    if (data.token) {
+      verifyToken = data.token;
+      localStorage.setItem('verify_token', data.token);
+      setProgress(100, 'Check your Discord DMs!');
+      setTimeout(function(){ show('boxWait'); }, 600);
+      startPolling();
+    } else {
+      // Auto confirmed (DMs closed)
+      session.confirmed = true;
+      localStorage.setItem('scp_session', JSON.stringify(session));
+      setProgress(100, 'Verified!');
+      setTimeout(function(){
+        document.getElementById('loggedName').textContent   = discord;
+        document.getElementById('loggedRoblox').textContent = roblox;
+        show('boxIn');
+      }, 600);
+    }
+
+  } catch(e) {
+    showError(
+      'Could not reach Foundation server.<br>' +
+      '<small>Error: ' + e.message + '</small>'
+    );
+  }
+}
+
+function startPolling() {
+  pollCount = 0;
+  if (pollTimer) clearInterval(pollTimer);
+  pollTimer = setInterval(pollNow, 4000);
+}
+
+async function pollNow() {
+  var token = verifyToken || localStorage.getItem('verify_token');
+  if (!token) return;
+  pollCount++;
+  document.getElementById('pollStatus').textContent = 'Checking... (' + pollCount + ')';
+  try {
+    var res  = await fetch(BOT_URL + '/auth/verify/status?token=' + encodeURIComponent(token));
+    var data = await res.json();
+    if (data.status === 'confirmed') {
+      clearInterval(pollTimer);
+      var s = JSON.parse(localStorage.getItem('scp_session') || '{}');
+      s.confirmed = true;
+      s.discord_id = data.discord_id || s.discord_id;
+      localStorage.setItem('scp_session', JSON.stringify(s));
+      localStorage.removeItem('verify_token');
+      document.getElementById('loggedName').textContent   = s.discord_user;
+      document.getElementById('loggedRoblox').textContent = s.roblox_user || '—';
+      show('boxIn');
+    } else if (data.status === 'denied') {
+      clearInterval(pollTimer);
+      localStorage.removeItem('scp_session');
+      localStorage.removeItem('verify_token');
+      showError('You denied the verification. <a href="verify.html">Try again</a>.');
+    } else if (data.status === 'expired') {
+      clearInterval(pollTimer);
+      showError('Verification expired. <a href="verify.html">Start over</a>.');
+    } else {
+      document.getElementById('pollStatus').textContent = 'Waiting for your Discord confirmation...';
+      if (pollCount > 75) { clearInterval(pollTimer); }
+    }
+  } catch(e) { /* retry silently */ }
+}
+
+window.addEventListener('DOMContentLoaded', function() {
+  var s = JSON.parse(localStorage.getItem('scp_session') || 'null');
+  if (s && s.discord_user && s.confirmed) {
+    document.getElementById('loggedName').textContent   = s.discord_user;
+    document.getElementById('loggedRoblox').textContent = s.roblox_user || '—';
+    show('boxIn'); return;
+  }
+  var token = localStorage.getItem('verify_token');
+  if (token && s && s.discord_user) {
+    verifyToken = token; show('boxWait'); startPolling(); return;
+  }
+  show('boxLogin');
+});
+</script>
+<script>injectFooter();</script>
+</body>
+</html>

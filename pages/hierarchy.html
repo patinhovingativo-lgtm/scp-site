@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Personnel Hierarchy — Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+  <style>
+    .pyr{display:flex;flex-direction:column;align-items:center;gap:3px;margin:16px 0 24px}
+    .pyr-row{display:flex;align-items:center;justify-content:center;gap:8px;padding:8px 16px;border-radius:2px;font-size:12px;font-weight:bold;letter-spacing:.5px;transition:filter .2s;cursor:default}
+    .pyr-row:hover{filter:brightness(1.15)}
+    .pyr-lbl{flex:1;text-align:left}
+    .pyr-roles{font-size:10px;text-align:right;opacity:.8;flex:2}
+    .p5{width:100%;background:rgba(58,0,74,.2);color:#cc44ff;border:1px solid rgba(58,0,74,.5)}
+    .p4{width:90%;background:rgba(139,0,0,.15);color:#ff5555;border:1px solid rgba(139,0,0,.4)}
+    .p3{width:80%;background:rgba(106,74,0,.15);color:#ffaa33;border:1px solid rgba(106,74,0,.35)}
+    .p2{width:70%;background:rgba(26,42,122,.15);color:#4499ff;border:1px solid rgba(26,42,122,.35)}
+    .p1{width:60%;background:rgba(42,92,42,.12);color:#33bb55;border:1px solid rgba(42,92,42,.3)}
+    .p0{width:50%;background:rgba(80,80,80,.1);color:#888;border:1px solid rgba(120,120,120,.25)}
+    .p-o5{width:100%;background:rgba(58,0,74,.35);color:#e070ff;border:2px solid rgba(120,0,160,.6);margin-bottom:4px}
+  </style>
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader('hierarchy');</script>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">HIERARCHY</div>
+    <a href="#sc"        class="sb-a">Security Classification</a>
+    <a href="#o5"        class="sb-a">O5 Council (Special)</a>
+    <a href="#others"    class="sb-a">Others</a>
+    <a href="#class"     class="sb-a">Classification</a>
+    <a href="#admin"     class="sb-a">Administration</a>
+    <a href="#dev"       class="sb-a">Development Team</a>
+    <a href="#important" class="sb-a">Important Roles</a>
+    <a href="#prisoners" class="sb-a">Prisoner Classes</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">LINKS</div>
+    <a href="leadership.html" class="sb-a">Leadership</a>
+    <a href="../index.html"   class="sb-a">◄ Portal</a>
+  </div>
+</aside>
+<main class="main">
+
+  <div class="ph">
+    <div class="ptag">// PERSONNEL BUREAU — SITE-07</div>
+    <h1>PERSONNEL HIERARCHY</h1>
+    <p>Complete rank structure for [SCP] Site-07. All designations are official.</p>
+  </div>
+
+  <!-- SECURITY CLASSIFICATION PYRAMID -->
+  <a name="sc"></a>
+  <div class="win r mt8">
+    <div class="win-bar"><span>SECURITY CLASSIFICATION PYRAMID</span></div>
+    <div class="win-body">
+      <div class="pyr">
+        <div class="pyr-row p-o5" style="width:100%">
+          <span class="pyr-lbl">O5 COUNCIL — UNIQUE RANK (ABOVE SC)</span>
+          <span class="pyr-roles">O5 Council · Chairman · The Administrator</span>
+        </div>
+        <div class="pyr-row p5">
+          <span class="pyr-lbl">SC-5 — DEPARTMENT CHIEF / DIRECTOR</span>
+          <span class="pyr-roles">Dept. Directors · Chiefs</span>
+        </div>
+        <div class="pyr-row p4">
+          <span class="pyr-lbl">SC-4 — SUB-CHIEF / VICE-DIRECTOR</span>
+          <span class="pyr-roles">Deputy Directors · Sub-Chiefs</span>
+        </div>
+        <div class="pyr-row p3">
+          <span class="pyr-lbl">SC-3 — POST-SENIOR PERSONNEL</span>
+          <span class="pyr-roles">Coordinators · Supervisors · Leads</span>
+        </div>
+        <div class="pyr-row p2">
+          <span class="pyr-lbl">SC-2 — SENIOR PERSONNEL</span>
+          <span class="pyr-roles">Senior Researchers · Senior Officers · etc.</span>
+        </div>
+        <div class="pyr-row p1">
+          <span class="pyr-lbl">SC-1 — CLEARED PERSONNEL</span>
+          <span class="pyr-roles">Researchers · Officers · Physicians · etc.</span>
+        </div>
+        <div class="pyr-row p0">
+          <span class="pyr-lbl">SC-0 — SUPPORT STAFF</span>
+          <span class="pyr-roles">Janitors · Caretakers · Basic Foundation Personnel</span>
+        </div>
+      </div>
+
+      <div class="note note-b">
+        <strong>IMPORTANT:</strong> The O5 Council holds a <strong>unique rank above the SC system</strong>.
+        O5 members are not classified as SC-5 — they occupy a separate command tier with different responsibilities.
+        SC-5 = Department Chiefs/Directors. O5 = Foundation governing council.
+      </div>
+
+      <div class="sec">SC LEVEL DETAILS</div>
+      <table class="dt">
+        <tr><th>LEVEL</th><th>NAME</th><th>WHO IS THIS?</th><th>ACCESS</th></tr>
+        <tr>
+          <td><span class="lv lv0">SC-0</span></td>
+          <td>Support Staff</td>
+          <td>Janitors, caretakers, maintenance workers, basic Foundation personnel</td>
+          <td>Basic site access only</td>
+        </tr>
+        <tr>
+          <td><span class="lv lv1">SC-1</span></td>
+          <td>Cleared Personnel</td>
+          <td>Members with approved Level-0 app, entering main departments</td>
+          <td>Access to main departments (DC, DM, DS, DP, DMF, DIS)</td>
+        </tr>
+        <tr>
+          <td><span class="lv lv2">SC-2</span></td>
+          <td>Senior Personnel</td>
+          <td>Senior ranks within their department</td>
+          <td>Main departments + some specialty departments</td>
+        </tr>
+        <tr>
+          <td><span class="lv lv3">SC-3</span></td>
+          <td>Post-Senior</td>
+          <td>Personnel who have advanced past senior rank (coordinators, supervisors)</td>
+          <td>Extended department access</td>
+        </tr>
+        <tr>
+          <td><span class="lv lv4">SC-4</span></td>
+          <td>Sub-Chief / Vice-Director</td>
+          <td>Deputy Directors, Sub-Chiefs of departments</td>
+          <td>Sub-command authority within department</td>
+        </tr>
+        <tr>
+          <td><span class="lv lv5">SC-5</span></td>
+          <td>Chief / Director</td>
+          <td>Department Directors and Chiefs — top of each department</td>
+          <td>Full department command authority</td>
+        </tr>
+        <tr style="background:rgba(58,0,74,.08)">
+          <td><span style="background:#3a004a;color:#e070ff;padding:1px 5px;font-size:10px;font-weight:bold">O5</span></td>
+          <td>O5 Council (Unique)</td>
+          <td>O5 Council members, Chairman, The Administrator — separate from SC system</td>
+          <td>Foundation-wide governing authority</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- O5 (special note) -->
+  <a name="o5"></a>
+  <div class="win r">
+    <div class="win-bar"><span>《 O5 COUNCIL 》— UNIQUE RANK (NOT PART OF SC SYSTEM)</span></div>
+    <div class="win-body">
+      <div class="note note-r mb8">
+        <strong>CLASSIFICATION:</strong> O5 identities are classified above SC-4. Do not attempt to investigate or disclose O5 identities.
+      </div>
+      <table class="dt">
+        <tr><th>#</th><th>RANK</th><th>DESCRIPTION</th></tr>
+        <tr><td>★</td><td style="color:#cc44ff;font-weight:bold">The Administrator</td><td>Supreme authority over Site-07. Mr. Matrix.</td></tr>
+        <tr><td>★</td><td style="color:#cc44ff;font-weight:bold">Chairman of Council O5</td><td>Head of O5 Council. Oversees all Foundation departments.</td></tr>
+        <tr><td>★</td><td style="color:#cc44ff;font-weight:bold">Council O5</td><td>Governing council. Near-absolute authority. Identities classified.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- OTHERS -->
+  <a name="others"></a>
+  <div class="win r">
+    <div class="win-bar"><span>《 OTHERS 》— GENERAL PERSONNEL</span></div>
+    <div class="win-body">
+      <table class="dt">
+        <tr><th>#</th><th>RANK</th><th>DESCRIPTION</th><th>SC LEVEL</th></tr>
+        <tr><td>1</td><td>Security Classification 0</td><td>Support staff. Janitors, caretakers, basic Foundation personnel.</td><td><span class="lv lv0">SC-0</span></td></tr>
+        <tr><td>2</td><td>Security Classification 1</td><td>Cleared for department access. Standard operations personnel.</td><td><span class="lv lv1">SC-1</span></td></tr>
+        <tr><td>3</td><td>Security Classification 2</td><td>Senior personnel. Access to main departments.</td><td><span class="lv lv2">SC-2</span></td></tr>
+        <tr><td>4</td><td>Security Classification 3</td><td>Post-senior. Extended access and responsibilities.</td><td><span class="lv lv3">SC-3</span></td></tr>
+        <tr><td>5</td><td>Security Classification 4</td><td>Sub-chief or vice-director of a department.</td><td><span class="lv lv4">SC-4</span></td></tr>
+        <tr><td>6</td><td>Security Classification 5</td><td>Chief or Director of a department.</td><td><span class="lv lv5">SC-5</span></td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- CLASSIFICATION -->
+  <a name="class"></a>
+  <div class="win r">
+    <div class="win-bar"><span>《 CLASSIFICATION 》— SPECIAL DESIGNATIONS</span></div>
+    <div class="win-body">
+      <table class="dt">
+        <tr><th>RANK</th><th>DESCRIPTION</th></tr>
+        <tr><td><strong style="color:#9966ff">Contributors &amp; Investors</strong></td><td>Supported Site-07's development from the beginning. Honored members.</td></tr>
+        <tr><td><strong style="color:#66ccff">Class-E Special Prisoner / Veteran</strong></td><td>Special containment designation or veteran status with elevated trust.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- ADMINISTRATION -->
+  <a name="admin"></a>
+  <div class="win r">
+    <div class="win-bar"><span>《 ADMINISTRATION 》</span></div>
+    <div class="win-body">
+      <table class="dt">
+        <tr><th>#</th><th>RANK</th><th>DESCRIPTION</th></tr>
+        <tr><td>1</td><td>Assistant Site Director</td><td>Supports the Site Director. Takes command when Director is unavailable.</td></tr>
+        <tr><td>2</td><td>Site Director</td><td>Decides site operational configuration — threat levels, lockdowns, containment priorities.</td></tr>
+        <tr><td>3</td><td>Lore Department</td><td>Maintains Foundation lore, narrative, and canonical universe.</td></tr>
+        <tr><td>4</td><td>Department Manager</td><td>Oversees department coordination across all Foundation divisions.</td></tr>
+        <tr><td>5</td><td>Council O5</td><td>Foundation-wide administration. Near-absolute authority.</td></tr>
+        <tr><td>6</td><td>Chairman of Council O5</td><td>Head of O5. Oversees all departments. Supreme among O5.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- DEVELOPMENT -->
+  <a name="dev"></a>
+  <div class="win r">
+    <div class="win-bar"><span>《 DEVELOPMENT TEAM 》</span></div>
+    <div class="win-body">
+      <table class="dt">
+        <tr><th>#</th><th>RANK</th><th>DESCRIPTION</th></tr>
+        <tr><td>1</td><td>Junior Developer</td><td>Probationary. Under evaluation. Learning Foundation systems.</td></tr>
+        <tr><td>2</td><td>Developer</td><td>Passed evaluation. Full contributing member.</td></tr>
+        <tr><td>3</td><td>Senior Developer</td><td>Highly experienced. Mentors juniors, leads complex features.</td></tr>
+        <tr><td>4</td><td><strong>Head Developer — luan_44</strong></td><td>Commands entire Development project. Final technical authority.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- IMPORTANT -->
+  <a name="important"></a>
+  <div class="win r">
+    <div class="win-bar"><span>《 IMPORTANT ROLES 》</span></div>
+    <div class="win-body">
+      <table class="dt">
+        <tr><th>ROLE</th><th>DESCRIPTION</th></tr>
+        <tr><td><strong>Event Coordinator</strong></td><td>Plans and executes all Foundation events and operations across Site-07.</td></tr>
+        <tr><td><strong>Creator of Lore &amp; Documents</strong></td><td>Founder of Foundation narrative. Decides canonical lore sent for adoption.</td></tr>
+        <tr><td><strong>Secretary General of the Site</strong></td><td>Manages all site-wide logistics and coordination. Oversees Site-07 functioning.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- PRISONERS -->
+  <a name="prisoners"></a>
+  <div class="win r">
+    <div class="win-bar"><span>《 PRISONER CLASSES &amp; SPECIAL 》</span></div>
+    <div class="win-body">
+      <table class="dt">
+        <tr><th>CLASS</th><th>NAME</th><th>DESCRIPTION</th></tr>
+        <tr style="opacity:.5"><td><strong style="color:#666;text-decoration:line-through">SUSPENDED</strong></td><td>Suspended / Blacklist</td><td>Under suspension or permanently blacklisted. No site access.</td></tr>
+        <tr><td><strong style="color:#ff8800">CLASS-D</strong></td><td>Class-D Prisoner</td><td>Death-row criminals for hazardous testing. Expendable. Monthly termination cycles.</td></tr>
+        <tr><td><strong style="color:#cc88ff">CLASS-E</strong></td><td>Class-E Special Prisoner</td><td>Special designation or veteran prisoner. May assist under supervision.</td></tr>
+      </table>
+    </div>
+  </div>
+
+</main>
+</div>
+<script>injectFooter();</script>
+</body>
+</html>

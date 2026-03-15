@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Admin Panel — Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+  <style>
+    .adm-tabs{background:var(--nav);display:flex;flex-wrap:wrap;border-bottom:2px solid #0a0a1a;overflow-x:auto}
+    .adm-tab{padding:7px 12px;color:#9aa8d0;cursor:pointer;font-size:11px;font-family:var(--font);border:none;background:none;border-right:1px solid #1a2040;white-space:nowrap;flex-shrink:0}
+    .adm-tab:hover{background:var(--nav2);color:#fff}
+    .adm-tab.on{background:var(--bg);color:var(--text);font-weight:bold;border-bottom:2px solid var(--bg);margin-bottom:-2px}
+    .adm-pane{display:none;padding:12px 16px}.adm-pane.on{display:block}
+    .cfg-sec{background:var(--panel);border-top:2px solid #e8e8dc;border-left:2px solid #e8e8dc;border-right:2px solid #888878;border-bottom:2px solid #888878;margin-bottom:10px}
+    .cfg-hdr{background:var(--hdr);color:#c8d4ff;padding:5px 10px;font-size:12px;font-weight:bold;cursor:pointer;display:flex;justify-content:space-between;user-select:none}
+    .cfg-body{padding:10px 12px;background:var(--white)}
+    .cfg-row{display:flex;align-items:flex-start;margin-bottom:8px;gap:8px;flex-wrap:wrap}
+    .cfg-label{width:180px;flex-shrink:0;font-size:12px;font-weight:bold;padding-top:3px;color:var(--dim)}
+    .cfg-label small{display:block;font-size:10px;color:var(--light);font-weight:normal}
+    .cfg-in{flex:1;min-width:150px;padding:3px 5px;font-family:var(--font);font-size:12px;background:var(--white);border-top:2px solid #888878;border-left:2px solid #888878;border-right:2px solid #e8e8dc;border-bottom:2px solid #e8e8dc;outline:none;color:var(--text)}
+    .cfg-in:focus{outline:1px dotted var(--B)}
+    .status-card{padding:10px;margin-bottom:6px;cursor:pointer;border-left:4px solid transparent;display:flex;align-items:center;gap:10px;background:var(--panel);border-radius:0}
+    .status-card:hover{background:var(--white)}
+    .status-card.sel{border-left-color:#ffcc44;background:var(--Ybg)}
+    .status-img{width:60px;height:40px;flex-shrink:0;border:1px solid #888878;overflow:hidden;display:flex;align-items:center;justify-content:center;font-size:10px;color:var(--dim)}
+    .lead-row{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:8px 0;border-bottom:1px solid #c0c0b0}
+    .dept-img-row{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:1px solid #c0c0b0}
+    .dept-thumb{width:40px;height:40px;background:var(--inset);border:1px solid #888878;display:flex;align-items:center;justify-content:center;font-size:11px;font-family:'VT323',monospace;color:var(--dim);flex-shrink:0;overflow:hidden}
+    .dept-thumb img{width:100%;height:100%;object-fit:cover}
+    #toast{position:fixed;bottom:34px;right:16px;padding:8px 16px;font-family:var(--font);font-size:12px;z-index:9999;display:none;border:1px solid #888}
+    .tok-ok{background:var(--Gbg);color:var(--Gtx)}.tok-err{background:var(--Rbg);color:var(--Rtx)}
+    .mode-toggle{display:flex}
+    .mode-btn{padding:4px 10px;font-family:var(--font);font-size:11px;cursor:pointer;background:var(--panel);border:1px solid #888878;color:var(--dim)}
+    .mode-btn.on{background:var(--hdr);color:#c8d4ff;font-weight:bold}
+    .sv .cx{display:none!important}
+    .cx-view .sv-only{display:none!important}
+    @media(max-width:600px){.adm-tab{font-size:10px;padding:5px 8px}.cfg-label{width:100%}.lead-row{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader('admin');</script>
+
+<!-- LOCK -->
+<div class="lock-screen" id="lockScreen">
+  <div class="lock-box r">
+    <div class="lock-title">ADMIN ACCESS</div>
+    <div class="lock-sub">SITE-07 RESTRICTED TERMINAL</div>
+    <div class="note note-r mb8" id="lockErr" style="display:none"></div>
+    <div style="margin-bottom:10px">
+      <div style="font-size:11px;font-weight:bold;margin-bottom:4px;color:var(--dim)">ADMIN PASSWORD</div>
+      <input class="fi" id="lkPass" type="password" placeholder="ADMIN_API_KEY" style="width:100%"
+        onkeydown="if(event.key==='Enter')doLogin()">
+    </div>
+    <div id="lkStatus" style="font-size:11px;color:var(--dim);margin-bottom:8px"></div>
+    <button class="btn btn-b" onclick="doLogin()" style="width:100%">ACCESS ADMIN PANEL</button>
+  </div>
+</div>
+
+<!-- PANEL -->
+<div id="adminPanel" style="display:none" class="sv">
+  <div style="background:var(--hdr);color:#c8d4ff;padding:5px 16px;font-size:11px;display:flex;gap:12px;align-items:center;border-bottom:1px solid #2a3060;flex-wrap:wrap">
+    <span id="apUser">ADMIN</span>
+    <span id="statusBadge" style="font-size:10px;padding:1px 8px;font-weight:bold"></span>
+    <span style="margin-left:auto;display:flex;gap:6px;align-items:center">
+      <div class="mode-toggle">
+        <button class="mode-btn on" id="btnSv" onclick="setMode('sv')">SIMPLE</button>
+        <button class="mode-btn" id="btnCx" onclick="setMode('cx-view')">COMPLEX</button>
+      </div>
+      <button class="btn btn-sm btn-r" onclick="doLogout()">LOGOUT</button>
+    </span>
+  </div>
+
+  <div class="adm-tabs">
+    <button class="adm-tab on" onclick="tab(event,'applications')">APPLICATIONS</button>
+    <button class="adm-tab"   onclick="tab(event,'members')">MEMBERS</button>
+    <button class="adm-tab"   onclick="tab(event,'status')">SITE STATUS</button>
+    <button class="adm-tab"   onclick="tab(event,'leadership')">LEADERSHIP</button>
+    <button class="adm-tab"   onclick="tab(event,'departments')">DEPARTMENTS</button>
+    <button class="adm-tab"   onclick="tab(event,'welcome')">WELCOME MSG</button>
+    <button class="adm-tab"   onclick="tab(event,'config')">CONFIG</button>
+    <button class="adm-tab"   onclick="tab(event,'roblox')">ROBLOX RANKS</button>
+    <button class="adm-tab"   onclick="tab(event,'logs')">LOGS</button>
+  </div>
+
+  <!-- ══ APPLICATIONS ══ -->
+  <div id="pane-applications" class="adm-pane on">
+    <div style="display:flex;gap:8px;margin-bottom:8px;flex-wrap:wrap">
+      <select id="appFilter" class="fi" style="width:auto">
+        <option value="all">All</option><option value="pending">Pending</option>
+        <option value="accepted">Accepted</option><option value="rejected">Rejected</option>
+      </select>
+      <button class="btn btn-sm btn-b" onclick="loadApps()">REFRESH</button>
+    </div>
+    <div id="appTable"></div>
+    <div id="appDetail" class="win r" style="display:none;margin-top:8px">
+      <div class="win-bar"><span id="appDetailTitle">APPLICATION</span>
+        <button class="btn btn-sm" onclick="document.getElementById('appDetail').style.display='none'">X</button></div>
+      <div class="win-body" id="appDetailBody"></div>
+    </div>
+  </div>
+
+  <!-- ══ MEMBERS ══ -->
+  <div id="pane-members" class="adm-pane">
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <button class="btn btn-sm btn-b" onclick="loadMembers()">REFRESH</button>
+    </div>
+    <div id="membersTable"></div>
+    <div id="memberEdit" class="win r" style="display:none;margin-top:8px">
+      <div class="win-bar"><span>EDIT MEMBER</span>
+        <button class="btn btn-sm" onclick="document.getElementById('memberEdit').style.display='none'">X</button></div>
+      <div class="win-body">
+        <input type="hidden" id="editId">
+        <div class="cfg-row"><label class="cfg-label">Clearance</label>
+          <select id="editLvl" class="cfg-in" style="flex:none;width:90px">
+            <option value="0">SC-0</option><option value="1">SC-1</option><option value="2">SC-2</option>
+            <option value="3">SC-3</option><option value="4">SC-4</option><option value="5">SC-5</option>
+          </select></div>
+        <div class="cfg-row"><label class="cfg-label">Department</label>
+          <input class="cfg-in" id="editDept" placeholder="DC, DM, DS..."></div>
+        <div class="cfg-row"><label class="cfg-label">Rank Name</label>
+          <input class="cfg-in" id="editRank" placeholder="Researcher, etc"></div>
+        <button class="btn btn-g" onclick="saveMember()">SAVE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ SITE STATUS ══ -->
+  <div id="pane-status" class="adm-pane">
+    <div class="cfg-sec">
+      <div class="cfg-hdr">CURRENT STATUS — SELECT & APPLY</div>
+      <div class="cfg-body">
+        <div class="note note-b mb8" style="font-size:11px">
+          The selected status appears in the site header for all visitors.
+          The bot posts an announcement to the status channel automatically.
+        </div>
+        <div id="statusCards"></div>
+        <div style="margin-top:10px;display:flex;gap:8px;flex-wrap:wrap">
+          <button class="btn btn-g" onclick="applyStatus()">APPLY STATUS</button>
+          <button class="btn btn-sm btn-b" onclick="loadStatus()">REFRESH</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="cfg-sec cx">
+      <div class="cfg-hdr" onclick="toggleSec(this)">ADD CUSTOM STATUS MODE <span>+</span></div>
+      <div class="cfg-body" style="display:none">
+        <div class="note note-y mb8" style="font-size:11px">Only Site Director and above should add custom modes.</div>
+        <div class="cfg-row"><label class="cfg-label">Mode Name<small>e.g. BIOHAZARD ALERT</small></label>
+          <input class="cfg-in" id="newModeName" placeholder="MODE NAME" maxlength="30" style="text-transform:uppercase"></div>
+        <div class="cfg-row"><label class="cfg-label">Description</label>
+          <input class="cfg-in" id="newModeDesc" placeholder="Brief description"></div>
+        <div class="cfg-row">
+          <label class="cfg-label">Background Color</label>
+          <input class="cfg-in" id="newModeBg" placeholder="#1a3a6a" style="flex:none;width:90px">
+          <label class="cfg-label" style="width:80px">Text Color</label>
+          <input class="cfg-in" id="newModeColor" placeholder="#88aaff" style="flex:none;width:90px">
+        </div>
+        <div class="cfg-row"><label class="cfg-label">Icon / Emoji<small>For the status image</small></label>
+          <input class="cfg-in" id="newModeIcon" placeholder="☣️" style="flex:none;width:60px"></div>
+        <button class="btn btn-b" onclick="addCustomMode()">ADD MODE</button>
+        <div id="customModeList" style="margin-top:8px;font-size:11px;color:var(--dim)"></div>
+      </div>
+    </div>
+
+    <div class="cfg-sec">
+      <div class="cfg-hdr" onclick="toggleSec(this)">STATUS CHANNEL <span>+</span></div>
+      <div class="cfg-body" style="display:none">
+        <div class="note note-b mb8" style="font-size:11px">Set via <code>STATUS_CHANNEL_ID</code> environment variable in Railway, or override here.</div>
+        <div class="cfg-row"><label class="cfg-label">Channel ID Override</label>
+          <input class="cfg-in" id="cfg_status_channel" placeholder="Leave blank to use STATUS_CHANNEL_ID env var"></div>
+        <button class="btn btn-b" onclick="save({status_channel:v('cfg_status_channel')})">SAVE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LEADERSHIP ══ -->
+  <div id="pane-leadership" class="adm-pane">
+    <div class="cfg-sec">
+      <div class="cfg-hdr">LEADERSHIP — ALL ROLES</div>
+      <div class="cfg-body">
+        <div class="note note-b mb8" style="font-size:11px">
+          Changes here update the public Leadership page automatically for all visitors.
+        </div>
+        <div id="leadershipForm"></div>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn btn-g" onclick="saveLeadership()">SAVE ALL LEADERSHIP</button>
+          <button class="btn btn-sm btn-b" onclick="loadLeadership()">RELOAD</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DEPARTMENTS ══ -->
+  <div id="pane-departments" class="adm-pane">
+    <div class="cfg-sec">
+      <div class="cfg-hdr">DEPARTMENT IMAGES & PASSWORDS</div>
+      <div class="cfg-body">
+        <div class="note note-b mb8" style="font-size:11px">Set badge images (public URL) and passwords for private departments.</div>
+        <div id="deptList"></div>
+        <button class="btn btn-g" style="margin-top:10px" onclick="saveDepts()">SAVE ALL</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ WELCOME ══ -->
+  <div id="pane-welcome" class="adm-pane">
+    <div class="cfg-sec">
+      <div class="cfg-hdr">WELCOME MESSAGE</div>
+      <div class="cfg-body">
+        <div class="note note-b mb8" style="font-size:11px">
+          <strong>Variables:</strong>
+          <code>{username}</code> Discord &nbsp;
+          <code>{roblox}</code> Roblox &nbsp;
+          <code>{rank}</code> SC rank &nbsp;
+          <code>{dept}</code> Department &nbsp;
+          <code>{site}</code> Site-07 &nbsp;
+          <code>{date}</code> Date
+        </div>
+        <div class="cfg-row"><label class="cfg-label">Welcome Channel ID</label>
+          <input class="cfg-in" id="cfg_welcome_channel" placeholder="Discord Channel ID"></div>
+        <div class="cfg-row"><label class="cfg-label">Message Title</label>
+          <input class="cfg-in" id="cfg_welcome_title" placeholder="WELCOME TO {site}, {username}!"></div>
+        <div class="cfg-row"><label class="cfg-label">Message Body</label>
+          <textarea class="cfg-in" id="cfg_welcome_msg" rows="4"
+            placeholder="Welcome, {username}! You are now {rank}. Report to your department."></textarea></div>
+        <div class="cfg-row cx"><label class="cfg-label">Embed Color (hex)</label>
+          <input class="cfg-in" id="cfg_welcome_color" placeholder="#2a5c2a" style="flex:none;width:110px"></div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:6px">
+          <button class="btn btn-g" onclick="saveWelcome()">SAVE</button>
+          <button class="btn btn-sm" onclick="previewWelcome()">PREVIEW</button>
+        </div>
+        <div id="welcomePreview" style="display:none;margin-top:10px"></div>
+      </div>
+    </div>
+    <div class="cfg-sec cx">
+      <div class="cfg-hdr" onclick="toggleSec(this)">ACCEPTANCE / REJECTION MESSAGES <span>+</span></div>
+      <div class="cfg-body" style="display:none">
+        <div class="cfg-row"><label class="cfg-label">Accept DM Title</label>
+          <input class="cfg-in" id="cfg_accept_title" placeholder="Application Accepted — {site}"></div>
+        <div class="cfg-row"><label class="cfg-label">Accept DM Body</label>
+          <textarea class="cfg-in" id="cfg_accept_msg" rows="3"
+            placeholder="Your application was accepted! You are now {rank}."></textarea></div>
+        <div class="cfg-row"><label class="cfg-label">Rejection DM Body</label>
+          <textarea class="cfg-in" id="cfg_reject_msg" rows="3"
+            placeholder="Your application was not accepted. You may reapply in 7 days."></textarea></div>
+        <button class="btn btn-b" onclick="save({accept_msg_title:v('cfg_accept_title'),accept_msg_body:v('cfg_accept_msg'),reject_msg_body:v('cfg_reject_msg')})">SAVE</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ CONFIG ══ -->
+  <div id="pane-config" class="adm-pane">
+    <div class="cfg-sec">
+      <div class="cfg-hdr" onclick="toggleSec(this)">DISCORD CHANNELS <span>+</span></div>
+      <div class="cfg-body" style="display:none">
+        <div class="cfg-row"><label class="cfg-label">App Review Channel</label>
+          <input class="cfg-in" id="cfg_app_review"></div>
+        <div class="cfg-row"><label class="cfg-label">App Results Channel</label>
+          <input class="cfg-in" id="cfg_app_results"></div>
+        <div class="cfg-row"><label class="cfg-label">Log Channel</label>
+          <input class="cfg-in" id="cfg_log_channel"></div>
+        <button class="btn btn-b" onclick="save({app_review_channel:v('cfg_app_review'),app_results_channel:v('cfg_app_results'),log_channel:v('cfg_log_channel')})">SAVE</button>
+      </div>
+    </div>
+    <div class="cfg-sec">
+      <div class="cfg-hdr" onclick="toggleSec(this)">SITE SETTINGS <span>+</span></div>
+      <div class="cfg-body" style="display:none">
+        <div class="cfg-row"><label class="cfg-label">App Cooldown (days)</label>
+          <input class="cfg-in" id="cfg_cooldown" style="flex:none;width:60px"> days</div>
+        <div class="cfg-row"><label class="cfg-label">Min Words (Level-0)</label>
+          <input class="cfg-in" id="cfg_minwords" style="flex:none;width:60px"> words</div>
+        <div class="cfg-row"><label class="cfg-label">MTF Recruitment</label>
+          <select class="cfg-in" id="cfg_mtf" style="flex:none;width:110px">
+            <option value="0">CLOSED</option><option value="1">OPEN</option>
+          </select></div>
+        <button class="btn btn-b" onclick="save({app_cooldown_days:v('cfg_cooldown'),min_words_lvl0:v('cfg_minwords'),mtf_open:v('cfg_mtf')})">SAVE</button>
+      </div>
+    </div>
+    <div class="cfg-sec cx">
+      <div class="cfg-hdr" onclick="toggleSec(this)">API KEYS — SENSITIVE <span>+</span></div>
+      <div class="cfg-body" style="display:none">
+        <div class="note note-r mb8" style="font-size:11px">Handle with extreme care.</div>
+        <div class="cfg-row"><label class="cfg-label">Roblox API Key</label>
+          <input class="cfg-in" id="cfg_roblox_key" type="password" placeholder="(hidden)"></div>
+        <button class="btn btn-r" onclick="save({roblox_api_key:v('cfg_roblox_key')})">SAVE KEYS</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ ROBLOX RANKS ══ -->
+  <div id="pane-roblox" class="adm-pane">
+    <div class="cfg-sec">
+      <div class="cfg-hdr">ROBLOX GROUP RANK MAPPING</div>
+      <div class="cfg-body">
+        <button class="btn btn-b mb8" onclick="fetchRoles()">FETCH ROLES FROM ROBLOX GROUP</button>
+        <div id="rolesList" class="note note-b mb8">Click to load your group ranks.</div>
+        <table class="dt" style="margin-top:8px">
+          <tr><th>CLEARANCE / DEPT</th><th style="width:90px">RANK ID</th><th>NAME</th></tr>
+          <tr><td>SC-0 Entry</td><td><input class="cfg-in" id="rk_lv0" style="width:80px"></td><td id="rn_lv0" class="small dim">—</td></tr>
+          <tr><td>SC-1 Cleared</td><td><input class="cfg-in" id="rk_lv1" style="width:80px"></td><td id="rn_lv1" class="small dim">—</td></tr>
+          <tr><td>[DC] Entry</td><td><input class="cfg-in" id="rk_dc" style="width:80px"></td><td class="small dim">Research Auxiliary</td></tr>
+          <tr><td>[DM] Entry</td><td><input class="cfg-in" id="rk_dm" style="width:80px"></td><td class="small dim">Medical Auxiliary</td></tr>
+          <tr><td>[DS] Entry</td><td><input class="cfg-in" id="rk_ds" style="width:80px"></td><td class="small dim">Security Auxiliary</td></tr>
+          <tr><td>[DP] Entry</td><td><input class="cfg-in" id="rk_dp" style="width:80px"></td><td class="small dim">Psychology Auxiliary</td></tr>
+          <tr><td>[DMF] Entry</td><td><input class="cfg-in" id="rk_dmf" style="width:80px"></td><td class="small dim">Maintenance Auxiliary</td></tr>
+          <tr><td>[DIS] Entry</td><td><input class="cfg-in" id="rk_dis" style="width:80px"></td><td class="small dim">Intelligence Auxiliary</td></tr>
+          <tr><td>[MTF] Entry</td><td><input class="cfg-in" id="rk_mtf" style="width:80px"></td><td class="small dim">MTF Recruit</td></tr>
+          <tr><td>[DOHE] Entry</td><td><input class="cfg-in" id="rk_dohe" style="width:80px"></td><td class="small dim">Operations Auxiliary</td></tr>
+          <tr><td>[DLOT] Entry</td><td><input class="cfg-in" id="rk_dlot" style="width:80px"></td><td class="small dim">Logistics Auxiliary</td></tr>
+        </table>
+        <button class="btn btn-g mt8" onclick="saveRanks()">SAVE RANK MAPPING</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ LOGS ══ -->
+  <div id="pane-logs" class="adm-pane">
+    <div style="display:flex;gap:8px;margin-bottom:8px">
+      <button class="btn btn-sm btn-b" onclick="loadLogs()">REFRESH</button>
+    </div>
+    <div class="win r">
+      <div class="win-bar"><span>RECENT ACTIVITY</span></div>
+      <div class="win-body" id="logsContent" style="font-size:11px;max-height:500px;overflow-y:auto;font-family:'Courier Prime',monospace">
+        Click Refresh to load logs.
+      </div>
+    </div>
+  </div>
+</div>
+<div id="toast"></div>
+
+<script>
+var BOT = 'https://scp-bot-production.up.railway.app';
+var KEY = '', rolesCache = [], selStatus = 'normal';
+
+// Leadership roles definition
+var LEADERS = [
+  {key:'admin',     label:'THE ADMINISTRATOR',    badge:'SUPREME AUTHORITY', fixedRoblox:'fjj3be_3'},
+  {key:'director',  label:'SITE DIRECTOR',         badge:'SITE DIRECTOR — SC-5'},
+  {key:'asst',      label:'ASST. SITE DIRECTOR',   badge:'ASST. DIRECTOR — SC-4'},
+  {key:'secretary', label:'SECRETARY GENERAL',     badge:'SECRETARY GENERAL', fixedName:'Edward Neys', fixedRoblox:'xwmqgxEB124'},
+  {key:'deptmgr',   label:'DEPARTMENT MANAGER',    badge:'DEPT MANAGER'},
+  {key:'o5chair',   label:'CHAIRMAN OF O5 COUNCIL',badge:'O5-1 CHAIRMAN'},
+  {key:'lore',      label:'LORE CREATOR',           badge:'LORE CREATOR'},
+  {key:'events',    label:'EVENT COORDINATOR',      badge:'EVENT COORDINATOR'},
+  {key:'headdev',   label:'HEAD DEVELOPER',         badge:'HEAD DEVELOPER', fixedName:'luan_44', fixedRoblox:'luan_44'},
+];
+
+var DEPTS = [
+  {code:'DMF',priv:false},{code:'DC',priv:false},{code:'DM',priv:false},{code:'DP',priv:false},
+  {code:'DIS',priv:true},{code:'DS',priv:false},{code:'MTF',priv:true},{code:'DOHE',priv:true},
+  {code:'DLOT',priv:false},{code:'CE',priv:true},{code:'DAE',priv:true},{code:'ED',priv:false},
+  {code:'AA',priv:true},{code:'DA',priv:true},{code:'DJ',priv:true},{code:'DRI',priv:true},{code:'DCA',priv:true},
+];
+
+var DEFAULT_STATUSES = [
+  {id:'normal',   name:'NORMAL OPERATIONS',  desc:'All systems operational.',              bg:'#1a4a1a',color:'#88ff88', icon:'✅'},
+  {id:'elevated', name:'ELEVATED ALERT',      desc:'Increased threat. Personnel standby.',  bg:'#5a4a00',color:'#ffdd44', icon:'⚠️'},
+  {id:'danger',   name:'DANGER — CODE RED',   desc:'Active threat. All to positions.',      bg:'#6a1010',color:'#ffaaaa', icon:'🚨'},
+  {id:'attack',   name:'SITE UNDER ATTACK',   desc:'Direct assault. Lockdown initiated.',  bg:'#3a003a',color:'#ff44ff', icon:'💀'},
+];
+
+// ── HELPERS ───────────────────────────────────────────────────
+function v(id){ return (document.getElementById(id)||{}).value||''; }
+function toast(m,t){ var e=document.getElementById('toast'); e.textContent=m; e.className=t==='ok'?'tok-ok':'tok-err'; e.style.display='block'; setTimeout(()=>e.style.display='none',3500); }
+async function api(path,method,body){
+  var opts={method:method||'GET',headers:{'x-admin-key':KEY,'Content-Type':'application/json'}};
+  if(body) opts.body=JSON.stringify(body);
+  var r=await fetch(BOT+path,opts);
+  if(!r.ok) throw new Error('HTTP '+r.status);
+  return r.json();
+}
+async function save(obj){
+  var clean={};
+  Object.entries(obj).forEach(([k,v])=>{ if(v!==undefined&&v!=='')clean[k]=v; });
+  if(!Object.keys(clean).length){ toast('Nothing to save','err'); return; }
+  try{ await api('/admin/config','POST',clean); toast('Saved!','ok'); }
+  catch(e){ toast(e.message,'err'); }
+}
+
+// ── LOGIN ─────────────────────────────────────────────────────
+async function doLogin(){
+  var pass=document.getElementById('lkPass').value.trim();
+  var errEl=document.getElementById('lockErr');
+  if(!pass){ errEl.textContent='Password required.'; errEl.style.display='block'; return; }
+  document.getElementById('lkStatus').textContent='Connecting...';
+  try{
+    var res=await fetch(BOT+'/',{headers:{'x-admin-key':pass}});
+    var data=await res.json();
+    if(res.status===403) throw new Error('Wrong password.');
+    if(!data.ok) throw new Error('Server error.');
+    KEY=pass;
+    sessionStorage.setItem('admin_token',pass);
+    document.getElementById('lockScreen').style.display='none';
+    document.getElementById('adminPanel').style.display='block';
+    document.getElementById('apUser').textContent='ADMIN PANEL v4.0';
+    toast('Connected!','ok');
+    loadApps(); loadStatus(); loadConfig(); loadDeptList(); buildLeadershipForm();
+  }catch(e){
+    errEl.textContent='ACCESS DENIED: '+e.message;
+    errEl.style.display='block';
+    document.getElementById('lkStatus').textContent='';
+  }
+}
+function doLogout(){ sessionStorage.removeItem('admin_token'); location.reload(); }
+
+// ── MODE / TAB ────────────────────────────────────────────────
+function setMode(m){
+  localStorage.setItem('adm_mode',m);
+  document.getElementById('adminPanel').className=m;
+  document.getElementById('btnSv').className='mode-btn'+(m==='sv'?' on':'');
+  document.getElementById('btnCx').className='mode-btn'+(m==='cx-view'?' on':'');
+}
+function tab(e,name){
+  document.querySelectorAll('.adm-pane').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.adm-tab').forEach(b=>b.classList.remove('on'));
+  document.getElementById('pane-'+name)?.classList.add('on');
+  e.target.classList.add('on');
+}
+function toggleSec(hdr){
+  var b=hdr.nextElementSibling; var s=hdr.querySelector('span');
+  b.style.display=b.style.display==='none'?'block':'none';
+  if(s)s.textContent=b.style.display==='none'?'+':'-';
+}
+
+// ── STATUS IMAGES (SVG generated) ────────────────────────────
+function makeStatusSVG(bg, color, icon, name) {
+  var short = name.replace('OPERATIONS','OPS').replace('ALERT','ALT').split(' — ')[0];
+  return `data:image/svg+xml;charset=utf-8,` + encodeURIComponent(
+    `<svg xmlns="http://www.w3.org/2000/svg" width="60" height="40">
+      <rect width="60" height="40" fill="${bg}"/>
+      <text x="30" y="16" text-anchor="middle" fill="${color}" font-size="16" font-family="monospace">${icon}</text>
+      <text x="30" y="30" text-anchor="middle" fill="${color}" font-size="7" font-family="monospace">${short}</text>
+    </svg>`
+  );
+}
+
+// ── SITE STATUS ───────────────────────────────────────────────
+function loadStatus(){
+  var saved=localStorage.getItem('site_status')||'normal';
+  selStatus=saved;
+  var custom=JSON.parse(localStorage.getItem('custom_modes')||'[]');
+  var all=[...DEFAULT_STATUSES,...custom];
+  var container=document.getElementById('statusCards');
+  container.innerHTML=all.map(s=>`
+    <div class="status-card ${s.id===selStatus?'sel':''}" onclick="selSt('${s.id}')" id="sc_${s.id}">
+      <div class="status-img">
+        <img src="${makeStatusSVG(s.bg,s.color,s.icon||'★',s.name)}" style="width:100%;height:100%">
+      </div>
+      <div style="flex:1">
+        <div style="font-family:'VT323',monospace;font-size:15px;color:#1c2340">${s.name}</div>
+        <div style="font-size:10px;color:var(--dim)">${s.desc}</div>
+      </div>
+      ${!DEFAULT_STATUSES.find(d=>d.id===s.id)?`<button class="btn btn-sm btn-r" onclick="event.stopPropagation();removeMode('${s.id}')">X</button>`:''}
+    </div>`).join('');
+  updateBadge(saved,all);
+  var cl=JSON.parse(localStorage.getItem('custom_modes')||'[]');
+  document.getElementById('customModeList').textContent=cl.length?'Custom: '+cl.map(m=>m.name).join(', '):'';
+}
+function selSt(id){
+  selStatus=id;
+  document.querySelectorAll('.status-card').forEach(c=>c.classList.remove('sel'));
+  document.getElementById('sc_'+id)?.classList.add('sel');
+}
+async function applyStatus(){
+  localStorage.setItem('site_status',selStatus);
+  var custom=JSON.parse(localStorage.getItem('custom_modes')||'[]');
+  updateBadge(selStatus,[...DEFAULT_STATUSES,...custom]);
+  try{ await api('/admin/site-status','POST',{status:selStatus}); toast('Status applied!','ok'); }
+  catch(e){ toast('Status saved locally (bot offline)','ok'); }
+}
+function updateBadge(id,all){
+  var s=all.find(x=>x.id===id);
+  var el=document.getElementById('statusBadge');
+  if(el&&s){ el.textContent='[ '+s.name+' ]'; el.style.background=s.bg; el.style.color=s.color; el.style.padding='1px 8px'; }
+}
+function addCustomMode(){
+  var name=(document.getElementById('newModeName').value||'').trim().toUpperCase();
+  var desc=(document.getElementById('newModeDesc').value||'').trim();
+  var bg=document.getElementById('newModeBg').value.trim()||'#1a2a5a';
+  var color=document.getElementById('newModeColor').value.trim()||'#88aaff';
+  var icon=document.getElementById('newModeIcon').value.trim()||'★';
+  if(!name){ toast('Name required','err'); return; }
+  var modes=JSON.parse(localStorage.getItem('custom_modes')||'[]');
+  modes.push({id:'c_'+Date.now(),name,desc,bg,color,icon});
+  localStorage.setItem('custom_modes',JSON.stringify(modes));
+  loadStatus(); toast('Mode "'+name+'" added!','ok');
+}
+function removeMode(id){
+  var modes=JSON.parse(localStorage.getItem('custom_modes')||'[]').filter(m=>m.id!==id);
+  localStorage.setItem('custom_modes',JSON.stringify(modes));
+  if(selStatus===id){ selStatus='normal'; localStorage.setItem('site_status','normal'); }
+  loadStatus(); toast('Mode removed','ok');
+}
+
+// ── LEADERSHIP ────────────────────────────────────────────────
+function buildLeadershipForm(){
+  var el=document.getElementById('leadershipForm');
+  el.innerHTML=LEADERS.map(l=>`
+    <div style="margin-bottom:10px;padding:8px;background:var(--panel);border:1px solid #c0c0b0">
+      <div style="font-family:'VT323',monospace;font-size:13px;color:#1c2340;margin-bottom:6px">${l.badge}</div>
+      <div class="lead-row">
+        <div>
+          <div style="font-size:10px;font-weight:bold;color:var(--dim);margin-bottom:3px">CHOSEN NAME</div>
+          <input class="cfg-in" id="lead_${l.key}_name" value="${l.fixedName||''}" placeholder="Not yet assigned" style="width:100%">
+        </div>
+        <div>
+          <div style="font-size:10px;font-weight:bold;color:var(--dim);margin-bottom:3px">ROBLOX USERNAME</div>
+          <input class="cfg-in" id="lead_${l.key}_roblox" value="${l.fixedRoblox||''}" placeholder="RobloxUsername" style="width:100%">
+        </div>
+      </div>
+    </div>`).join('');
+  loadLeadership();
+}
+
+async function loadLeadership(){
+  try{
+    var d=await api('/admin/config');
+    var c=d.config||{};
+    LEADERS.forEach(l=>{
+      var ne=document.getElementById('lead_'+l.key+'_name');
+      var re=document.getElementById('lead_'+l.key+'_roblox');
+      if(ne&&c['lead_'+l.key+'_name']&&!l.fixedName) ne.value=c['lead_'+l.key+'_name'];
+      if(re&&c['lead_'+l.key+'_roblox']&&!l.fixedRoblox) re.value=c['lead_'+l.key+'_roblox'];
+    });
+  }catch(e){}
+}
+
+async function saveLeadership(){
+  var cfg={};
+  LEADERS.forEach(l=>{
+    var n=v('lead_'+l.key+'_name');
+    var r=v('lead_'+l.key+'_roblox');
+    if(n) cfg['lead_'+l.key+'_name']=n;
+    if(r) cfg['lead_'+l.key+'_roblox']=r;
+  });
+  await save(cfg);
+}
+
+// ── DEPARTMENTS ───────────────────────────────────────────────
+async function loadDeptList(){
+  var d=await api('/admin/config').catch(()=>({config:{}}));
+  var c=d.config||{};
+  var el=document.getElementById('deptList');
+  el.innerHTML=DEPTS.map(dept=>`
+    <div class="dept-img-row">
+      <div class="dept-thumb" id="dt_${dept.code}">
+        ${c['dept_img_'+dept.code]?`<img src="${c['dept_img_'+dept.code]}" onerror="this.remove()">`:dept.code}
+      </div>
+      <div style="flex:1">
+        <div style="font-family:'VT323',monospace;font-size:13px;color:#1c2340;margin-bottom:4px">
+          [${dept.code}]${dept.priv?' <span style="font-size:9px;background:var(--R);color:#fff;padding:1px 4px">PRIVATE</span>':''}
+        </div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap">
+          <input class="cfg-in" id="di_${dept.code}" value="${c['dept_img_'+dept.code]||''}"
+            placeholder="Image URL" style="flex:2;min-width:120px;font-size:11px"
+            onchange="prevImg('${dept.code}')">
+          ${dept.priv?`<input class="cfg-in" id="dp_${dept.code}" type="password"
+            value="${c['dept_pwd_'+dept.code]||''}"
+            placeholder="Password (default: ${dept.code.toLowerCase()}2024)"
+            style="flex:1;min-width:110px;font-size:11px">`:''}
+        </div>
+      </div>
+    </div>`).join('');
+}
+function prevImg(code){
+  var url=v('di_'+code);
+  var el=document.getElementById('dt_'+code);
+  if(!el)return;
+  el.innerHTML=url?`<img src="${url}" style="width:100%;height:100%;object-fit:cover" onerror="this.textContent='${code}'">`:`${code}`;
+}
+async function saveDepts(){
+  var cfg={};
+  DEPTS.forEach(d=>{
+    var img=v('di_'+d.code); var pwd=v('dp_'+d.code);
+    if(img) cfg['dept_img_'+d.code]=img;
+    if(pwd) cfg['dept_pwd_'+d.code]=pwd;
+  });
+  await save(cfg);
+}
+
+// ── WELCOME ───────────────────────────────────────────────────
+async function saveWelcome(){
+  await save({
+    welcome_channel:v('cfg_welcome_channel'),welcome_title:v('cfg_welcome_title'),
+    welcome_msg:v('cfg_welcome_msg'),welcome_color:v('cfg_welcome_color'),
+  });
+}
+function previewWelcome(){
+  var rep=s=>(s||'').replace(/\{username\}/g,'TestUser').replace(/\{roblox\}/g,'roblox123')
+    .replace(/\{rank\}/g,'SC-0').replace(/\{dept\}/g,'None').replace(/\{site\}/g,'Site-07')
+    .replace(/\{date\}/g,new Date().toLocaleDateString());
+  var prev=document.getElementById('welcomePreview');
+  prev.style.display='block';
+  prev.innerHTML=`<div class="win r"><div class="win-bar"><span>PREVIEW</span></div><div class="win-body">
+    <div style="font-family:'VT323',monospace;font-size:18px;color:#1c2340;margin-bottom:6px">${rep(v('cfg_welcome_title')||'WELCOME TO {site}, {username}!')}</div>
+    <p style="font-size:12px">${rep(v('cfg_welcome_msg')||'Welcome to the Foundation.')}</p>
+  </div></div>`;
+}
+
+// ── CONFIG ────────────────────────────────────────────────────
+async function loadConfig(){
+  try{
+    var d=await api('/admin/config');
+    var c=d.config||{};
+    var map={
+      cfg_app_review:'app_review_channel',cfg_app_results:'app_results_channel',
+      cfg_log_channel:'log_channel',cfg_cooldown:'app_cooldown_days',
+      cfg_minwords:'min_words_lvl0',cfg_mtf:'mtf_open',
+      cfg_status_channel:'status_channel',cfg_welcome_channel:'welcome_channel',
+      cfg_welcome_title:'welcome_title',cfg_welcome_msg:'welcome_msg',
+      cfg_welcome_color:'welcome_color',
+    };
+    Object.entries(map).forEach(([elId,key])=>{
+      var el=document.getElementById(elId);
+      if(el&&c[key]!==undefined) el.value=c[key];
+    });
+    ['lv0','lv1','dc','dm','ds','dp','dmf','dis','mtf','dohe','dlot'].forEach(k=>{
+      var el=document.getElementById('rk_'+k);
+      if(el&&c['roblox_rank_'+k]) el.value=c['roblox_rank_'+k];
+    });
+    // Load status
+    if(c.site_status){
+      selStatus=c.site_status;
+      localStorage.setItem('site_status',c.site_status);
+    }
+  }catch(e){}
+}
+
+// ── APPLICATIONS ──────────────────────────────────────────────
+async function loadApps(){
+  try{
+    var d=await api('/admin/applications');
+    var filter=v('appFilter')||'all';
+    var apps=(d.applications||[]).filter(a=>filter==='all'||a.status===filter);
+    var box=document.getElementById('appTable');
+    if(!apps.length){ box.innerHTML='<div class="note note-b">No applications found.</div>'; return; }
+    box.innerHTML=`<table class="dt"><tr><th>REF</th><th>TYPE</th><th>DISCORD</th><th>ROBLOX</th><th>STATUS</th><th>DATE</th><th>ACTIONS</th></tr>`
+      +apps.map(a=>{
+        var dt=new Date((a.submitted_at||0)*1000).toLocaleDateString();
+        var sc=a.status==='accepted'?'#1a4a1a':a.status==='rejected'?'#5a0000':'#5a4a00';
+        return`<tr>
+          <td style="font-size:10px">${a.ref_id}</td><td style="font-size:11px">${a.type}</td>
+          <td>${a.discord_user||'?'}</td><td>${a.roblox_user||'—'}</td>
+          <td style="color:${sc};font-weight:bold;font-size:11px">${a.status.toUpperCase()}</td>
+          <td style="font-size:10px">${dt}</td>
+          <td style="white-space:nowrap">
+            ${a.status==='pending'?`<button class="btn btn-sm btn-g" onclick="qAcc('${a.ref_id}')">ACC</button> <button class="btn btn-sm btn-r" onclick="qRej('${a.ref_id}')">REJ</button>`:''}
+            <button class="btn btn-sm" onclick="viewApp('${a.ref_id}')">VIEW</button>
+          </td></tr>`;
+      }).join('')+'</table>';
+  }catch(e){ toast(e.message,'err'); }
+}
+async function qAcc(id){ try{ await api('/admin/applications/'+id+'/accept','POST',{reviewer:'admin-panel'}); toast('Accepted!','ok'); loadApps(); }catch(e){ toast(e.message,'err'); } }
+async function qRej(id){ try{ await api('/admin/applications/'+id+'/reject','POST',{reviewer:'admin-panel'}); toast('Rejected!','ok'); loadApps(); }catch(e){ toast(e.message,'err'); } }
+async function viewApp(id){
+  try{
+    var d=await api('/admin/applications/'+id);
+    var a=d.application||{}; var p=a.payload||{};
+    document.getElementById('appDetailTitle').textContent='APPLICATION — '+id;
+    document.getElementById('appDetailBody').innerHTML=`
+      <table class="dt">
+        <tr><td><strong>Discord</strong></td><td>${a.discord_user} (${a.discord_id})</td></tr>
+        <tr><td><strong>Roblox</strong></td><td>${a.roblox_user||'—'}</td></tr>
+        <tr><td><strong>Type</strong></td><td>${a.type}${a.dept?' — ['+a.dept+']':''}</td></tr>
+        <tr><td><strong>Status</strong></td><td><strong>${a.status.toUpperCase()}</strong></td></tr>
+        <tr><td><strong>Why join?</strong></td><td>${p.why_join||'—'}</td></tr>
+        <tr><td><strong>Language</strong></td><td>${p.language||'—'}</td></tr>
+        <tr><td><strong>Timezone</strong></td><td>${p.timezone||'—'}</td></tr>
+        <tr><td><strong>AI Score</strong></td><td>${a._ai_score!==undefined?a._ai_score+'%':'—'}</td></tr>
+      </table>
+      ${a.status==='pending'?`<div style="margin-top:8px;display:flex;gap:8px">
+        <button class="btn btn-g" onclick="qAcc('${id}')">ACCEPT</button>
+        <button class="btn btn-r" onclick="qRej('${id}')">REJECT</button>
+      </div>`:''}`;
+    document.getElementById('appDetail').style.display='block';
+  }catch(e){ toast(e.message,'err'); }
+}
+
+// ── MEMBERS ───────────────────────────────────────────────────
+async function loadMembers(){
+  try{
+    var d=await api('/admin/members');
+    var m=d.members||[];
+    var box=document.getElementById('membersTable');
+    if(!m.length){ box.innerHTML='<div class="note note-b">No members yet.</div>'; return; }
+    box.innerHTML=`<table class="dt"><tr><th>DISCORD</th><th>ROBLOX</th><th>SC</th><th>DEPT</th><th>RANK</th><th>ACTION</th></tr>`
+      +m.map(x=>`<tr>
+        <td>${x.discord_user}</td><td>${x.roblox_user||'—'}</td>
+        <td><span class="lv lv${x.clearance_level}">SC-${x.clearance_level}</span></td>
+        <td>${x.department||'—'}</td><td style="font-size:11px">${x.rank_name||'—'}</td>
+        <td><button class="btn btn-sm" onclick="editM('${x.discord_id}',${x.clearance_level},'${x.department||''}','${x.rank_name||''}')">EDIT</button></td>
+      </tr>`).join('')+'</table>';
+  }catch(e){ toast(e.message,'err'); }
+}
+function editM(id,lvl,dept,rank){
+  document.getElementById('editId').value=id;
+  document.getElementById('editLvl').value=lvl;
+  document.getElementById('editDept').value=dept;
+  document.getElementById('editRank').value=rank;
+  document.getElementById('memberEdit').style.display='block';
+}
+async function saveMember(){
+  var id=document.getElementById('editId').value;
+  try{
+    await api('/admin/members/'+id,'PATCH',{
+      clearance_level:parseInt(v('editLvl')),
+      department:v('editDept')||null,
+      rank_name:v('editRank')||null,
+    });
+    toast('Member updated!','ok');
+    document.getElementById('memberEdit').style.display='none';
+    loadMembers();
+  }catch(e){ toast(e.message,'err'); }
+}
+
+// ── ROBLOX RANKS ──────────────────────────────────────────────
+async function fetchRoles(){
+  var box=document.getElementById('rolesList');
+  box.textContent='Fetching...'; box.className='note note-y mb8';
+  try{
+    var r=await fetch('https://groups.roblox.com/v1/groups/861318854/roles');
+    var data=await r.json();
+    rolesCache=data.roles||[];
+    if(!rolesCache.length){ box.textContent='No roles found.'; return; }
+    box.innerHTML='<strong>Group roles:</strong><br><br><table class="dt"><tr><th>ID</th><th>NAME</th><th>#</th></tr>'
+      +rolesCache.sort((a,b)=>a.rank-b.rank).map(r=>`<tr><td><strong>${r.id}</strong></td><td>${r.name}</td><td>${r.rank}</td></tr>`).join('')
+      +'</table>';
+    box.className='note note-b mb8';
+    ['lv0','lv1'].forEach(k=>{
+      var id=v('rk_'+k);
+      var r=rolesCache.find(x=>String(x.id)===String(id));
+      var el=document.getElementById('rn_'+k);
+      if(el) el.textContent=r?r.name:'—';
+    });
+  }catch(e){ box.textContent='Failed: '+e.message; box.className='note note-r mb8'; }
+}
+async function saveRanks(){
+  var cfg={};
+  ['lv0','lv1','dc','dm','ds','dp','dmf','dis','mtf','dohe','dlot'].forEach(k=>{
+    var val=v('rk_'+k); if(val) cfg['roblox_rank_'+k]=val;
+  });
+  await save(cfg);
+}
+
+// ── LOGS ──────────────────────────────────────────────────────
+async function loadLogs(){
+  try{
+    var d=await api('/admin/applications');
+    var apps=d.applications||[];
+    var box=document.getElementById('logsContent');
+    if(!apps.length){ box.textContent='No logs.'; return; }
+    box.innerHTML=apps.slice(0,100).map(a=>{
+      var dt=new Date((a.submitted_at||0)*1000).toLocaleString();
+      var c=a.status==='accepted'?'#1a4a1a':a.status==='rejected'?'#5a0000':'#5a4a00';
+      return`<div style="padding:2px 0;border-bottom:1px solid #c0c0b0;color:${c}">[${dt}] ${a.status.toUpperCase().padEnd(8)} ${a.ref_id} — ${a.type.padEnd(8)} — ${a.discord_user||'?'}/${a.roblox_user||'?'}</div>`;
+    }).join('');
+  }catch(e){ toast(e.message,'err'); }
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded',()=>{
+  setMode(localStorage.getItem('adm_mode')||'sv');
+  var saved=sessionStorage.getItem('admin_token');
+  if(saved){ document.getElementById('lkPass').value=saved; doLogin(); }
+  document.getElementById('appFilter')?.addEventListener('change',loadApps);
+});
+</script>
+<script>injectFooter();</script>
+</body>
+</html>

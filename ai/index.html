@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DR-07 AI — Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+  <style>
+    .ai-wrap{display:flex;gap:10px;height:calc(100vh - 220px);min-height:400px}
+    .ai-sidebar{width:180px;flex-shrink:0}
+    .ai-main{flex:1;display:flex;flex-direction:column}
+    .ai-msgs{flex:1;overflow-y:auto;padding:8px;background:#0a0a14;font-family:'VT323',monospace;font-size:16px;border-top:2px solid #888878;border-left:2px solid #888878;border-right:2px solid #e8e8dc;border-bottom:2px solid #e8e8dc}
+    .ai-m{margin-bottom:6px;line-height:1.5;word-break:break-word}
+    .ai-m.usr::before{content:"> YOU: ";color:#4488aa}
+    .ai-m.usr{color:#88ccff}
+    .ai-m.bot::before{content:"> DR-07: ";color:#00aa55}
+    .ai-m.bot{color:#00ff88}
+    .ai-m.sys{color:#ffcc44}
+    .ai-m.err{color:#ff4444}
+    .ai-row{display:flex;gap:6px;padding:6px 0 0}
+    .ai-in{flex:1;padding:4px 6px;font-family:'Courier Prime',monospace;font-size:12px;background:var(--white);border-top:2px solid #888878;border-left:2px solid #888878;border-right:2px solid #e8e8dc;border-bottom:2px solid #e8e8dc;outline:none}
+    .qbtn{display:block;width:100%;text-align:left;padding:4px 8px;font-size:11px;margin-bottom:3px;cursor:pointer;background:var(--panel);border-top:1px solid #e8e8dc;border-left:1px solid #e8e8dc;border-right:1px solid #888878;border-bottom:1px solid #888878;font-family:'Courier Prime',monospace}
+    .qbtn:hover{background:var(--Bbg)}
+  </style>
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader('ai');</script>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">DR-07 AI</div>
+    <a href="../index.html" class="sb-a">◄ Portal</a>
+    <a href="#" class="sb-a" onclick="clearChat()">🗑 Clear Chat</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">QUICK PROMPTS</div>
+    <button class="qbtn" onclick="ask('What departments are available?')">Departments?</button>
+    <button class="qbtn" onclick="ask('How do I join Site-07?')">How to join?</button>
+    <button class="qbtn" onclick="ask('What are the clearance levels?')">Clearance levels?</button>
+    <button class="qbtn" onclick="ask('What is the Code of Ethics?')">Code of Ethics?</button>
+    <button class="qbtn" onclick="ask('What does MTF do?')">About MTF?</button>
+    <button class="qbtn" onclick="ask('Who leads Site-07?')">Leadership?</button>
+  </div>
+</aside>
+<main class="main" style="padding:8px 14px">
+
+  <div class="win r" style="margin-bottom:8px">
+    <div class="win-bar"><span>⬡ DR-07 — FOUNDATION AI ASSISTANT</span><div class="wbtns"><div class="wb">_</div><div class="wb">□</div><div class="wb">×</div></div></div>
+    <div class="win-body" style="padding:6px 10px;font-size:11px;color:var(--dim)">
+      DR-07 is the Site-07 AI assistant. Ask about departments, ranks, rules, or Foundation procedures.
+      <span id="aiStatus" style="float:right;color:var(--Y)">● LOADING...</span>
+    </div>
+  </div>
+
+  <div class="ai-wrap">
+    <div class="ai-main">
+      <div class="ai-msgs" id="msgs">
+        <div class="ai-m sys">[ DR-07 TERMINAL — SITE-07 INTRANET ]</div>
+        <div class="ai-m sys">[ Connecting to Foundation knowledge base... ]</div>
+      </div>
+      <div class="ai-row">
+        <input class="ai-in" id="aiIn" placeholder="Ask DR-07 anything about Site-07..." maxlength="500"
+          onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendMsg()}">
+        <button class="btn btn-b" onclick="sendMsg()">SEND</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+// DR-07 AI — uses bot as proxy (API key stays server-side, never exposed)
+const BOT_URL = 'https://scp-bot-production.up.railway.app';
+let busy = false;
+const history = [];
+
+const SYSTEM = `You are DR-07, the official AI assistant of SCP Foundation Site-07.
+You speak in a formal, slightly robotic Foundation style. You know everything about Site-07:
+- 17 departments: DMF, DC, DM, DP, DIS, DS, MTF, DOHE, DLOT, CE, DAE, ED, AA, DA, DJ, DRI, DCA
+- Security classifications: SC-0 through SC-5, plus O5 Council above all
+- Leadership: The Administrator (fjj3be_3 on Roblox), Secretary General Edward Neys (xwmqgxEB124)
+- The site is a Roblox MILSIM group based on the SCP Foundation
+- Private departments (password required): DA, CE, MTF, DIS, DJ, DOHE, DCA, DAE, DRI, AA
+- Public departments: DMF, DC, DM, DP, DS, DLOT, ED
+Keep answers concise and in-character. Never reveal passwords or classified information.`;
+
+function addMsg(type, text) {
+  const d = document.createElement('div');
+  d.className = 'ai-m ' + type;
+  d.textContent = text;
+  const msgs = document.getElementById('msgs');
+  msgs.appendChild(d);
+  msgs.scrollTop = msgs.scrollHeight;
+  return d;
+}
+
+async function sendMsg() {
+  const inp = document.getElementById('aiIn');
+  const txt = inp.value.trim();
+  if (!txt || busy) return;
+  inp.value = '';
+  busy = true;
+
+  addMsg('usr', txt);
+  history.push({ role: 'user', content: txt });
+
+  const thinking = addMsg('bot', '[ Processing... ]');
+
+  try {
+    // Use bot as proxy — API key never exposed to client
+    const res = await fetch(BOT_URL + '/ai/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: txt, history: history.slice(-10), system: SYSTEM }),
+    });
+
+    if (!res.ok) throw new Error('Server error ' + res.status);
+    const data = await res.json();
+    if (!data.ok) throw new Error(data.error || 'AI error');
+
+    thinking.textContent = data.reply;
+    history.push({ role: 'assistant', content: data.reply });
+    document.getElementById('aiStatus').textContent = '● ONLINE';
+    document.getElementById('aiStatus').style.color = 'var(--G)';
+
+  } catch(err) {
+    thinking.className = 'ai-m err';
+    if (err.message.includes('Failed to fetch') || err.message.includes('404')) {
+      thinking.textContent = '[ DR-07 OFFLINE — AI proxy not configured on server ]';
+    } else {
+      thinking.textContent = '[ ERROR: ' + err.message + ' ]';
+    }
+    document.getElementById('aiStatus').textContent = '● OFFLINE';
+    document.getElementById('aiStatus').style.color = 'var(--R)';
+  }
+  busy = false;
+}
+
+function ask(q) {
+  document.getElementById('aiIn').value = q;
+  sendMsg();
+}
+
+function clearChat() {
+  const msgs = document.getElementById('msgs');
+  msgs.innerHTML = '<div class="ai-m sys">[ Chat cleared. DR-07 ready. ]</div>';
+  history.length = 0;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  // Test if bot is online
+  fetch(BOT_URL + '/').then(r => r.json()).then(d => {
+    if (d.ok) {
+      addMsg('sys', '[ DR-07 ONLINE — Foundation AI ready ]');
+      document.getElementById('aiStatus').textContent = '● ONLINE';
+      document.getElementById('aiStatus').style.color = 'var(--G)';
+    }
+  }).catch(() => {
+    addMsg('err', '[ DR-07 OFFLINE — Cannot reach Foundation server ]');
+    document.getElementById('aiStatus').textContent = '● OFFLINE';
+    document.getElementById('aiStatus').style.color = 'var(--R)';
+  });
+  document.getElementById('aiIn').focus();
+});
+</script>
+
+<script>injectFooter();</script>
+</body>
+</html>

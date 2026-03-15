@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>SCP Database — Site-07</title>
+  <link rel="stylesheet" href="../assets/css/retro.css">
+</head>
+<body>
+<script src="../assets/js/layout.js"></script>
+<script>injectHeader('scps');</script>
+<div class="layout">
+<aside class="sidebar">
+  <div class="sb-sec"><div class="sb-hd">DATABASE</div>
+    <a href="#" class="sb-a">All Entries</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">FILTER (WIP)</div>
+    <a href="#" class="sb-a dim">● SAFE</a>
+    <a href="#" class="sb-a dim">● EUCLID</a>
+    <a href="#" class="sb-a dim">● KETER</a>
+  </div>
+  <div class="sb-sec"><div class="sb-hd">NAVIGATION</div>
+    <a href="../index.html" class="sb-a">◄ Portal</a>
+  </div>
+</aside>
+<main class="main">
+
+  <div class="ph">
+    <div class="ptag">// CLEARANCE LEVEL 2 — RESTRICTED ACCESS</div>
+    <h1>SCP CONTAINMENT DATABASE</h1>
+    <p>Active containment files for [SCP] Site-07. Lore under development.</p>
+  </div>
+
+  <div class="note note-y mt8">
+    <strong>LORE STATUS:</strong> The Lore Department is currently developing all SCP entries.
+    All files are marked <strong>[NOT DEFINED]</strong> until officially published.
+    Check back after the Lore Department releases their first documents.
+  </div>
+
+  <div class="win r mt8">
+    <div class="win-bar"><span>ACTIVE CONTAINMENT FILES — SITE-07</span></div>
+    <div class="win-body" style="padding:6px">
+      <div class="scp-row" style="background:var(--inset);font-weight:bold;font-size:11px">
+        <span class="scp-id">ITEM #</span>
+        <span style="width:70px;flex-shrink:0">CLASS</span>
+        <span style="flex:1">DESIGNATION</span>
+        <span style="width:80px">STATUS</span>
+      </div>
+      <!-- SCPs will be added here by the Lore Department -->
+      <!-- Format: copy any row below and fill in details -->
+      <div class="scp-row">
+        <span class="scp-id">SCP-???</span>
+        <span style="width:70px;flex-shrink:0"><span style="background:#ddd;color:#555;border:1px solid #999;padding:1px 4px;font-size:10px;font-weight:bold">PENDING</span></span>
+        <span class="scp-nd" style="flex:1">[NOT DEFINED — Lore pending]</span>
+        <span style="width:80px;font-size:10px;color:var(--light)">CONTAINED</span>
+      </div>
+      <div class="scp-row">
+        <span class="scp-id">SCP-???</span>
+        <span style="width:70px;flex-shrink:0"><span style="background:#ddd;color:#555;border:1px solid #999;padding:1px 4px;font-size:10px;font-weight:bold">PENDING</span></span>
+        <span class="scp-nd" style="flex:1">[NOT DEFINED — Lore pending]</span>
+        <span style="width:80px;font-size:10px;color:var(--light)">CONTAINED</span>
+      </div>
+      <div style="padding:16px;text-align:center;color:var(--light);font-size:12px;font-style:italic">
+        — No SCP files published yet. The Lore Department will add entries here. —
+      </div>
+    </div>
+  </div>
+
+  <div class="win r">
+    <div class="win-bar"><span>HOW TO ADD SCP ENTRIES (LORE DEPT ONLY)</span></div>
+    <div class="win-body" style="font-size:12px">
+      <p>Once lore is developed, add entries by copying this HTML snippet into the database above:</p>
+      <pre style="background:#1c2340;color:#00ff44;padding:10px;font-size:11px;overflow-x:auto;margin-top:8px">&lt;div class="scp-row"&gt;
+  &lt;span class="scp-id"&gt;SCP-XXX&lt;/span&gt;
+  &lt;span style="width:70px;flex-shrink:0"&gt;
+    &lt;!-- Class badge: use cls-s / cls-e / cls-k --&gt;
+    &lt;span class="cls-s"&gt;SAFE&lt;/span&gt;
+  &lt;/span&gt;
+  &lt;span style="flex:1"&gt;Name of the SCP&lt;/span&gt;
+  &lt;span style="width:80px;font-size:10px"&gt;CONTAINED&lt;/span&gt;
+&lt;/div&gt;</pre>
+    </div>
+  </div>
+
+</main>
+</div>
+<script>injectFooter();</script>
+</body>
+</html>
